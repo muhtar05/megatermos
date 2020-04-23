@@ -1,0 +1,66 @@
+{% load static %}
+{% load catalog_tags %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<title>Fissman</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="author" content="Frontend: Artem Lyapunov | WebElement.ru" />
+
+	<!--<link href="./favicon.ico" rel="shortcut icon" type="image/x-icon" />-->
+	<link rel="stylesheet" href="{% static 'css/normalize.css' %}"/>
+	<link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+	<link rel="stylesheet" href="{% static 'css/animate.css' %}"/>
+	<link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}"/>
+	<link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}"/>
+	<link rel="stylesheet" href="{% static 'css/bootstrap-datepicker.css' %}"/>
+	<link rel="stylesheet" href="{% static 'css/jquery.fancybox.min.css' %}"/>
+	<link rel="stylesheet" href="{% static 'css/select2.min.css' %}" />
+	<link rel="stylesheet" href="{% static 'css/ion.rangeSlider.css' %}" />
+	<link rel="stylesheet" href="{% static 'css/ion.rangeSlider.skinFlat.css' %}" />
+	<link rel="stylesheet" href="{% static 'css/jquery.mCustomScrollbar.css' %}" />
+
+	<script type="text/javascript" src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+
+</head>
+<body>
+<div class="wrapper">
+    <header class="sec header_sec">
+	<div class="container">
+
+		<a href="" class="header_logo">
+			<img src="img/logo.png" alt="" />
+			<span class="slogan">Официальный сайт <br>продукции Fissman в России</span>
+		</a>
+
+		<div class="header_ib header_city">
+			<span>Ваш город:</span>
+			<a href="#cities_modal" class="header_choose_city open_modal">Санкт-Петербург<span class="arrow-down"></span></a>
+			<div class="popup correct_city">
+				<label>Всё верно?</label>
+				<a href="#" class="button-o small pink popup_close">Да</a>
+				<a href="#cities_modal" class="button-o small gray open_modal popup_close">Нет</a>
+				<a href="#" class="close_popup">x</a>
+			</div>
+		</div>
+
+		<div class="header_ib header_phone_box">
+			<a href="tel:88006570909" class="header_phone">8 800 657-09-09</a>
+		</div>
+
+		<div class="header_ib header_wishlist_ib">
+			<a href="" class="header_link header_wishlist">Избранное <span class="header_count">2</span></a>
+		</div>
+
+		<div class="header_ib header_cart_ib">
+			<a href="basket.html" class="header_link header_cart">Корзина <span class="header_count">27</span></a>
+		</div>
+
+		<div class="header_ib header_profile_ib">
+			<a href="#login_modal" class="header_link header_profile open_modal">Ваш кабинет</a>
+			<!-- <a href="" class="header_link header_profile">Ваш кабинет</a> --> <!-- если залогинен -->
+		</div>
+
+	</div>
+</header>

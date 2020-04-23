@@ -1,0 +1,12 @@
+<ul class="catalog_menu">
+	{% for category in categories %}
+	<li><a href="{% url 'catalog:index'%}">{{ category.name }}</a></li>
+	{% endfor %}
+	{% comment %}
+	<li><a href="catalog.html">Аксессуары</a>
+		<ul class="catalog_submenu">
+			<li><a href="catalog.html">Кухонные принадлежности <span class="tgray">43</span></a></li>
+		</ul>
+	</li>
+	{% endcomment %}
+</ul>

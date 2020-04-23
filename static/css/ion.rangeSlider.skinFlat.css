@@ -1,0 +1,93 @@
+/* Ion.RangeSlider, Flat UI Skin
+// css version 2.0.3
+// © Denis Ineshin, 2014    https://github.com/IonDen
+// ===================================================================================================================*/
+
+/* =====================================================================================================================
+// Skin details */
+
+.irs-line-mid,
+.irs-line-left,
+.irs-line-right,
+.irs-bar,
+.irs-bar-edge,
+.irs-slider {
+    background: url(../img/sprite-skin-flat.png) repeat-x;
+}
+
+.irs {
+    height: 20px;
+}
+.irs-with-grid {
+    height: 40px;
+}
+.irs-line {
+    top: 0;
+    height: 5px;
+    border: none !important;
+    background: #eaeaea;
+    background-size: 100% 100%;
+}
+
+.irs-bar {
+    top: 0;
+    height: 5px;
+    background: #de007b;
+}
+    .irs-bar-edge {
+        display: none;
+    }
+
+.irs-shadow {
+    height: 3px; top: 34px;
+    background: #000;
+    opacity: 0.25;
+}
+.lt-ie9 .irs-shadow {
+    filter: alpha(opacity=25);
+}
+
+.irs-slider {
+    border: none !important;
+    background: #fff;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    top: -8px;
+    box-shadow: 0px 5px 10px rgba(0,0,0, .2);
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.irs-slider:hover {
+    box-shadow: 0px 0px 0px transparent;
+    background-color: #de007b;
+}
+
+.irs-min, .irs-max {
+    display: none;
+}
+
+.irs-from, .irs-to, .irs-single {
+    display: none;
+}
+.irs-from:after, .irs-to:after, .irs-single:after {
+    position: absolute; display: block; content: "";
+    bottom: -6px; left: 50%;
+    width: 0; height: 0;
+    margin-left: -3px;
+    overflow: hidden;
+    border: 3px solid transparent;
+    border-top-color: #ed5565;
+}
+
+
+.irs-grid-pol {
+    background: #e1e4e9;
+}
+.irs-grid-text {
+    color: #999;
+}
+
+.irs-disabled {
+}
