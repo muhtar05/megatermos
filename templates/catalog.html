@@ -1,3 +1,6 @@
+{% load static %}
+{% load thumbnail %}
+{% load catalog_tags %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -28,53 +31,9 @@
 					<img src="img/logo.png" alt="">
 					<a href="#" class="close_modal">x</a>
 				</div>
-				<ul class="catalog_menu">
-					<li><a href="catalog.html">Сковороды</a></li>
-					<li><a href="catalog.html">Кастрюли</a></li>
-					<li><a href="catalog.html">Ножи</a></li>
-					<li><a href="catalog.html">Для чая и кофе</a></li>
-					<li><a href="catalog.html">Для выпечки</a></li>
-					<li><a href="catalog.html">Аксессуары</a>
-						<ul class="catalog_submenu">
-							<li><a href="catalog.html">Кухонные принадлежности <span class="tgray">43</span></a></li>
-							<li><a href="catalog.html">Барные принадлежности <span class="tgray">43</span></a></li>
-							<li><a href="catalog.html">Овощечистки, скребки <span class="tgray">43</span></a></li>
-							<li><a href="catalog.html">Подставки под горячее, прихватки <span class="tgray">43</span></a></li>
-							<li><a href="catalog.html">Дуршлаги <span class="tgray">43</span></a><span class="beidge new">Новинки</span></li>
-							<li><a href="catalog.html">Весы, таймеры, термометры <span class="tgray">43</span></a></li>
-							<li><a href="catalog.html">Терки, шинковки, яйцерезки, чопперы <span class="tgray">43</span></a></li>
-							<li><a href="catalog.html">Форма для льда и шоколада <span class="tgray">43</span></a></li>
-							<li><a href="catalog.html">Хранение продуктов <span class="tgray">43</span></a></li>
-							<li><a href="catalog.html">Пробки для бутылок <span class="tgray">43</span></a></li>
-							<li><a href="catalog.html">Мельницы для специй <span class="tgray">43</span></a></li>
-							<li><a href="catalog.html">Прочие аксессуары для кухни <span class="tgray">43</span></a></li>
-						</ul>
-					</li>
-					<li><a href="catalog.html">Сортировка стола</a></li>
-					<li><a href="catalog.html">Детям</a></li>
-					<li><a href="catalog.html">Активный отдых</a>
-						<ul class="catalog_submenu">
-							<li><a href="catalog.html">Кухонные принадлежности <span class="tgray">43</span></a></li>
-							<li><a href="catalog.html">Барные принадлежности <span class="tgray">43</span></a></li>
-							<li><a href="catalog.html">Овощечистки, скребки <span class="tgray">43</span></a></li>
-						</ul>
-					</li>
-					<li class="pink"><a href="catalog.html">Шок-цена!</a></li>
-				</ul>
 
-				<ul class="catalog_menu dop">
-					<li><a href="all.html">О компании</a></li>
-					<li><a href="all.html">Оплата и доставка</a></li>
-					<li><a href="all.html">Оптовикам</a></li>
-					<li><a href="all.html">Контакты</a></li>
-				</ul>
+				{% catalog_menu %}
 
-				<div class="mobile_menu_buttons">
-					<a class="mobile_menu_button" href=""><img src="img/i_heart.png" /> Избранное</a>
-					<a class="mobile_menu_button arrow open_modal close_menu" href="#login_modal"><img src="img/i_user.png" /> Ваш кабинет</a>
-					<a class="mobile_menu_button arrow open_modal close_menu" href="#cities_modal"><img src="img/i_mini-cart.png" /> Санкт-петербург</a>
-					<a class="button" href="tel:+74950038995">+7 (495) 003-89-95</a>
-				</div>
 			</nav>
 		</div>
 
@@ -207,17 +166,18 @@
 				</div>
 				<ul class="sidebar_menu">
 					<li><a href="#">Каталог</a>
+
 						<ul class="sidebar_submenu">
-							<li class="current"><a href="">Сковороды</a></li>
-							<li><a href="">Кастрюли</a></li>
-							<li><a href="">Ножи</a></li>
-							<li><a href="">Для чая и кофе</a></li>
-							<li><a href="">Для выпечки</a></li>
-							<li><a href="">Аксессуары</a></li>
-							<li><a href="">Сервировка стола</a></li>
-							<li><a href="">Детям</a></li>
+							{% for category in categories %}
+							{% if current_category.pk == category.pk %}
+								<li class="current"><a href="">{{ category.name }}</a></li>
+							{% else %}
+								<li><a href="{% url 'catalog:category-detail' category.pk %}">{{ category.name }}</a></li>
+							{% endif %}
+							{% endfor %}
 						</ul>
 					</li>
+
 					<li><a href="#">Цена</a>
 						<div class="sidebar_subblock">
 							<div class="range_inputs">
@@ -244,22 +204,7 @@
 									<input type="checkbox" class="ch" />
 									<label>Aventurine</label>
 								</span>
-								<span class="ip_checkbox">
-									<input type="checkbox" class="ch" />
-									<label>Black Cosmic</label>
-								</span>
-								<span class="ip_checkbox">
-									<input type="checkbox" class="ch" />
-									<label>Borneo</label>
-								</span>
-								<span class="ip_checkbox">
-									<input type="checkbox" class="ch" />
-									<label>Charm Stone</label>
-								</span>
-								<span class="ip_checkbox">
-									<input type="checkbox" class="ch" />
-									<label>Choco Jasper</label>
-								</span>
+
 								<a href="#" class="show_ch_filters">Показать ещё <span>0</span></a>
 							</div>
 						</div>
@@ -279,34 +224,7 @@
 									<input type="checkbox" class="ch" />
 									<label>Фиолетовый</label>
 								</span>
-								<span class="ip_checkbox">
-									<input type="checkbox" class="ch" />
-									<label>Жёлтый</label>
-								</span>
-								<span class="ip_checkbox">
-									<input type="checkbox" class="ch" />
-									<label>Зелёный</label>
-								</span>
-								<span class="ip_checkbox">
-									<input type="checkbox" class="ch" />
-									<label>Черный</label>
-								</span>
-								<span class="ip_checkbox">
-									<input type="checkbox" class="ch" />
-									<label>Фиолетовый</label>
-								</span>
-								<span class="ip_checkbox">
-									<input type="checkbox" class="ch" />
-									<label>Жёлтый</label>
-								</span>
-								<span class="ip_checkbox">
-									<input type="checkbox" class="ch" />
-									<label>Зелёный</label>
-								</span>
-								<span class="ip_checkbox">
-									<input type="checkbox" class="ch" />
-									<label>Черный</label>
-								</span>
+
 								<a href="#" class="show_ch_filters">Показать ещё <span>0</span></a>
 							</div>
 						</div>
@@ -322,22 +240,7 @@
 									<input type="checkbox" class="ch" />
 									<label>Нержавейка</label>
 								</span>
-								<span class="ip_checkbox">
-									<input type="checkbox" class="ch" />
-									<label>Стекло</label>
-								</span>
-								<span class="ip_checkbox">
-									<input type="checkbox" class="ch" />
-									<label>Медь</label>
-								</span>
-								<span class="ip_checkbox">
-									<input type="checkbox" class="ch" />
-									<label>Чугун</label>
-								</span>
-								<span class="ip_checkbox">
-									<input type="checkbox" class="ch" />
-									<label>Алюминий</label>
-								</span>
+
 								<a href="#" class="show_ch_filters">Показать ещё <span>0</span></a>
 							</div>
 						</div>
@@ -378,42 +281,7 @@
 						<input type="checkbox" class="button_filter" />
 						<label>Глубокие сковороды</label>
 					</div>
-					<div class="ip_maincol_checkbox">
-						<input type="checkbox" class="button_filter" />
-						<label>Классические</label>
-					</div>
-					<div class="ip_maincol_checkbox">
-						<input type="checkbox" class="button_filter" />
-						<label>Блинные</label>
-					</div>
-					<div class="ip_maincol_checkbox">
-						<input type="checkbox" class="button_filter" />
-						<label>Сотейники</label>
-					</div>
-					<div class="ip_maincol_checkbox">
-						<input type="checkbox" class="button_filter" />
-						<label>Сковороды-вок</label>
-					</div>
-					<div class="ip_maincol_checkbox">
-						<input type="checkbox" class="button_filter" />
-						<label>Чугунные</label>
-					</div>
-					<div class="ip_maincol_checkbox">
-						<input type="checkbox" class="button_filter" />
-						<label>Сковороды-гриль</label>
-					</div>
-					<div class="ip_maincol_checkbox">
-						<input type="checkbox" class="button_filter" />
-						<label>Пресс для гриля</label>
-					</div>
-					<div class="ip_maincol_checkbox">
-						<input type="checkbox" class="button_filter" />
-						<label>Со съёмной ручкой</label>
-					</div>
-					<div class="ip_maincol_checkbox">
-						<input type="checkbox" class="button_filter" />
-						<label>Крышки, экраны для брызг</label>
-					</div>
+
 				</div>
 			</div>
 			<hr class="minus_padding" />
@@ -440,14 +308,14 @@
 			<div class="catalog_box">
 
 				{% for prod in products %}
-
-
 				<!-- ITEM -->
 				<div class="product_item incatalog">
 					<div class="product_item-icons">
 					</div>
 					<a href="" class="product_item-image">
-						<img src="img/prod_1.jpg" alt="" />
+						{% thumbnail prod.img "189x135" crop="center" as im %}
+						<img src="{{ im.url }}" alt="" />
+						{% endthumbnail %}
 					</a>
 					<a href="{% url 'catalog:product-detail' prod.pk %}" class="product_item-title">
 						{{ prod.name }}
@@ -455,11 +323,15 @@
 					</a>
 					<div class="product_item-artnum">Артикул: <span>{{ prod.artikul }}</span></div>
 					<div class="product_item-prices">
+						{% if prod.price_old %}
 						<u class="product_item-price_old">{{ prod.price_old }} ₽</u>
-						<span class="product_item-price">{{ prod.price_old }} ₽</span>
+						{% endif %}
+						<span class="product_item-price">{{ prod.price }} ₽</span>
 					</div>
 					<div class="product_item-buttons">
+						{% comment %}
 						<span class="product_added visible">Добавлен в корзину</span>
+						{% endcomment %}
 						<a href="#" class="button-o gray product_item-buy">В корзину</a>
 						<div class="product_item-counter_box">
 							<div class="counter_box">
@@ -470,7 +342,7 @@
 							<button class="button add_to_cart_small"><img src="img/i_cart.png" alt="" /></button>
 							<a href="#" class="close_add_to_cart">x</a>
 						</div>
-						<a href="" class="product_item-like liked"><i class="fa fa-heart"></i></a>
+						<a href="" class="product_item-like"><i class="fa fa-heart"></i></a>
 					</div>
 				</div>
 
@@ -494,9 +366,10 @@
 			</ul>
 
 			<div class="catalog_description">
-				<h2 class="catalog_desc-title">Глубокие сковороды</h2>
-				<p>Глубокая сковорода станет незаменимым помощником на вашей кухне, когда вы готовитесь к праздничному застолью или семейному
-					ужину. </p>
+				<h2 class="catalog_desc-title">{{ current_category.name }}</h2>
+
+				{{ current_category.description }}
+
 			</div>
 		</main>
 
@@ -510,87 +383,7 @@
 
 
 
-<footer class="sec footer_sec">
-	<div class="container">
-
-		<div class="fcol footer_logo_box">
-			<div class="flogo_col">
-				<a href="" class="flogo"><img src="img/flogo.png" alt="" /></a>
-				<span class="fslogan">
-					<strong>Интернет-магазин</strong>
-					Официальный сайт продукции Fissman в России
-				</span>
-			</div>
-			<div class="fdesc">
-				Наша компания занимается розничной и оптовой продажей посуды бренда Fissman. У нас вы можете приобрести посуду по привлекательной цене.
-			</div>
-			<div class="cards_box">
-				<p><strong>Мы принимаем к оплате:</strong></p>
-				<p><img src="img/cards.png" alt=""></p>
-			</div>
-		</div>
-
-		<div class="fcol">
-			<ul class="fmenu">
-				<li class="fmenu_first"><a href="">Каталог</a></li>
-				<li><a href="">Сковороды</a></li>
-				<li><a href="">Кастрюли</a></li>
-				<li><a href="">Ножи</a></li>
-				<li><a href="">Для чая и кофе</a></li>
-				<li><a href="">Для выпечки</a></li>
-				<li><a href="">Аксессуары</a></li>
-				<li><a href="">Сервировка стола</a></li>
-				<li><a href="">Детям</a></li>
-				<li><a href="">Активный отдых</a></li>
-			</ul>
-		</div>
-
-		<div class="fcol">
-			<ul class="fmenu">
-				<li class="fmenu_first"><a class="button" href="">Личный кабинет</a></li>
-				<li><a href="">О нас</a></li>
-				<li><a href="">Доставка и оплата</a></li>
-				<li><a href="">Вопрос-ответ</a></li>
-				<li><a href="">Оптовикам</a></li>
-				<li><a href="">Договор оферты</a></li>
-				<li><a href="">Сотрудничество</a></li>
-			</ul>
-		</div>
-
-		<div class="fcol footer_contacts">
-			<a href="tel:+74950038995" class="fphone">+7 (495) 003-89-95</a>
-
-			<div class="worktime">
-				<strong>Режим работы:</strong>
-				С 9:00 до 20:00 ежедневно
-			</div>
-
-			<ul class="fmenu">
-				<li><a href="">Контакты</a></li>
-			</ul>
-		</div>
-
-	</div>
-</footer>
-
-<footer class="sec copyright_sec">
-	<div class="container">
-
-		<div>
-			© Интернет-магазин посуды Fissman, 2018
-		</div>
-
-		<div class="copyright_links">
-			<a href="">Пользовательское соглашение</a>
-			<a href="">Политика конфиденциальности</a>
-		</div>
-
-		<div>
-			Разработка сайта — <a href="https://webelement.ru" target="_blank" class="madein">WEBELEMENT</a>
-		</div>
-
-	</div>
-</footer>
+{% include 'footer.html' %}
 
 </div>
 

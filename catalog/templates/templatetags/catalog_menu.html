@@ -1,6 +1,6 @@
 <ul class="catalog_menu">
 	{% for category in categories %}
-	<li><a href="{% url 'catalog:index'%}">{{ category.name }}</a></li>
+	<li><a href="{% url 'catalog:category-detail' category.pk %}">{{ category.name }}</a></li>
 	{% endfor %}
 	{% comment %}
 	<li><a href="catalog.html">Аксессуары</a>
@@ -10,3 +10,17 @@
 	</li>
 	{% endcomment %}
 </ul>
+
+<ul class="catalog_menu dop">
+	<li><a href="all.html">О компании</a></li>
+	<li><a href="all.html">Оплата и доставка</a></li>
+	<li><a href="all.html">Оптовикам</a></li>
+	<li><a href="all.html">Контакты</a></li>
+</ul>
+
+<div class="mobile_menu_buttons">
+	<a class="mobile_menu_button" href=""><img src="img/i_heart.png" /> Избранное</a>
+	<a class="mobile_menu_button arrow open_modal close_menu" href="#login_modal"><img src="img/i_user.png" /> Ваш кабинет</a>
+	<a class="mobile_menu_button arrow open_modal close_menu" href="#cities_modal"><img src="img/i_mini-cart.png" /> Санкт-петербург</a>
+	<a class="button" href="tel:+74950038995">+7 (495) 003-89-95</a>
+</div>

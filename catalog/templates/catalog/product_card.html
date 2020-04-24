@@ -1,0 +1,38 @@
+{% load static %}
+{% load thumbnail %}
+<div class="product_item incatalog">
+    <div class="product_item-icons">
+    </div>
+    <a href="" class="product_item-image">
+        {% thumbnail prod.img "189x135" crop="center" as im %}
+        <img src="{{ im.url }}" alt="" />
+        {% endthumbnail %}
+    </a>
+    <a href="{% url 'catalog:product-detail' prod.pk %}" class="product_item-title">
+        {{ prod.name }}
+        <span class="product_item-instock">В наличии</span>
+    </a>
+    <div class="product_item-artnum">Артикул: <span>{{ prod.artikul }}</span></div>
+    <div class="product_item-prices">
+        {% if prod.price_old %}
+        <u class="product_item-price_old">{{ prod.price_old }} ₽</u>
+        {% endif %}
+        <span class="product_item-price">{{ prod.price }} ₽</span>
+    </div>
+    <div class="product_item-buttons">
+        {% comment %}
+        <span class="product_added visible">Добавлен в корзину</span>
+        {% endcomment %}
+        <a href="#" class="button-o gray product_item-buy">В корзину</a>
+        <div class="product_item-counter_box">
+            <div class="counter_box">
+                <button type="button" class="counter_ctrl minus">-</button>
+                <input type="text" class="counter_input" value="1" data-min="1" data-max="99" />
+                <button type="button" class="counter_ctrl plus">+</button>
+            </div>
+            <button class="button add_to_cart_small"><img src="img/i_cart.png" alt="" /></button>
+            <a href="#" class="close_add_to_cart">x</a>
+        </div>
+        <a href="" class="product_item-like"><i class="fa fa-heart"></i></a>
+    </div>
+</div>

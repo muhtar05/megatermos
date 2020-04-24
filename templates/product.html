@@ -32,22 +32,7 @@
 					<img src="img/logo.png" alt="">
 					<a href="#" class="close_modal">x</a>
 				</div>
-
 				{% catalog_menu %}
-
-				<ul class="catalog_menu dop">
-					<li><a href="all.html">О компании</a></li>
-					<li><a href="all.html">Оплата и доставка</a></li>
-					<li><a href="all.html">Оптовикам</a></li>
-					<li><a href="all.html">Контакты</a></li>
-				</ul>
-
-				<div class="mobile_menu_buttons">
-					<a class="mobile_menu_button" href=""><img src="img/i_heart.png" /> Избранное</a>
-					<a class="mobile_menu_button arrow open_modal close_menu" href="#login_modal"><img src="img/i_user.png" /> Ваш кабинет</a>
-					<a class="mobile_menu_button arrow open_modal close_menu" href="#cities_modal"><img src="img/i_mini-cart.png" /> Санкт-петербург</a>
-					<a class="button" href="tel:+74950038995">+7 (495) 003-89-95</a>
-				</div>
 			</nav>
 		</div>
 
@@ -629,88 +614,7 @@
 </section>
 
 
-
-<footer class="sec footer_sec">
-	<div class="container">
-
-		<div class="fcol footer_logo_box">
-			<div class="flogo_col">
-				<a href="" class="flogo"><img src="img/flogo.png" alt="" /></a>
-				<span class="fslogan">
-					<strong>Интернет-магазин</strong>
-					Официальный сайт продукции Fissman в России
-				</span>
-			</div>
-			<div class="fdesc">
-				Наша компания занимается розничной и оптовой продажей посуды бренда Fissman. У нас вы можете приобрести посуду по привлекательной цене.
-			</div>
-			<div class="cards_box">
-				<p><strong>Мы принимаем к оплате:</strong></p>
-				<p><img src="img/cards.png" alt=""></p>
-			</div>
-		</div>
-
-		<div class="fcol">
-			<ul class="fmenu">
-				<li class="fmenu_first"><a href="">Каталог</a></li>
-				<li><a href="">Сковороды</a></li>
-				<li><a href="">Кастрюли</a></li>
-				<li><a href="">Ножи</a></li>
-				<li><a href="">Для чая и кофе</a></li>
-				<li><a href="">Для выпечки</a></li>
-				<li><a href="">Аксессуары</a></li>
-				<li><a href="">Сервировка стола</a></li>
-				<li><a href="">Детям</a></li>
-				<li><a href="">Активный отдых</a></li>
-			</ul>
-		</div>
-
-		<div class="fcol">
-			<ul class="fmenu">
-				<li class="fmenu_first"><a class="button" href="">Личный кабинет</a></li>
-				<li><a href="">О нас</a></li>
-				<li><a href="">Доставка и оплата</a></li>
-				<li><a href="">Вопрос-ответ</a></li>
-				<li><a href="">Оптовикам</a></li>
-				<li><a href="">Договор оферты</a></li>
-				<li><a href="">Сотрудничество</a></li>
-			</ul>
-		</div>
-
-		<div class="fcol footer_contacts">
-			<a href="tel:+74950038995" class="fphone">+7 (495) 003-89-95</a>
-
-			<div class="worktime">
-				<strong>Режим работы:</strong>
-				С 9:00 до 20:00 ежедневно
-			</div>
-
-			<ul class="fmenu">
-				<li><a href="">Контакты</a></li>
-			</ul>
-		</div>
-
-	</div>
-</footer>
-
-<footer class="sec copyright_sec">
-	<div class="container">
-		
-		<div>
-			© Интернет-магазин посуды Fissman, 2018
-		</div>
-
-		<div class="copyright_links">
-			<a href="">Пользовательское соглашение</a>
-			<a href="">Политика конфиденциальности</a>
-		</div>
-
-		<div>
-			Разработка сайта — <a href="https://webelement.ru" target="_blank" class="madein">WEBELEMENT</a>
-		</div>
-
-	</div>
-</footer>
+{% include 'footer.html' %}
 
 </div>
 

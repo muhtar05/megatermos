@@ -85,7 +85,7 @@ $(document).ready(function(){
 
     $('.products_carousel').owlCarousel({
         items: 4,
-        loop: true,
+        loop: false,
         nav: true,
         dots: false,
         mouseDrag: false,

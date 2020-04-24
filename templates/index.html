@@ -1,4 +1,5 @@
 {% load static %}
+{% load thumbnail %}
 {% load catalog_tags %}
 <!DOCTYPE html>
 <html lang="ru">
@@ -30,22 +31,7 @@
 					<img src="img/logo.png" alt="">
 					<a href="#" class="close_modal">x</a>
 				</div>
-
 				{% catalog_menu %}
-
-				<ul class="catalog_menu dop">
-					<li><a href="all.html">О компании</a></li>
-					<li><a href="all.html">Оплата и доставка</a></li>
-					<li><a href="all.html">Оптовикам</a></li>
-					<li><a href="all.html">Контакты</a></li>
-				</ul>
-
-				<div class="mobile_menu_buttons">
-					<a class="mobile_menu_button" href=""><img src="img/i_heart.png" /> Избранное</a>
-					<a class="mobile_menu_button arrow open_modal close_menu" href="#login_modal"><img src="img/i_user.png" /> Ваш кабинет</a>
-					<a class="mobile_menu_button arrow open_modal close_menu" href="#cities_modal"><img src="img/i_mini-cart.png" /> Санкт-петербург</a>
-					<a class="button" href="tel:+74950038995">+7 (495) 003-89-95</a>
-				</div>
 			</nav>
 		</div>
 
@@ -160,13 +146,13 @@
 	<div class="container">
 
 		<ul class="homeslider arrowsNav dotsNav owl-carousel">
-			<li class="item" style="background-image: url(img/slider_1.jpg);">
+			<li class="item" style="background-image: url({% static 'img/slider_1.jpg' %});">
 				<div class="slider_infobox">
 					<h2>Посуда и аксессуары для кухни Fissman</h2>
 					<a href="" class="button">Смотреть каталог</a>
 				</div>
 			</li>
-			<li class="item" style="background-image: url(img/slider_2.jpg);">
+			<li class="item" style="background-image: url({% static 'img/slider_2.jpg' %});">
 				<div class="slider_infobox">
 					<h2>Посуда и аксессуары Fissman</h2>
 					<a href="" class="button">Смотреть каталог</a>
@@ -182,19 +168,19 @@
 
 		<div class="prs_box">
 			<div class="pr_item">
-				<div class="button blue"><img src="img/pr_1.png" /></div>
+				<div class="button blue"><img src="{% static 'img/pr_1.png' %}" /></div>
 				<span>Только орининальная продукция</span>
 			</div>
 			<div class="pr_item">
-				<div class="button"><img src="img/pr_2.png" /></div>
+				<div class="button"><img src="{% static 'img/pr_2.png' %}" /></div>
 				<span>Бесплатная доставка при заказе от 2500 ₽</span>
 			</div>
 			<div class="pr_item">
-				<div class="button green"><img src="img/pr_3.png" /></div>
+				<div class="button green"><img src="{% static 'img/pr_3.png' %}" /></div>
 				<span>Цены на все товары от производителя</span>
 			</div>
 			<div class="pr_item">
-				<div class="button orange"><img src="img/pr_4.png" /></div>
+				<div class="button orange"><img src="{% static 'img/pr_4.png' %}" /></div>
 				<span>Полный ассортимент бренда</span>
 			</div>
 		</div>
@@ -203,6 +189,7 @@
 
 		<div class="products_carousel_box">
 			<ul class="products_carousel arrowsNav owl-carousel">
+				{% for prod in sell_out %}
 				<li class="item">
 					<!-- ITEM -->
 					<div class="product_item incatalog">
@@ -213,9 +200,11 @@
 							<span class="beidge free_delivery">Доставка бесплатно!</span>
 						</div>
 						<a href="" class="product_item-image">
-							<img src="img/prod_1.jpg" alt="" />
+							{% thumbnail prod.img "189x135" crop="center" as im %}
+								<img src="{{ im.url }}" alt="" />
+							{% endthumbnail %}
 						</a>
-						<a href="" class="product_item-title">Сковорода для жарки ALLENDE 24х5,5см (алюминий)</a>
+						<a href="" class="product_item-title">{{ prod.name }}</a>
 						<div class="product_item-artnum">Артикул: 9610</div>
 						<div class="product_item-prices">
 							<u class="product_item-price_old">1390 ₽</u>
@@ -237,197 +226,8 @@
 						</div>
 					</div>
 				</li>
-				<li class="item">
-					<!-- ITEM -->
-					<div class="product_item incatalog">
-						<div class="product_item-icons">
-							<span class="beidge count">Осталось: 1</span>
-						</div>
-						<a href="" class="product_item-image">
-							<img src="img/prod_2.jpg" alt="" />
-						</a>
-						<a href="" class="product_item-title">Чайник заварочный 1000 мл со стеклянным фильтром (стекло)</a>
-						<div class="product_item-artnum">Артикул: 9610</div>
-						<div class="product_item-prices">
-							<u class="product_item-price_old">3390 ₽</u>
-							<span class="product_item-price">2990 ₽</span>
-						</div>
-						<div class="product_item-buttons">
-							<span class="product_added">Добавлен в корзину</span>
-							<a href="#" class="button-o gray product_item-buy">В корзину</a>
-							<div class="product_item-counter_box">
-								<div class="counter_box">
-									<button type="button" class="counter_ctrl minus">-</button>
-									<input type="text" class="counter_input" value="1" data-min="1" data-max="99" />
-									<button type="button" class="counter_ctrl plus">+</button>
-								</div>
-								<button class="button add_to_cart_small"><img src="img/i_cart.png" alt="" /></button>
-								<a href="#" class="close_add_to_cart">x</a>
-							</div>
-							<a href="" class="product_item-like"><i class="fa fa-heart-o"></i></a>
-						</div>
-					</div>
-				</li>
-				<li class="item">
-					<!-- ITEM -->
-					<div class="product_item incatalog">
-						<div class="product_item-icons">
+				{% endfor %}
 
-							<span class="beidge count">Осталось: 978</span>
-						</div>
-						<a href="" class="product_item-image">
-							<img src="img/prod_3.jpg" alt="" />
-						</a>
-						<a href="" class="product_item-title">Вилка MONTE столовая 21см (нерж.сталь)</a>
-						<div class="product_item-artnum">Артикул: 9610</div>
-						<div class="product_item-prices">
-							<u class="product_item-price_old">160 ₽</u>
-							<span class="product_item-price">112 ₽</span>
-						</div>
-						<div class="product_item-buttons">
-							<span class="product_added">Добавлен в корзину</span>
-							<a href="#" class="button-o gray product_item-buy">В корзину</a>
-							<div class="product_item-counter_box">
-								<div class="counter_box">
-									<button type="button" class="counter_ctrl minus">-</button>
-									<input type="text" class="counter_input" value="1" data-min="1" data-max="99" />
-									<button type="button" class="counter_ctrl plus">+</button>
-								</div>
-								<button class="button add_to_cart_small"><img src="img/i_cart.png" alt="" /></button>
-								<a href="#" class="close_add_to_cart">x</a>
-							</div>
-							<a href="" class="product_item-like"><i class="fa fa-heart-o"></i></a>
-						</div>
-					</div>
-				</li>
-				<li class="item">
-					<!-- ITEM -->
-					<div class="product_item incatalog">
-						<div class="product_item-icons">
-
-							<span class="beidge count">Осталось: 8</span>
-						</div>
-						<a href="" class="product_item-image">
-							<img src="img/prod_4.jpg" alt="" />
-						</a>
-						<a href="" class="product_item-title">Керамический гриль 35х40,5х55см зеленый</a>
-						<div class="product_item-artnum">Артикул: 9610</div>
-						<div class="product_item-prices">
-							<u class="product_item-price_old">43390 ₽</u>
-							<span class="product_item-price">29900 ₽</span>
-						</div>
-						<div class="product_item-buttons">
-							<span class="product_added">Добавлен в корзину</span>
-							<a href="#" class="button-o gray product_item-buy">В корзину</a>
-							<div class="product_item-counter_box">
-								<div class="counter_box">
-									<button type="button" class="counter_ctrl minus">-</button>
-									<input type="text" class="counter_input" value="1" data-min="1" data-max="99" />
-									<button type="button" class="counter_ctrl plus">+</button>
-								</div>
-								<button class="button add_to_cart_small"><img src="img/i_cart.png" alt="" /></button>
-								<a href="#" class="close_add_to_cart">x</a>
-							</div>
-							<a href="" class="product_item-like"><i class="fa fa-heart-o"></i></a>
-						</div>
-					</div>
-				</li>
-				<li class="item">
-					<!-- ITEM -->
-					<div class="product_item incatalog">
-						<div class="product_item-icons">
-							<a href="" class="product_item-like liked"><i class="fa fa-heart"></i></a>
-							<span class="beidge count">Осталось: 1</span>
-						</div>
-						<a href="" class="product_item-image">
-							<img src="img/prod_1.jpg" alt="" />
-						</a>
-						<a href="" class="product_item-title">Чайник заварочный 1000 мл со стеклянным фильтром (стекло)</a>
-						<div class="product_item-artnum">Артикул: 9610</div>
-						<div class="product_item-prices">
-							<u class="product_item-price_old">3390 ₽</u>
-							<span class="product_item-price">2990 ₽</span>
-						</div>
-						<div class="product_item-buttons">
-							<span class="product_added">Добавлен в корзину</span>
-							<a href="#" class="button-o gray product_item-buy">В корзину</a>
-							<div class="product_item-counter_box">
-								<div class="counter_box">
-									<button type="button" class="counter_ctrl minus">-</button>
-									<input type="text" class="counter_input" value="1" data-min="1" data-max="99" />
-									<button type="button" class="counter_ctrl plus">+</button>
-								</div>
-								<button class="button add_to_cart_small"><img src="img/i_cart.png" alt="" /></button>
-								<a href="#" class="close_add_to_cart">x</a>
-							</div>
-							<a href="" class="product_item-like"><i class="fa fa-heart-o"></i></a>
-						</div>
-					</div>
-				</li>
-				<li class="item">
-					<!-- ITEM -->
-					<div class="product_item incatalog">
-						<div class="product_item-icons">
-
-							<span class="beidge count">Осталось: 978</span>
-						</div>
-						<a href="" class="product_item-image">
-							<img src="img/prod_1.jpg" alt="" />
-						</a>
-						<a href="" class="product_item-title">Вилка MONTE столовая 21см (нерж.сталь)</a>
-						<div class="product_item-artnum">Артикул: 9610</div>
-						<div class="product_item-prices">
-							<u class="product_item-price_old">160 ₽</u>
-							<span class="product_item-price">112 ₽</span>
-						</div>
-						<div class="product_item-buttons">
-							<span class="product_added">Добавлен в корзину</span>
-							<a href="#" class="button-o gray product_item-buy">В корзину</a>
-							<div class="product_item-counter_box">
-								<div class="counter_box">
-									<button type="button" class="counter_ctrl minus">-</button>
-									<input type="text" class="counter_input" value="1" data-min="1" data-max="99" />
-									<button type="button" class="counter_ctrl plus">+</button>
-								</div>
-								<button class="button add_to_cart_small"><img src="img/i_cart.png" alt="" /></button>
-								<a href="#" class="close_add_to_cart">x</a>
-							</div>
-							<a href="" class="product_item-like"><i class="fa fa-heart-o"></i></a>
-						</div>
-					</div>
-				</li>
-				<li class="item">
-					<!-- ITEM -->
-					<div class="product_item incatalog">
-						<div class="product_item-icons">
-
-							<span class="beidge count">Осталось: 8</span>
-						</div>
-						<a href="" class="product_item-image">
-							<img src="img/prod_1.jpg" alt="" />
-						</a>
-						<a href="" class="product_item-title">Керамический гриль 35х40,5х55см зеленый</a>
-						<div class="product_item-artnum">Артикул: 9610</div>
-						<div class="product_item-prices">
-							<u class="product_item-price_old">43390 ₽</u>
-							<span class="product_item-price">29900 ₽</span>
-						</div>
-						<div class="product_item-buttons">
-							<span class="product_added">Добавлен в корзину</span>
-							<a href="#" class="button-o gray product_item-buy">В корзину</a>
-							<div class="product_item-counter_box">
-								<div class="counter_box">
-									<button type="button" class="counter_ctrl minus">-</button>
-									<input type="text" class="counter_input" value="1" data-min="1" data-max="99" />
-									<button type="button" class="counter_ctrl plus">+</button>
-								</div>
-								<button class="button add_to_cart_small"><img src="img/i_cart.png" alt="" /></button>
-								<a href="#" class="close_add_to_cart">x</a>
-							</div>
-							<a href="" class="product_item-like"><i class="fa fa-heart-o"></i></a>
-						</div>
-					</div>
-				</li>
 			</ul>
 		</div>
 
@@ -453,6 +253,7 @@
 
 		<div class="products_carousel_box">
 			<ul class="products_carousel arrowsNav owl-carousel">
+				{% for prod in sales_leaders %}
 				<li class="item">
 					<!-- ITEM -->
 					<div class="product_item incatalog">
@@ -461,9 +262,11 @@
 							<span class="beidge leader">Лидер продаж</span>
 						</div>
 						<a href="" class="product_item-image">
-							<img src="img/prod_1.jpg" alt="" />
+							{% thumbnail prod.img "189x135" crop="center" as im %}
+								<img src="{{ im.url }}" alt="" />
+							{% endthumbnail %}
 						</a>
-						<a href="" class="product_item-title">Сковорода для жарки ALLENDE 24х5,5см (алюминий)</a>
+						<a href="" class="product_item-title">{{ prod.name }}</a>
 						<div class="product_item-artnum">Артикул: 9610</div>
 						<div class="product_item-prices">
 							<span class="product_item-price">990 ₽</span>
@@ -484,330 +287,12 @@
 						</div>
 					</div>
 				</li>
-				<li class="item">
-					<!-- ITEM -->
-					<div class="product_item incatalog">
-						<div class="product_item-icons">
-
-							<span class="beidge leader">Лидер продаж</span>
-						</div>
-						<a href="" class="product_item-image">
-							<img src="img/prod_2.jpg" alt="" />
-						</a>
-						<a href="" class="product_item-title">Чайник заварочный 1000 мл со стеклянным фильтром (стекло)</a>
-						<div class="product_item-artnum">Артикул: 9610</div>
-						<div class="product_item-prices">
-							<span class="product_item-price">2990 ₽</span>
-						</div>
-						<div class="product_item-buttons">
-							<span class="product_added">Добавлен в корзину</span>
-							<a href="#" class="button-o gray product_item-buy">В корзину</a>
-							<div class="product_item-counter_box">
-								<div class="counter_box">
-									<button type="button" class="counter_ctrl minus">-</button>
-									<input type="text" class="counter_input" value="1" data-min="1" data-max="99" />
-									<button type="button" class="counter_ctrl plus">+</button>
-								</div>
-								<button class="button add_to_cart_small"><img src="img/i_cart.png" alt="" /></button>
-								<a href="#" class="close_add_to_cart">x</a>
-							</div>
-							<a href="" class="product_item-like"><i class="fa fa-heart-o"></i></a>
-						</div>
-					</div>
-				</li>
-				<li class="item">
-					<!-- ITEM -->
-					<div class="product_item incatalog">
-						<div class="product_item-icons">
-
-							<span class="beidge leader">Лидер продаж</span>
-						</div>
-						<a href="" class="product_item-image">
-							<img src="img/prod_3.jpg" alt="" />
-						</a>
-						<a href="" class="product_item-title">Вилка MONTE столовая 21см (нерж.сталь)</a>
-						<div class="product_item-artnum">Артикул: 9610</div>
-						<div class="product_item-prices">
-							<span class="product_item-price">112 ₽</span>
-						</div>
-						<div class="product_item-buttons">
-							<span class="product_added">Добавлен в корзину</span>
-							<a href="#" class="button-o gray product_item-buy">В корзину</a>
-							<div class="product_item-counter_box">
-								<div class="counter_box">
-									<button type="button" class="counter_ctrl minus">-</button>
-									<input type="text" class="counter_input" value="1" data-min="1" data-max="99" />
-									<button type="button" class="counter_ctrl plus">+</button>
-								</div>
-								<button class="button add_to_cart_small"><img src="img/i_cart.png" alt="" /></button>
-								<a href="#" class="close_add_to_cart">x</a>
-							</div>
-							<a href="" class="product_item-like"><i class="fa fa-heart-o"></i></a>
-						</div>
-					</div>
-				</li>
-				<li class="item">
-					<!-- ITEM -->
-					<div class="product_item incatalog">
-						<div class="product_item-icons">
-
-							<span class="beidge leader">Лидер продаж</span>
-						</div>
-						<a href="" class="product_item-image">
-							<img src="img/prod_4.jpg" alt="" />
-						</a>
-						<a href="" class="product_item-title">Керамический гриль 35х40,5х55см зеленый</a>
-						<div class="product_item-artnum">Артикул: 9610</div>
-						<div class="product_item-prices">
-							<span class="product_item-price">29900 ₽</span>
-						</div>
-						<div class="product_item-buttons">
-							<span class="product_added">Добавлен в корзину</span>
-							<a href="#" class="button-o gray product_item-buy">В корзину</a>
-							<div class="product_item-counter_box">
-								<div class="counter_box">
-									<button type="button" class="counter_ctrl minus">-</button>
-									<input type="text" class="counter_input" value="1" data-min="1" data-max="99" />
-									<button type="button" class="counter_ctrl plus">+</button>
-								</div>
-								<button class="button add_to_cart_small"><img src="img/i_cart.png" alt="" /></button>
-								<a href="#" class="close_add_to_cart">x</a>
-							</div>
-							<a href="" class="product_item-like"><i class="fa fa-heart-o"></i></a>
-						</div>
-					</div>
-				</li>
-				<li class="item">
-					<!-- ITEM -->
-					<div class="product_item incatalog">
-						<div class="product_item-icons">
-
-							<span class="beidge leader">Лидер продаж</span>
-						</div>
-						<a href="" class="product_item-image">
-							<img src="img/prod_1.jpg" alt="" />
-						</a>
-						<a href="" class="product_item-title">Керамический гриль 35х40,5х55см зеленый</a>
-						<div class="product_item-artnum">Артикул: 9610</div>
-						<div class="product_item-prices">
-							<span class="product_item-price">29900 ₽</span>
-						</div>
-						<div class="product_item-buttons">
-							<span class="product_added">Добавлен в корзину</span>
-							<a href="#" class="button-o gray product_item-buy">В корзину</a>
-							<div class="product_item-counter_box">
-								<div class="counter_box">
-									<button type="button" class="counter_ctrl minus">-</button>
-									<input type="text" class="counter_input" value="1" data-min="1" data-max="99" />
-									<button type="button" class="counter_ctrl plus">+</button>
-								</div>
-								<button class="button add_to_cart_small"><img src="img/i_cart.png" alt="" /></button>
-								<a href="#" class="close_add_to_cart">x</a>
-							</div>
-							<a href="" class="product_item-like"><i class="fa fa-heart-o"></i></a>
-						</div>
-					</div>
-				</li>
+				{% endfor %}
 			</ul>
 
 			<div class="buttons_footer">
 				<a href="" class="button medium gray">Смотреть все товары со скидкой</a>
 			</div>
-		</div>
-
-	</div>
-</section>
-
-
-
-<section class="sec content_sec white_bg border_bottom">
-	<div class="container">
-
-		<h2 class="sec_title">Готовьте с удовольствием</h2>
-
-		<div class="home_catalog_box">
-
-			<nav class="home_catalog_item">
-				<img src="img/frying_pan.jpg" alt="" class="home_catalog_item-image" />
-				<h3 class="home_catalog_item-title">
-					<a href="">Сковороды</a>
-				</h3>
-				<ul class="home_catalog_item-menu">
-					<li><a href="">Глубокие скороводы <span class="tgray">13</span></a> <span class="beidge sale">Распродажа</span></li>
-					<li><a href="">Классические сковороды <span class="tgray">56</span></a> <span class="beidge sale">Распродажа</span></li>
-					<li><a href="">Блинные сковороды <span class="tgray">46</span></a></li>
-					<li><a href="">Сковороды вок / Казан <span class="tgray">31</span></a> <span class="beidge sale">Распродажа</span></li>
-					<li><a href="">Сковороды гриль <span class="tgray">10</span></a></li>
-					<li><a href="">Чугнунные сковороды <span class="tgray">31</span></a></li>
-					<li><a href="">Сотейники <span class="tgray">41</span></a></li>
-					<li><a href="">Пресс для гриля <span class="tgray">32</span></a></li>
-					<li><a href="">Крышки, эраны от брызг <span class="tgray">332</span></a></li>
-				</ul>
-			</nav>
-
-			<nav class="home_catalog_item">
-				<img src="img/cooking_pan.jpg" alt="" class="home_catalog_item-image" />
-				<h3 class="home_catalog_item-title">
-					<a href="">Кастрюли</a>
-				</h3>
-				<ul class="home_catalog_item-menu">
-					<li><a href="">Глубокие скороводы <span class="tgray">13</span></a> <span class="beidge new">Новинки</span></li>
-					<li><a href="">Сковороды гриль <span class="tgray">10</span></a></li>
-					<li><a href="">Чугнунные сковороды <span class="tgray">31</span></a></li>
-					<li><a href="">Сотейники <span class="tgray">41</span></a></li>
-					<li><a href="">Пресс для гриля <span class="tgray">32</span></a></li>
-					<li><a href="">Крышки, эраны от брызг <span class="tgray">332</span></a></li>
-				</ul>
-			</nav>
-
-			<nav class="home_catalog_item">
-				<img src="img/knifes.jpg" alt="" class="home_catalog_item-image" />
-				<h3 class="home_catalog_item-title">
-					<a href="">Ножи</a>
-				</h3>
-				<ul class="home_catalog_item-menu">
-					<li><a href="">Классические сковороды <span class="tgray">56</span></a> <span class="beidge sale">Распродажа</span></li>
-					<li><a href="">Блинные сковороды <span class="tgray">46</span></a></li>
-					<li><a href="">Сковороды вок / Казан <span class="tgray">31</span></a> <span class="beidge sale">Распродажа</span></li>
-					<li><a href="">Сковороды гриль <span class="tgray">10</span></a></li>
-					<li><a href="">Чугнунные сковороды <span class="tgray">31</span></a></li>
-					<li><a href="">Сотейники <span class="tgray">41</span></a></li>
-					<li><a href="">Пресс для гриля <span class="tgray">32</span></a></li>
-					<li><a href="">Крышки, эраны от брызг <span class="tgray">332</span></a></li>
-				</ul>
-			</nav>
-
-		</div>
-
-	</div>
-</section>
-
-
-
-<section class="sec content_sec white_bg border_bottom">
-	<div class="container">
-
-		<h2 class="sec_title">Устройте незабываемое чаепитие <br>с ароматной домашней выпечкой</h2>
-
-		<div class="home_catalog_box">
-
-			<nav class="home_catalog_item">
-				<img src="img/chajn.jpg" alt="" class="home_catalog_item-image" />
-				<h3 class="home_catalog_item-title">
-					<a href="">Для чая и кофе</a>
-				</h3>
-				<ul class="home_catalog_item-menu">
-					<li><a href="">Глубокие скороводы <span class="tgray">13</span></a> <span class="beidge sale">Распродажа</span></li>
-					<li><a href="">Классические сковороды <span class="tgray">56</span></a> <span class="beidge sale">Распродажа</span></li>
-					<li><a href="">Блинные сковороды <span class="tgray">46</span></a></li>
-					<li><a href="">Сковороды вок / Казан <span class="tgray">31</span></a> <span class="beidge sale">Распродажа</span></li>
-					<li><a href="">Сковороды гриль <span class="tgray">10</span></a></li>
-					<li><a href="">Чугнунные сковороды <span class="tgray">31</span></a></li>
-					<li><a href="">Сотейники <span class="tgray">41</span></a></li>
-					<li><a href="">Пресс для гриля <span class="tgray">32</span></a></li>
-					<li><a href="">Крышки, эраны от брызг <span class="tgray">332</span></a></li>
-				</ul>
-			</nav>
-
-			<nav class="home_catalog_item">
-				<img src="img/vypechka.jpg" alt="" class="home_catalog_item-image" />
-				<h3 class="home_catalog_item-title">
-					<a href="">Для выпечки</a>
-				</h3>
-				<ul class="home_catalog_item-menu">
-					<li><a href="">Глубокие скороводы <span class="tgray">13</span></a> <span class="beidge new">Новинки</span></li>
-					<li><a href="">Сковороды гриль <span class="tgray">10</span></a></li>
-					<li><a href="">Чугнунные сковороды <span class="tgray">31</span></a></li>
-					<li><a href="">Сотейники <span class="tgray">41</span></a></li>
-					<li><a href="">Пресс для гриля <span class="tgray">32</span></a></li>
-					<li><a href="">Крышки, эраны от брызг <span class="tgray">332</span></a></li>
-				</ul>
-			</nav>
-
-			<nav class="home_catalog_item">
-				<img src="img/accessuares.jpg" alt="" class="home_catalog_item-image" />
-				<h3 class="home_catalog_item-title">
-					<a href="">Аксессуары</a>
-				</h3>
-				<ul class="home_catalog_item-menu">
-					<li><a href="">Классические сковороды <span class="tgray">56</span></a> <span class="beidge sale">Распродажа</span></li>
-					<li><a href="">Блинные сковороды <span class="tgray">46</span></a></li>
-					<li><a href="">Сковороды вок / Казан <span class="tgray">31</span></a> <span class="beidge sale">Распродажа</span></li>
-					<li><a href="">Сковороды гриль <span class="tgray">10</span></a></li>
-					<li><a href="">Чугнунные сковороды <span class="tgray">31</span></a></li>
-					<li><a href="">Сотейники <span class="tgray">41</span></a></li>
-					<li><a href="">Пресс для гриля <span class="tgray">32</span></a></li>
-					<li><a href="">Крышки, эраны от брызг <span class="tgray">332</span></a></li>
-				</ul>
-			</nav>
-
-		</div>
-
-	</div>
-</section>
-
-
-
-<section class="sec content_sec white_bg">
-	<div class="container">
-
-		<h2 class="sec_title">Позаботьтесь о красивой подаче <br>ваших кулинарных шедевров</h2>
-
-		<div class="home_catalog_box">
-
-			<nav class="home_catalog_item">
-				<img src="img/stol_pribor.jpg" alt="" class="home_catalog_item-image" />
-				<h3 class="home_catalog_item-title">
-					<a href="">Сервировка стола</a>
-				</h3>
-				<ul class="home_catalog_item-menu">
-					<li><a href="">Глубокие скороводы <span class="tgray">13</span></a> <span class="beidge sale">Распродажа</span></li>
-					<li><a href="">Классические сковороды <span class="tgray">56</span></a> <span class="beidge sale">Распродажа</span></li>
-					<li><a href="">Блинные сковороды <span class="tgray">46</span></a></li>
-					<li><a href="">Сковороды вок / Казан <span class="tgray">31</span></a> <span class="beidge sale">Распродажа</span></li>
-					<li><a href="">Сковороды гриль <span class="tgray">10</span></a></li>
-					<li><a href="">Чугнунные сковороды <span class="tgray">31</span></a></li>
-					<li><a href="">Сотейники <span class="tgray">41</span></a></li>
-					<li><a href="">Пресс для гриля <span class="tgray">32</span></a></li>
-					<li><a href="">Крышки, эраны от брызг <span class="tgray">332</span></a></li>
-				</ul>
-			</nav>
-
-			<nav class="home_catalog_item">
-				<img src="img/kids.jpg" alt="" class="home_catalog_item-image" />
-				<h3 class="home_catalog_item-title">
-					<a href="">Детям</a>
-				</h3>
-				<ul class="home_catalog_item-menu">
-					<li><a href="">Глубокие скороводы <span class="tgray">13</span></a> <span class="beidge new">Новинки</span></li>
-					<li><a href="">Сковороды гриль <span class="tgray">10</span></a></li>
-					<li><a href="">Чугнунные сковороды <span class="tgray">31</span></a></li>
-					<li><a href="">Сотейники <span class="tgray">41</span></a></li>
-					<li><a href="">Пресс для гриля <span class="tgray">32</span></a></li>
-					<li><a href="">Крышки, эраны от брызг <span class="tgray">332</span></a></li>
-				</ul>
-			</nav>
-
-			<nav class="home_catalog_item">
-				<img src="img/active_relax.jpg" alt="" class="home_catalog_item-image" />
-				<h3 class="home_catalog_item-title">
-					<a href="">Активный отдых</a>
-				</h3>
-				<ul class="home_catalog_item-menu">
-					<li><a href="">Классические сковороды <span class="tgray">56</span></a> <span class="beidge sale">Распродажа</span></li>
-					<li><a href="">Блинные сковороды <span class="tgray">46</span></a></li>
-					<li><a href="">Сковороды гриль <span class="tgray">10</span></a></li>
-					<li><a href="">Чугнунные сковороды <span class="tgray">31</span></a></li>
-					<li><a href="">Сотейники <span class="tgray">41</span></a></li>
-					<li><a href="">Пресс для гриля <span class="tgray">32</span></a></li>
-					<li><a href="">Сковороды вок / Казан <span class="tgray">31</span></a> <span class="beidge new">Новинки</span></li>
-					<li><a href="">Крышки, эраны от брызг <span class="tgray">332</span></a></li>
-					<li><a href="">Сотейники <span class="tgray">41</span></a></li>
-					<li><a href="">Пресс для гриля <span class="tgray">32</span></a></li>
-					<li><a href="">Крышки, эраны от брызг <span class="tgray">332</span></a></li>
-				</ul>
-			</nav>
-
 		</div>
 
 	</div>
@@ -821,87 +306,7 @@
 
 
 
-<footer class="sec footer_sec">
-	<div class="container">
-
-		<div class="fcol footer_logo_box">
-			<div class="flogo_col">
-				<a href="" class="flogo"><img src="img/flogo.png" alt="" /></a>
-				<span class="fslogan">
-					<strong>Интернет-магазин</strong>
-					Официальный сайт продукции Fissman в России
-				</span>
-			</div>
-			<div class="fdesc">
-				Наша компания занимается розничной и оптовой продажей посуды бренда Fissman. У нас вы можете приобрести посуду по привлекательной цене.
-			</div>
-			<div class="cards_box">
-				<p><strong>Мы принимаем к оплате:</strong></p>
-				<p><img src="img/cards.png" alt=""></p>
-			</div>
-		</div>
-
-		<div class="fcol">
-			<ul class="fmenu">
-				<li class="fmenu_first"><a href="">Каталог</a></li>
-				<li><a href="">Сковороды</a></li>
-				<li><a href="">Кастрюли</a></li>
-				<li><a href="">Ножи</a></li>
-				<li><a href="">Для чая и кофе</a></li>
-				<li><a href="">Для выпечки</a></li>
-				<li><a href="">Аксессуары</a></li>
-				<li><a href="">Сервировка стола</a></li>
-				<li><a href="">Детям</a></li>
-				<li><a href="">Активный отдых</a></li>
-			</ul>
-		</div>
-
-		<div class="fcol">
-			<ul class="fmenu">
-				<li class="fmenu_first"><a class="button" href="">Личный кабинет</a></li>
-				<li><a href="">О нас</a></li>
-				<li><a href="">Доставка и оплата</a></li>
-				<li><a href="">Вопрос-ответ</a></li>
-				<li><a href="">Оптовикам</a></li>
-				<li><a href="">Договор оферты</a></li>
-				<li><a href="">Сотрудничество</a></li>
-			</ul>
-		</div>
-
-		<div class="fcol footer_contacts">
-			<a href="tel:+74950038995" class="fphone">+7 (495) 003-89-95</a>
-
-			<div class="worktime">
-				<strong>Режим работы:</strong>
-				С 9:00 до 20:00 ежедневно
-			</div>
-
-			<ul class="fmenu">
-				<li><a href="">Контакты</a></li>
-			</ul>
-		</div>
-
-	</div>
-</footer>
-
-<footer class="sec copyright_sec">
-	<div class="container">
-
-		<div>
-			© Интернет-магазин посуды Fissman, 2018
-		</div>
-
-		<div class="copyright_links">
-			<a href="">Пользовательское соглашение</a>
-			<a href="">Политика конфиденциальности</a>
-		</div>
-
-		<div>
-			Разработка сайта — <a href="https://webelement.ru" target="_blank" class="madein">WEBELEMENT</a>
-		</div>
-
-	</div>
-</footer>
+{% include 'footer.html' %}
 
 </div>
 
