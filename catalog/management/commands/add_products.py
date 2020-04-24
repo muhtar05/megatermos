@@ -79,23 +79,25 @@ class Command(BaseCommand):
 
         for prod in products:
             # print(prod.get('name'))
-            artikul = prod.get('artikul')
-            ext_prod = Product.objects.filter(artikul=artikul).first()
-            if not ext_prod:
-                need_category = Category.objects.filter(slug=prod.get('category_slug')).first()
-                # print(need_category)
-                new_prod = Product()
-                new_prod.name = prod.get('name')
-                new_prod.slug = slugify(prod.get('name'))
-                new_prod.artikul = artikul
-                new_prod.category = need_category
-                new_prod.save()
-                print(new_prod.pk)
-            else:
-                ext_prod.price_opt = prod.get('price_opt')
-                ext_prod.price = prod.get('price')
-                ext_prod.old_price = prod.get('old_price')
-                if not ext_prod.img:
-                    ext_prod.img = self.add_image(prod.get('img_url'))
-                ext_prod.save()
-                print('{} | {} | {}'.format(ext_prod.price_opt, ext_prod.price, ext_prod.old_price))
+            try:
+                artikul = prod.get('artikul')
+                ext_prod = Product.objects.filter(artikul=artikul).first()
+                if not ext_prod:
+                    need_category = Category.objects.filter(slug=prod.get('category_slug')).first()
+                    # print(need_category)
+                    new_prod = Product()
+                    new_prod.name = prod.get('name')
+                    new_prod.slug = slugify(prod.get('name'))
+                    new_prod.artikul = artikul
+                    new_prod.category = need_category
+                    new_prod.save()
+                    print(new_prod.pk)
+                else:
+                    ext_prod.price_opt = prod.get('price_opt')
+                    ext_prod.price = prod.get('price')
+                    ext_prod.old_price = prod.get('old_price')
+                    if not ext_prod.img:
+                        ext_prod.img = self.add_image(prod.get('img_url'))
+                    ext_prod.save()
+            except Exception as e:
+                print(str(e))
