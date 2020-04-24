@@ -27,13 +27,7 @@
 			<a href="catalog.html" class="button"><span class="icon_shock"></span> Шок-цена!</a>
 
 			<nav class="catalog_menu_box">
-				<div class="catalog_mobile_titles">
-					<img src="img/logo.png" alt="">
-					<a href="#" class="close_modal">x</a>
-				</div>
-
 				{% catalog_menu %}
-
 			</nav>
 		</div>
 
@@ -147,8 +141,8 @@
 	<div class="container">
 
 		<ul class="bread">
-			<li><a href="">Главная</a></li>
-			<li>Ваш кабинет</li>
+			<li><a href="/">Главная</a></li>
+			<li>{{ current_category.name }}</li>
 		</ul>
 
 		<h1>Ваш кабинет</h1>
@@ -172,7 +166,7 @@
 							{% if current_category.pk == category.pk %}
 								<li class="current"><a href="">{{ category.name }}</a></li>
 							{% else %}
-								<li><a href="{% url 'catalog:category-detail' category.pk %}">{{ category.name }}</a></li>
+								<li><a href="{% url 'catalog:category-detail' category.slug %}">{{ category.name }}</a></li>
 							{% endif %}
 							{% endfor %}
 						</ul>
@@ -183,14 +177,14 @@
 							<div class="range_inputs">
 								<div class="ip_cell">
 									<label class="range_label">от</label>
-									<input type="text" class="range_input from" value="580 ₽" data-value="580" />
+									<input type="text" class="range_input from" value="{{ min_price_slider }} ₽" data-value="{{ min_price_slider }}" />
 								</div>
 								<div class="ip_cell">
 									<label class="range_label">до</label>
-									<input type="text" class="range_input to" value="13580 ₽" data-value="13580" />
+									<input type="text" class="range_input to" value="{{ max_price_slider }} ₽" data-value="{{ max_price_slider }}" />
 								</div>
 							</div>
-							<div class="range_slider_box" data-min="580" data-max="13580" data-step="100"></div>
+							<div class="range_slider_box" data-min="{{ min_price_slider }}" data-max="{{ max_price_slider }}" data-step="100"></div>
 						</div>
 					</li>
 					<li><a href="#">Серия</a>
@@ -496,299 +490,7 @@
 
 <!-- MODAL -->
 
-<!-- MODAL -->
-<div class="modal" id="add_address_modal">
-	<div class="modal_content">
-		<h2 class="modal_title">Добавить новый адрес</h2>
-		<a href="#" class="modal_close">x</a>
-		<form action="" method="post">
-			<div class="ip_cell">
-				<div>
-					<input type="radio" class="rd" name="delivery-modal" />
-					<label>Самовывоз</label>
-					<input type="radio" class="rd" name="delivery-modal" />
-					<label>Доставка по адресу</label>
-				</div>
-			</div>
-			<div class="ip_cell">
-				<input type="text" class="input_text" placeholder="Укажите город доставки" />
-			</div>
-			<div class="ip_cell">
-				<input type="text" class="input_text" placeholder="Укажите адрес доставки" />
-			</div>
-			<div class="modal_buttons">
-				<button class="button medium" type="submit">+ Добавить адрес</button>
-			</div>
-		</form>
-	</div>
-	<div class="modal_overlay"></div>
-</div>
-
-
-<a href="#" class="minicart_open visible">
-	<span class="minicart_count">17</span>
-	<div class="button"><img src="img/i_cart_big.png" alt="" /></div>
-</a>
-
-
-<div class="modal" id="modal_minicart">
-	<div class="minicart_content">
-		<header>
-			<h2 class="modal_title">Ваша корзина</h2>
-			<a href="#" class="modal_close">x</a>
-		</header>
-		<section class="minicart_list mCustomScrollbar">
-
-			<!-- PRODUCT -->
-			<div class="minicart_product">
-				<div class="minicart_product-image"><img src="img/prod_1.jpg" alt="" /></div>
-				<div class="minicart_product-content">
-					<a href="" class="minicart_product-title">Сковорода для жарки ALLENDE 24х5,5см (алюминий)</a>
-					<div class="minicart_product-price_box">
-						<div class="product_price_old">89390 ₽</div>
-						<div class="minicart_product-price">1390 ₽</div>
-					</div>
-					<div class="minicart_product-counter_row">
-						<div class="counter_big_box">
-							<button type="button" class="counter_big_ctrl minus">-</button>
-							<input type="text" class="counter_big_input" value="1" data-min="1" data-max="99" />
-							<button type="button" class="counter_big_ctrl plus">+</button>
-						</div>
-						<a href="#" class="minicart_product-remove">x</a>
-					</div>
-				</div>
-			</div>
-
-			<!-- PRODUCT -->
-			<div class="minicart_product">
-				<div class="minicart_product-image"><img src="img/prod_1.jpg" alt="" /></div>
-				<div class="minicart_product-content">
-					<a href="" class="minicart_product-title">Сковорода для жарки ALLENDE 24х5,5см (алюминий)</a>
-					<div class="minicart_product-price_box">
-						<div class="minicart_product-price">1390 ₽</div>
-					</div>
-					<div class="minicart_product-counter_row">
-						<div class="counter_big_box">
-							<button type="button" class="counter_big_ctrl minus">-</button>
-							<input type="text" class="counter_big_input" value="1" data-min="1" data-max="99" />
-							<button type="button" class="counter_big_ctrl plus">+</button>
-						</div>
-						<a href="#" class="minicart_product-remove">x</a>
-					</div>
-				</div>
-			</div>
-
-			<!-- PRODUCT -->
-			<div class="minicart_product">
-				<div class="minicart_product-image"><img src="img/prod_1.jpg" alt="" /></div>
-				<div class="minicart_product-content">
-					<a href="" class="minicart_product-title">Сковорода для жарки ALLENDE 24х5,5см (алюминий)</a>
-					<div class="minicart_product-price_box">
-						<div class="minicart_product-price">1390 ₽</div>
-					</div>
-					<div class="minicart_product-counter_row">
-						<div class="counter_big_box">
-							<button type="button" class="counter_big_ctrl minus">-</button>
-							<input type="text" class="counter_big_input" value="1" data-min="1" data-max="99" />
-							<button type="button" class="counter_big_ctrl plus">+</button>
-						</div>
-						<a href="#" class="minicart_product-remove">x</a>
-					</div>
-				</div>
-			</div>
-
-			<!-- PRODUCT -->
-			<div class="minicart_product">
-				<div class="minicart_product-image"><img src="img/prod_1.jpg" alt="" /></div>
-				<div class="minicart_product-content">
-					<a href="" class="minicart_product-title">Сковорода для жарки ALLENDE 24х5,5см (алюминий)</a>
-					<div class="minicart_product-price_box">
-						<div class="minicart_product-price">1390 ₽</div>
-					</div>
-					<div class="minicart_product-counter_row">
-						<div class="counter_big_box">
-							<button type="button" class="counter_big_ctrl minus">-</button>
-							<input type="text" class="counter_big_input" value="1" data-min="1" data-max="99" />
-							<button type="button" class="counter_big_ctrl plus">+</button>
-						</div>
-						<a href="#" class="minicart_product-remove">x</a>
-					</div>
-				</div>
-			</div>
-
-		</section>
-		<footer class="minicart_footer">
-			<div class="minicart_total_price">Итого: <b>3495 ₽</b></div>
-			<p>Чтобы узнать стоимость доставки, перейдите к оформлению заказа.</p>
-
-			<div class="minicart_buttons">
-				<a href="order.html" class="button medium">Оформить заказ</a>
-				<a href="basket.html" class="button-o gray medium">Перейти к корзине</a>
-			</div>
-		</footer>
-	</div>
-	<div class="modal_overlay"></div>
-</div>
-
-
-
-<div class="modal" id="cities_modal">
-	<div class="modal_content">
-		<h2 class="modal_title">Выберите город</h2>
-		<a href="#" class="modal_close">x</a>
-		<form action="" method="post">
-			<div class="cities_list">
-				<div class="ip_city">
-					<input type="radio" class="rd" name="city" />
-					<label>Москва</label>
-				</div>
-				<div class="ip_city">
-					<input type="radio" class="rd" name="city" />
-					<label>Волгоград</label>
-				</div>
-				<div class="ip_city">
-					<input type="radio" class="rd" name="city" />
-					<label>Воронеж</label>
-				</div>
-				<div class="ip_city">
-					<input type="radio" class="rd" name="city" />
-					<label>Екатеринбург</label>
-				</div>
-				<div class="ip_city">
-					<input type="radio" class="rd" name="city" />
-					<label>Казань</label>
-				</div>
-				<div class="ip_city">
-					<input type="radio" class="rd" name="city" />
-					<label>Краснодар</label>
-				</div>
-				<div class="ip_city">
-					<input type="radio" class="rd" name="city" />
-					<label>Красноярск</label>
-				</div>
-				<div class="ip_city">
-					<input type="radio" class="rd" name="city" />
-					<label>Нижний Новгород</label>
-				</div>
-				<div class="ip_city">
-					<input type="radio" class="rd" name="city" />
-					<label>Новосибирск</label>
-				</div>
-				<div class="ip_city">
-					<input type="radio" class="rd" name="city" />
-					<label>Пермь</label>
-				</div>
-				<div class="ip_city">
-					<input type="radio" class="rd" name="city" />
-					<label>Ростов-на-Дону</label>
-				</div>
-				<div class="ip_city">
-					<input type="radio" class="rd" name="city" />
-					<label>Самара</label>
-				</div>
-				<div class="ip_city">
-					<input type="radio" class="rd" name="city" checked />
-					<label>Санкт-Петербург</label>
-				</div>
-				<div class="ip_city">
-					<input type="radio" class="rd" name="city" />
-					<label>Уфа</label>
-				</div>
-				<div class="ip_city">
-					<input type="radio" class="rd" name="city" />
-					<label>Челябинск</label>
-				</div>
-			</div>
-
-			<div class="another_city_box">
-				<label>Или укажите в поле:</label>
-				<div class="flex">
-					<div class="ip_cell relative">
-						<input type="text" class="input_text another_city" placeholder="Введите название города" />
-						<div class="cities_dropdown">
-							<a class="city_dropdown" href=""><b>Иван</b>теевка, Московская обл.</a>
-							<a class="city_dropdown" href=""><b>Иван</b>ово, Московская обл.</a>
-						</div>
-					</div>
-					<button class="button medium choice_city"  type="submit" disabled>Выбрать</button>
-				</div>
-			</div>
-			<script>
-				$(document).ready(function(){
-					$('.another_city').on('change keyup', function(){
-						if ( $(this).val() != '' ) {
-							$('.cities_dropdown').show();
-							$('.choice_city').removeAttr('disabled');
-						} else {
-							$('.cities_dropdown').hide();
-							$('.choice_city').attr('disabled', true);
-						}
-					});
-
-					$('.city_dropdown').click(function(){
-						let cityName = $(this).text();
-						$('.another_city').val(cityName);
-						$('.cities_dropdown').hide();
-						return false;
-					});
-				});
-			</script>
-		</form>
-	</div>
-	<div class="modal_overlay"></div>
-</div>
-
-
-
-<div class="modal" id="login_modal">
-	<div class="modal_content">
-		<a href="#" class="modal_close">x</a>
-		<h2 class="modal_title">Вход</h2>
-		<form action="cabinet.html" method="post" class="auth_form">
-			<div class="ip_cell">
-				<input type="text" class="input_text" placeholder="Логин" />
-			</div>
-			<div class="ip_cell">
-				<input type="password" class="input_text" placeholder="Пароль" />
-			</div>
-			<div class="login_links">
-				<div>
-					<input type="checkbox" class="ch" />
-					<label>Сохранить пароль</label>
-				</div>
-				<a href="">Восстановить пароль</a>
-			</div>
-			<div class="auth_buttons">
-				<button class="button medium" type="submit">Войти</button>
-				<a href="" class="button-o medium gray">Зарегистрироваться</a>
-			</div>
-		</form>
-	</div>
-	<div class="modal_overlay"></div>
-</div>
-
-<div class="modal" id="discount_modal">
-	<div class="modal_content">
-		<a href="#" class="modal_close">x</a>
-		<h2 class="modal_title">Хочу скидку!</h2>
-		<form action="#" method="post">
-			<div class="ip_cell">
-				<input type="text" class="input_text" placeholder="Имя" required>
-				<div class="error-message"></div>
-			</div>
-			<div class="ip_cell">
-				<input type="email" class="input_text" placeholder="Ваш e-mail" required>
-				<div class="error-message"></div>
-			</div>
-			<div class="ip_cell">
-				<input type="checkbox" id="discount-agreement" class="input-agreement" checked></input>
-				<label for="discount-agreement" class="agreement-label">Я даю свое согласие на обработку моих персональных данных в соответствии с условиями <a href="/user-agreement/">пользовательского соглашения</a> и <a href="/privacy-policy/">политики конфиденциальности</a></label>
-			</div>
-			<button class="button medium" type="submit"><span class="relative">Получить скидку</span></button>
-		</form>
-	</div>
-	<div class="modal_overlay"></div>
-</div>
+{% include 'all_modals.html' %}
 
 {% include 'js_files.html' %}
 

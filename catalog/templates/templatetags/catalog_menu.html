@@ -1,6 +1,11 @@
+{% load static %}
+<div class="catalog_mobile_titles">
+	<img src="{% static 'img/logo.png' %}" alt="">
+	<a href="#" class="close_modal">x</a>
+</div>
 <ul class="catalog_menu">
 	{% for category in categories %}
-	<li><a href="{% url 'catalog:category-detail' category.pk %}">{{ category.name }}</a></li>
+	<li><a href="{% url 'catalog:category-detail' category.slug %}">{{ category.name }}</a></li>
 	{% endfor %}
 	{% comment %}
 	<li><a href="catalog.html">Аксессуары</a>

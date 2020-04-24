@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import View
+from django.db.models import Q, F, Max, Min, Count
 from django.core.paginator import Paginator,EmptyPage, PageNotAnInteger
 from catalog.models import Product,Category
 
@@ -26,9 +27,11 @@ class CategoryDetailView(View):
     template_name = 'catalog.html'
 
     def get(self, request, *args, **kwargs):
-        pk = kwargs.get('pk')
-        current_category = Category.objects.get(pk=pk)
-        all_products = Product.objects.filter(category=pk)
+        slug = kwargs.get('slug')
+        current_category = Category.objects.get(slug=slug)
+        all_products = Product.objects.filter(category=current_category).order_by('price')
+        min_price = all_products.aggregate(Min('price'))['price__min'] or 0
+        max_price = all_products.aggregate(Max('price'))['price__max'] or 0
         page = request.GET.get('page', 1)
         paginator = Paginator(all_products, 32)
         try:
@@ -41,6 +44,8 @@ class CategoryDetailView(View):
         ctx['products'] = products
         ctx['categories'] = Category.objects.exclude(level=0)
         ctx['current_category'] = current_category
+        ctx['min_price_slider'] = min_price
+        ctx['max_price_slider'] = max_price
         return render(request,self.template_name,ctx)
 
 
@@ -48,5 +53,7 @@ class ProductDetail(View):
     template_name = 'product.html'
 
     def get(self, request, *args, **kwargs):
-        return render(request, self.template_name)
+        ctx = {}
+        ctx['product'] = get_object_or_404(Product,pk=kwargs.get('pk'))
+        return render(request, self.template_name,ctx)
 
