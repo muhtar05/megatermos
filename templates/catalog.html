@@ -187,77 +187,28 @@
 							<div class="range_slider_box" data-min="{{ min_price_slider }}" data-max="{{ max_price_slider }}" data-step="100"></div>
 						</div>
 					</li>
-					<li><a href="#">Серия</a>
+
+					{% for attr in current_category.attributes.all %}
+
+					<li><a href="#">{{ attr }}</a>
 						<div class="sidebar_subblock">
+						 {% if attr.is_option %}
 							<div class="sidebar_filters_box mCustomScrollbar">
+								{% for opt in attr.option_group.options.all %}
 								<span class="ip_checkbox">
-									<input type="checkbox" class="ch" />
-									<label>Allende</label>
+									<input type="checkbox" class="ch" value="{{ opt.id }}" />
+									<label>{{ opt.option }}</label>
 								</span>
-								<span class="ip_checkbox">
-									<input type="checkbox" class="ch" />
-									<label>Aventurine</label>
-								</span>
+								{% endfor %}
 
 								<a href="#" class="show_ch_filters">Показать ещё <span>0</span></a>
 							</div>
-						</div>
-					</li>
-					<li><a href="#">Цвет</a>
-						<div class="sidebar_subblock">
-							<div class="sidebar_filters_box mCustomScrollbar" data-mcs-theme="minimal-dark">
-								<span class="ip_checkbox">
-									<input type="checkbox" class="ch" />
-									<label>Серобурмалиновый</label>
-								</span>
-								<span class="ip_checkbox">
-									<input type="checkbox" class="ch" />
-									<label>Красный</label>
-								</span>
-								<span class="ip_checkbox">
-									<input type="checkbox" class="ch" />
-									<label>Фиолетовый</label>
-								</span>
+						 {% endif %}
 
-								<a href="#" class="show_ch_filters">Показать ещё <span>0</span></a>
-							</div>
 						</div>
 					</li>
-					<li><a href="#">Материал</a>
-						<div class="sidebar_subblock">
-							<div class="sidebar_filters_box mCustomScrollbar">
-								<span class="ip_checkbox">
-									<input type="checkbox" class="ch" />
-									<label>Пластик</label>
-								</span>
-								<span class="ip_checkbox">
-									<input type="checkbox" class="ch" />
-									<label>Нержавейка</label>
-								</span>
+					{% endfor %}
 
-								<a href="#" class="show_ch_filters">Показать ещё <span>0</span></a>
-							</div>
-						</div>
-					</li>
-					<li><a href="#">Тип дна</a>
-						<div class="sidebar_subblock">
-							<div class="sidebar_filters_box mCustomScrollbar">
-								<span class="ip_checkbox">
-									<input type="checkbox" class="ch" />
-									<label>Дно</label>
-								</span>
-								<span class="ip_checkbox">
-									<input type="checkbox" class="ch" />
-									<label>Не дно</label>
-								</span>
-								<span class="ip_checkbox">
-									<input type="checkbox" class="ch" />
-									<label>Совсем дно</label>
-								</span>
-								<a href="#" class="show_ch_filters">Показать ещё <span>0</span></a>
-							</div>
-						</div>
-					</li>
 				</ul>
 				<div class="sidebar_inner border_top">
 					<button type="button" class="button medium gray clear_filters">Очистить фильтры</button>

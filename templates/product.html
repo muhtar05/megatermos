@@ -146,8 +146,10 @@
 					<div class="beidge shock">Шок цена</div>
 				</div>
 				<div class="product_price_box">
-					<s class="product_price_old">89390 ₽</s>
-					<div class="product_price">52990 ₽</div>
+					{% if product.price_old %}
+						<s class="product_price_old">{{ product.price_old }} ₽</s>
+					{% endif %}
+					<div class="product_price">{{ product.price }} ₽</div>
 				</div>
 				<div class="product_promocode_box">
 					<span class="note">Используй промокод в корзине, чтобы получить скидку</span>
@@ -155,18 +157,10 @@
 				</div>
 
 				<table class="product_table_prices">
-					<tr>
-						<td>при заказе от 50 000 ₽</td>
-						<td>4576 ₽</td>
-					</tr>
-					<tr>
-						<td>при заказе от 50 000 ₽</td>
-						<td>4576 ₽</td>
-					</tr>
-					<tr>
-						<td>при заказе от 50 000 ₽</td>
-						<td>4576 ₽</td>
-					</tr>
+<!--					<tr>-->
+<!--						<td>при заказе от 50 000 ₽</td>-->
+<!--						<td>4576 ₽</td>-->
+<!--					</tr>-->
 				</table>
 				<a href=""><b>Как заказать оптом?</b></a>
 
@@ -213,38 +207,13 @@
 		<main class="maincol product_specs_box">
 			<table class="zebra no_border">
 				<tbody>
+					{% for pav in product.attribute_values.all %}
 					<tr>
-						<td>Материал:</td>
-						<td><b>Алюминий</b></td>
+						<td>{{ pav.attribute.name}}:</td>
+						<td><b>{{ pav.value_option }}</b></td>
 					</tr>
-					<tr>
-						<td>Диаметр:</td>
-						<td><b>24</b></td>
-					</tr>
-					<tr>
-						<td>Антипригарное покрытие:</td>
-						<td><b>BioEcoCeramica</b></td>
-					</tr>
-					<tr>
-						<td>Тип плиты:</td>
-						<td><b>Газовая, электрическая, стеклокерамическая</b></td>
-					</tr>
-					<tr>
-						<td>Использование в духовке:</td>
-						<td><b>Нет</b></td>
-					</tr>
-					<tr>
-						<td>Материал ручки:</td>
-						<td><b>Бакелит</b></td>
-					</tr>
-					<tr>
-						<td>Размер упаковки:</td>
-						<td><b>41х24х6</b></td>
-					</tr>
-					<tr>
-						<td>Размер товара:</td>
-						<td><b>40,5х25,4</b></td>
-					</tr>
+					{% endfor %}
+
 				</tbody>
 			</table>
 
@@ -278,28 +247,7 @@
 						</div>
 					</article>
 
-					<!-- ITEM -->
-					<article class="review_item">
-						<div class="review_details">
-							<div class="review_author">
-								<span class="author_first_letter">М</span>
-								<span><strong>Мария,</strong> Москва</span>
-							</div>
-							<span class="review_date">24 июля 2019</span>
-						</div>
-						<div class="review_desc">
-							<p><strong>Достоинства:</strong><br>
-							Удобная ручка, замечательно выглядит. Куплена в подарок, поэтому о функциональности сказать ничего не могу.</p>
-							<p><strong>Недостатки:</strong><br>
-							Не нашла.</p>
-						</div>
-						<div class="review_photos">
-							<a href="{% static 'img/rev_1.jpg" data-fancybox="rev-2" class="review_photo"><img src="{% static 'img/rev_1.jpg" alt=""></a>
-							<a href="{% static 'img/rev_2.jpg" data-fancybox="rev-2" class="review_photo"><img src="{% static 'img/rev_2.jpg" alt=""></a>
-							<a href="{% static 'img/rev_1.jpg" data-fancybox="rev-2" class="review_photo"><img src="{% static 'img/rev_1.jpg" alt=""></a>
-							<a href="{% static 'img/rev_2.jpg" data-fancybox="rev-2" class="review_photo"><img src="{% static 'img/rev_2.jpg" alt=""></a>
-						</div>
-					</article>
+
 					
 				</div>
 			</section>
@@ -357,37 +305,6 @@
 									<a href="#" class="close_add_to_cart">x</a>
 								</div>
 								<a href="" class="product_item-like"><i class="fa fa-heart-o"></i></a>
-							</div>
-						</div>
-					</li>
-
-					<li class="item">
-						<div class="product_item incatalog">
-							<div class="product_item-icons">
-								<span class="hurry_text">Успей купить!</span>
-								<span class="beidge shock">Шок-цена!</span>
-							</div>
-							<a href="" class="product_item-image">
-								<img src="{% static 'img/prod_1.jpg' %}" alt="" />
-							</a>
-							<a href="" class="product_item-title">Сковорода для жарки ALLENDE 24х5,5см (алюминий)</a>
-							<div class="product_item-artnum">Артикул: 9610</div>
-							<div class="product_item-prices">
-								<u class="product_item-price_old">41000 ₽</u>
-								<span class="product_item-price">40990 ₽</span>
-							</div>
-							<div class="product_item-buttons">
-								<a href="#" class="button-o gray product_item-buy">В корзину</a>
-								<div class="product_item-counter_box">
-									<div class="counter_box">
-										<button type="button" class="counter_ctrl minus">-</button>
-										<input type="text" class="counter_input" value="1" data-min="1" data-max="99" />
-										<button type="button" class="counter_ctrl plus">+</button>
-									</div>
-									<button class="button add_to_cart_small"><img src="{% static 'img/i_cart.png' %}" alt="" /></button>
-									<a href="#" class="close_add_to_cart">x</a>
-								</div>
-								<a href="" class="product_item-like liked"><i class="fa fa-heart"></i></a>
 							</div>
 						</div>
 					</li>
