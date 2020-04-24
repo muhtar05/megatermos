@@ -1,6 +1,8 @@
 from datetime import datetime
 import csv
 import json
+import certifi
+import ssl
 from uuid import uuid4
 from urllib.request import urlopen
 from slugify import slugify
@@ -19,7 +21,7 @@ class Command(BaseCommand):
         print(img_url)
         curr_img_url = img_url.replace('/orig','')
         try:
-            temp = ContentFile(urlopen(img_url).read())
+            temp = ContentFile(urlopen(img_url,context=ssl.create_default_context(cafile=certifi.where())).read())
             ext_img = curr_img_url.split('.')
             ext_img = ext_img[-1]
             temp.name = '{}.{}'.format(uuid4().hex, ext_img)
