@@ -17,13 +17,13 @@ MEDIA_ROOT = os.path.join(os.path.expanduser('~'), 'domains/megatermos24.ru/medi
 #     }
 # }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',  # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'djabrail-92_megatermos',  # Or path to database file if using sqlite3.
-        'USER': '046014525_mega',
-        'PASSWORD': 'mega2020termos',
-        'HOST': '127.0.0.1',  # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        # Set to empty string for default.
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',  # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+#         'NAME': 'djabrail-92_megatermos',  # Or path to database file if using sqlite3.
+#         'USER': '046014525_mega',
+#         'PASSWORD': 'mega2020termos',
+#         'HOST': '127.0.0.1',  # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+#         # Set to empty string for default.
+#     }
+# }
