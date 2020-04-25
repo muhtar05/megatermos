@@ -3936,7 +3936,7 @@ textarea.input_text {
     margin-right: 1%; }
 
   .minicart_open {
-    display: none; }
+    display: block; }
 
   .catalog_box.items-5 {
     display: flex;

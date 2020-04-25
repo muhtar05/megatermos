@@ -39,12 +39,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'mptt',
     'sorl.thumbnail',
     'users',
     'catalog',
     'basket',
     'core',
+    'checkout',
+    'order',
 ]
 
 MIDDLEWARE = [
@@ -55,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'basket.middleware.BasketMiddleware',
 ]
 
 ROOT_URLCONF = 'megatermos.urls'

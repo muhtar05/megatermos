@@ -6,7 +6,7 @@ from catalog.models import Product,Category
 
 
 class IndexView(View):
-    template_name = 'catalog.html'
+    template_name = 'catalog/index.html'
 
     def get(self, request, *args, **kwargs):
         all_products = Product.objects.all()
@@ -24,7 +24,7 @@ class IndexView(View):
 
 
 class CategoryDetailView(View):
-    template_name = 'catalog.html'
+    template_name = 'catalog/index.html'
 
     def get(self, request, *args, **kwargs):
         slug = kwargs.get('slug')
@@ -50,7 +50,7 @@ class CategoryDetailView(View):
 
 
 class ProductDetail(View):
-    template_name = 'product.html'
+    template_name = 'catalog/product.html'
 
     def get(self, request, *args, **kwargs):
         ctx = {}

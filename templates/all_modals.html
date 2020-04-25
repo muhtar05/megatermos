@@ -1,3 +1,4 @@
+{% load static %}
 <!-- MODAL -->
 <div class="modal" id="add_address_modal">
 	<div class="modal_content">
@@ -29,7 +30,7 @@
 
 <a href="#" class="minicart_open visible">
 	<span class="minicart_count">17</span>
-	<div class="button"><img src="img/i_cart_big.png" alt="" /></div>
+	<div class="button"><img src="{% static 'img/i_cart_big.png' %}" alt="" /></div>
 </a>
 
 
@@ -43,7 +44,7 @@
 
 			<!-- PRODUCT -->
 			<div class="minicart_product">
-				<div class="minicart_product-image"><img src="img/prod_1.jpg" alt="" /></div>
+				<div class="minicart_product-image"><img src="{% static 'img/prod_1.jpg' %}" alt="" /></div>
 				<div class="minicart_product-content">
 					<a href="" class="minicart_product-title">Сковорода для жарки ALLENDE 24х5,5см (алюминий)</a>
 					<div class="minicart_product-price_box">
@@ -267,11 +268,11 @@
 			<div class="ip_photos">
 				<div class="ip_photo">
 					<a href="#" class="ip_photo_remove">x</a>
-					<img src="img/rev_1.jpg" alt="">
+					<img src="{% static 'img/rev_1.jpg' %}" alt="">
 				</div>
 				<div class="ip_photo">
 					<a href="#" class="ip_photo_remove">x</a>
-					<img src="img/rev_1.jpg" alt="">
+					<img src="{% static 'img/rev_1.jpg' %}" alt="">
 				</div>
 			</div>
 			<div class="modal_buttons">

@@ -52,7 +52,7 @@ class User(AbstractBaseUser,PermissionsMixin):
     REQUIRED_FIELDS = []
 
     def __str__(self):
-        return self.phone
+        return self.email
 
     class Meta:
         verbose_name = 'Пользователь'

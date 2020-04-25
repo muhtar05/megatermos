@@ -28,7 +28,7 @@
 		</div>
 
 		<div class="header_ib header_cart_ib">
-			<a href="{% url 'basket:index' %}" class="header_link header_cart">Корзина <span class="header_count">0</span></a>
+			<a href="{% url 'basket:index' %}" class="header_link header_cart">Корзина <span class="header_count">{{ request.basket.num_items }}</span></a>
 		</div>
 
 		<div class="header_ib header_profile_ib">
