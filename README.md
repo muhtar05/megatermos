@@ -1,7 +1,7 @@
 # Megatermos
 
-В файл .gitignore я добавил manage.py и megatermos/settings/local_settings.py 
-Эти файлы нужно создать вручную локально
+В файле .gitignore находятся manage.py и megatermos/settings/local_settings.py 
+Эти файлы нужно создать вручную для локальной разработки
 
 Содержимое **manage.py**
 ```python
@@ -69,7 +69,7 @@ DATABASES = {
  
 `python manage.py migrate`
 
-Команда для загрузки товаров из Excel файла в БД(Пока испольщуется Sqlite , но на проде поменяем на Postgresql)
+Команда для загрузки товаров из Excel файла в БД(Пока используется Sqlite )
 
 `python manage.py add_products`
 
