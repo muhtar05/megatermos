@@ -9,6 +9,10 @@ class IndexView(View):
         ctx = {}
         return render(request,self.template_name,ctx)
 
+    def post(self, request, *args, **kwargs):
+        ctx = {}
+        return render(request,self.template_name,ctx)
+
 
 class PaymentCreateView(View):
     def get(self, request, *args, **kwargs):

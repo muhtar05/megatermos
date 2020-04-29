@@ -89,6 +89,7 @@ manage.py
 .env
 db.sqlite3
 venv/
+ekids/
 
 env/
 .idea/

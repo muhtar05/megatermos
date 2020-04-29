@@ -9,5 +9,7 @@ app_name = 'catalog'
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
     path('product/<int:pk>/', views.ProductDetail.as_view(), name='product-detail'),
+    path('get_filter/', views.FilterAjaxView.as_view(), name='get-filter'),
+    path('search/', views.SearchPageView.as_view(), name='search'),
     path('<slug:slug>/', views.CategoryDetailView.as_view(), name='category-detail'),
 ]

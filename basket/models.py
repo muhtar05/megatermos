@@ -78,6 +78,13 @@ class Basket(models.Model):
     def num_items(self):
         return sum(line.quantity for line in self.lines.all())
 
+    @property
+    def get_total_sum(self):
+        total = D('0.00')
+        for l in self.lines.all():
+            total += l.price_excl_tax
+        return total
+
 
 class Line(models.Model):
     basket = models.ForeignKey('basket.Basket',on_delete=models.CASCADE,related_name='lines')

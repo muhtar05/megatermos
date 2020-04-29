@@ -185,12 +185,12 @@
 					<td>
 						<div class="counter_big_box">
 							<button type="button" class="counter_big_ctrl minus">-</button>
-							<input type="text" class="counter_big_input" value="{{ line.quantity }}" data-min="1" data-max="99" />
+							<input type="text" class="counter_big_input" data-pk="{{ line.pk }}" value="{{ line.quantity }}" data-min="1" data-max="99" />
 							<button type="button" class="counter_big_ctrl plus">+</button>
 						</div>
 					</td>
 					<td class="cart_prod_final_price"><span class="cart_mobile_label">К оплате:</span> <b>{{ line.line_price_excl_tax}} ₽</b></td>
-					<td><a href="" class="cart_remove">x</a></td>
+					<td><a href="{% url 'basket:remove-line' line.pk %}" class="cart_remove">x</a></td>
 				</tr>
 				{% endfor %}
 				<tr class="cart_totals_row">

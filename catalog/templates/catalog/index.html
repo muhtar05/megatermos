@@ -95,6 +95,8 @@
 				<div class="sidebar_inner border_bottom filters_clear_box">
 					<button type="button" class="button medium gray clear_filters">Очистить фильтры</button>
 				</div>
+				<form id="filter-form">
+				<input type="hidden" name="category_id" value="{{ current_category.pk }}">
 				<ul class="sidebar_menu">
 					<li><a href="#">Каталог</a>
 
@@ -114,11 +116,11 @@
 							<div class="range_inputs">
 								<div class="ip_cell">
 									<label class="range_label">от</label>
-									<input type="text" class="range_input from" value="{{ min_price_slider }} ₽" data-value="{{ min_price_slider }}" />
+									<input type="text" name="price-min" class="range_input from" value="{{ min_price_slider }}" data-value="{{ min_price_slider }}" />
 								</div>
 								<div class="ip_cell">
 									<label class="range_label">до</label>
-									<input type="text" class="range_input to" value="{{ max_price_slider }} ₽" data-value="{{ max_price_slider }}" />
+									<input type="text" name="price-max" class="range_input to" value="{{ max_price_slider }}" data-value="{{ max_price_slider }}" />
 								</div>
 							</div>
 							<div class="range_slider_box" data-min="{{ min_price_slider }}" data-max="{{ max_price_slider }}" data-step="100"></div>
@@ -130,16 +132,21 @@
 					<li><a href="#">{{ attr }}</a>
 						<div class="sidebar_subblock">
 						 {% if attr.is_option %}
+							{% with yes_options=filter_result|get_item_int:attr.id %}
 							<div class="sidebar_filters_box mCustomScrollbar">
 								{% for opt in attr.option_group.options.all %}
-								<span class="ip_checkbox">
-									<input type="checkbox" class="ch" value="{{ opt.id }}" />
+								{% if opt.id in yes_options %}
+
+								<span class="ip_checkbox" data-name="">
+									<input type="checkbox" {% if opt.id in checked_options|get_item:attr.code %}  checked {% endif %}class="ch filter_checkbox" value="{{ opt.id }}" data-name="{{ attr.code }}" name="{{ attr.code }}" />
 									<label>{{ opt.option }}</label>
 								</span>
+								{% endif %}
 								{% endfor %}
 
 								<a href="#" class="show_ch_filters">Показать ещё <span>0</span></a>
 							</div>
+							{% endwith %}
 						 {% endif %}
 
 						</div>
@@ -147,9 +154,10 @@
 					{% endfor %}
 
 				</ul>
+				</form>
 				<div class="sidebar_inner border_top">
 					<button type="button" class="button medium gray clear_filters">Очистить фильтры</button>
-					<a href="" class="button filter_results_tag">Показать 43 товара</a>
+					<a href="#" class="button filter_results_tag" style="display: none;">Показать <span id="product-count"></span> товара</a>
 				</div>
 			</div>
 		</aside>
@@ -159,25 +167,28 @@
 			<a href="#" class="button-o pink medium mobile_filters_button"><img src="{% static 'img/icon_filter.png' %}" /> Фильтры</a>
 			<div class="maincol_filters_box">
 				<div class="autoScroll">
+					{% comment %}
 					<div class="ip_maincol_checkbox">
 						<input type="checkbox" class="button_filter" />
 						<label>Глубокие сковороды</label>
 					</div>
+					{% endcomment %}
 
 				</div>
 			</div>
 			<hr class="minus_padding" />
 			<div class="maincol_sorting_box">
 				<div class="fleft">
+					{% comment %}
 					<span>Хотите получить скидку на первый заказ? </span>
 					<a href="#discount_modal" class="button-o pink discount_button medium open_modal"><i class="fa fa-tag"></i> Хочу скидку</a>
+					{% endcomment %}
 				</div>
 				<div class="fright">
 					<!-- переключалки "туглят" класс catalog_view-row у блока catalog_box -->
 					<a class="sort_view_link current" href="#view-cell"><i class="fa fa-th"></i></a>
 					<a class="sort_view_link" href="#view-row"><i class="fa fa-th-list"></i></a>
-					<select class="input_text small">
-						<option value="">Сначала со скидкой</option>
+					<select name="" class="input_text small">
 						<option value="">Сначала дорогие</option>
 						<option value="">Сначала не дорогие</option>
 						<option value="">Сначала новые</option>
@@ -241,7 +252,7 @@
       				{% if products.number == i %}
 						<li class="current"><a href="">{{ i }}</a></li>
       				{% else %}
-        				<li><a href="?page={{ i }}">{{ i }}</a></li>
+        				<li><a href="?{% query_transform request page=i %}">{{ i }}</a></li>
       				{% endif %}
     			{% endfor %}
 				<li class="pg_arrow"><a href=""><i class="fa fa-angle-right"></i></a></li>

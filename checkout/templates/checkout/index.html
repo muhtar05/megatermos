@@ -1,5 +1,6 @@
 {% load static %}
 {% load thumbnail %}
+{% load humanize %}
 {% load catalog_tags %}
 <!DOCTYPE html>
 <html lang="ru">
@@ -48,10 +49,10 @@
 				<h2>Способ получения</h2>
 				<div class="form_fields">
 					<div class="ip_cell">
-						<input type="radio" class="rd" id="takeof" name="delivery" />
+						<input type="radio" class="rd" id="takeof" name="delivery" value="takeof" />
 						<label>Самовывоз</label>
 
-						<input type="radio" class="rd" id="delivery" name="delivery" checked />
+						<input type="radio" class="rd" id="delivery" name="delivery" value="delivery" checked />
 						<label>Доставка по адресу</label>
 					</div>
 					<div class="delivery_fields pb0">
@@ -83,9 +84,6 @@
 				<h2>Тип оплаты</h2>
 				<div class="ip_cell">
 					<input type="radio" class="rd" name="payment" />
-					<label class="w100">Онлайн-оплата</label>
-
-					<input type="radio" class="rd" name="payment" />
 					<label class="w100">Наличными при получении</label>
 				</div>
 			</section>
@@ -96,21 +94,21 @@
 			<section class="form_section">
 				<h2>Ваш заказ</h2>
 				<table class="order_table">
+					{% for line in request.basket.lines.all %}
 					<tr>
-						<td class="order_image"><a href=""><img src="img/prod_1.jpg" alt="" /></a></td>
-						<td><a href="">Сковорода для жарки ALLENDE 24х5,5см (алюминий)</a></td>
-						<td class="order_price">1390 ₽</td>
+						<td class="order_image">
+
+							{% if line.product.img %}
+								{% thumbnail line.product.img "100x72" crop="center" as im %}
+								<a href="{{ line.product.img.url }}"><img src="{{ im.url }}" alt="" /></a></td>
+								{% endthumbnail %}
+							{% endif %}
+
+						<td><a href="">{{ line.product}}</a></td>
+						<td class="order_price">{{ line.price_excl_tax|floatformat:0|intcomma }} ₽</td>
 					</tr>
-					<tr>
-						<td class="order_image"><a href=""><img src="img/prod_1.jpg" alt="" /></a></td>
-						<td><a href="">Сковорода для жарки ALLENDE 24х5,5см (алюминий)</a></td>
-						<td class="order_price">1390 ₽</td>
-					</tr>
-					<tr>
-						<td class="order_image"><a href=""><img src="img/prod_1.jpg" alt="" /></a></td>
-						<td><a href="">Сковорода для жарки ALLENDE 24х5,5см (алюминий)</a></td>
-						<td class="order_price">1390 ₽</td>
-					</tr>
+					{% endfor %}
+
 				</table>
 			</section>
 			<section class="form_section order_delivery">
@@ -119,11 +117,10 @@
 			</section>
 			<section class="form_section order_itogo">
 				<div><b>К оплате:</b> <small>по вашей спеццене</small></div>
-				<strong>3195 ₽</strong>
+				<strong>{{ request.basket.get_total_sum|floatformat:0|intcomma }} ₽</strong>
 			</section>
 			<section class="order_buttons">
-				<button class="button cart_order" type="submit">Оплатить</button>
-				<img src="img/cards.png" alt="">
+				<button class="button cart_order" type="submit">Заказать</button>
 			</section>
 		</div>
 		</form>

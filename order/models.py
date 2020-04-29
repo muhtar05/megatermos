@@ -42,3 +42,22 @@ class Order(models.Model):
         return "#{}".format(self.number)
 
 
+class Line(models.Model):
+    order = models.ForeignKey('order.Order', related_name='lines', on_delete=models.CASCADE)
+    product = models.ForeignKey(
+        'catalog.Product', on_delete=models.SET_NULL, blank=True, null=True)
+
+    quantity = models.PositiveIntegerField(default=1)
+    line_price_excl_tax = models.DecimalField(decimal_places=2, max_digits=12)
+
+    # Retail price at time of purchase
+    unit_retail_price = models.DecimalField(decimal_places=2, max_digits=12,
+        blank=True, null=True)
+
+    class Meta:
+        ordering = ['pk']
+        verbose_name = "Строка заказа"
+        verbose_name_plural = "Строки заказа"
+
+    def __str__(self):
+        return str(self.pk)

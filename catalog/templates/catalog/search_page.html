@@ -1,0 +1,214 @@
+{% load static %}
+{% load thumbnail %}
+{% load humanize %}
+{% load catalog_tags %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<title>Fissman</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="author" content="Frontend: Artem Lyapunov | WebElement.ru" />
+
+    {% include 'css_files.html' %}
+
+</head>
+<body>
+<div class="wrapper">
+
+{% include 'header.html' %}
+
+<nav class="sec topnav_sec">
+	<div class="container">
+
+		<div class="topnav_buttons">
+			<a href="#" class="button blue catalog_open"><span class="icon_menu"></span> Каталог</a>
+			<a href="catalog.html" class="button"><span class="icon_shock"></span> Шок-цена!</a>
+
+			<nav class="catalog_menu_box">
+				<div class="catalog_mobile_titles">
+					<img src="img/logo.png" alt="">
+					<a href="#" class="close_modal">x</a>
+				</div>
+				<ul class="catalog_menu">
+					<li><a href="catalog.html">Сковороды</a></li>
+					<li><a href="catalog.html">Кастрюли</a></li>
+					<li><a href="catalog.html">Ножи</a></li>
+					<li><a href="catalog.html">Для чая и кофе</a></li>
+					<li><a href="catalog.html">Для выпечки</a></li>
+					<li><a href="catalog.html">Аксессуары</a>
+						<ul class="catalog_submenu">
+							<li><a href="catalog.html">Кухонные принадлежности <span class="tgray">43</span></a></li>
+							<li><a href="catalog.html">Барные принадлежности <span class="tgray">43</span></a></li>
+							<li><a href="catalog.html">Овощечистки, скребки <span class="tgray">43</span></a></li>
+							<li><a href="catalog.html">Подставки под горячее, прихватки <span class="tgray">43</span></a></li>
+							<li><a href="catalog.html">Дуршлаги <span class="tgray">43</span></a><span class="beidge new">Новинки</span></li>
+							<li><a href="catalog.html">Весы, таймеры, термометры <span class="tgray">43</span></a></li>
+							<li><a href="catalog.html">Терки, шинковки, яйцерезки, чопперы <span class="tgray">43</span></a></li>
+							<li><a href="catalog.html">Форма для льда и шоколада <span class="tgray">43</span></a></li>
+							<li><a href="catalog.html">Хранение продуктов <span class="tgray">43</span></a></li>
+							<li><a href="catalog.html">Пробки для бутылок <span class="tgray">43</span></a></li>
+							<li><a href="catalog.html">Мельницы для специй <span class="tgray">43</span></a></li>
+							<li><a href="catalog.html">Прочие аксессуары для кухни <span class="tgray">43</span></a></li>
+						</ul>
+					</li>
+					<li><a href="catalog.html">Сортировка стола</a></li>
+					<li><a href="catalog.html">Детям</a></li>
+					<li><a href="catalog.html">Активный отдых</a>
+						<ul class="catalog_submenu">
+							<li><a href="catalog.html">Кухонные принадлежности <span class="tgray">43</span></a></li>
+							<li><a href="catalog.html">Барные принадлежности <span class="tgray">43</span></a></li>
+							<li><a href="catalog.html">Овощечистки, скребки <span class="tgray">43</span></a></li>
+						</ul>
+					</li>
+					<li class="pink"><a href="catalog.html">Шок-цена!</a></li>
+				</ul>
+
+				<ul class="catalog_menu dop">
+					<li><a href="all.html">О компании</a></li>
+					<li><a href="all.html">Оплата и доставка</a></li>
+					<li><a href="all.html">Оптовикам</a></li>
+					<li><a href="all.html">Контакты</a></li>
+				</ul>
+
+				<div class="mobile_menu_buttons">
+					<a class="mobile_menu_button" href=""><img src="img/i_heart.png" /> Избранное</a>
+					<a class="mobile_menu_button arrow open_modal close_menu" href="#login_modal"><img src="img/i_user.png" /> Ваш кабинет</a>
+					<a class="mobile_menu_button arrow open_modal close_menu" href="#cities_modal"><img src="img/i_mini-cart.png" /> Санкт-петербург</a>
+					<a class="button" href="tel:+74950038995">+7 (495) 003-89-95</a>
+				</div>
+			</nav>
+		</div>
+
+		<img class="mobile_logo" src="img/logo.png" alt="" />
+
+		<form action="" method="post" class="topnav_search_form">
+			<input type="text" placeholder="Например, сковорода вок" class="topnav_search_input" />
+			<button type="submit" class="topnav_search_button">Поиск</button>
+			<button class="close_search_mobile" type="button">Отменить</button>
+
+			<div class="search_dropdown mCustomScrollbar" data-mcs-theme="minimal-dark">
+				<!-- ITEM -->
+				<div class="search_dropdown_product">
+					<a href="" class="sdp_image"><img src="img/prod_1.jpg" alt=""></a>
+					<div class="sdp_info_box">
+						<a href="">Сковорода для жарки ALLENDE 24х5,5см (алюминий)</a>
+						<div class="sdp_artnum">Артикул: 9610</div>
+						<div class="sdp_prices">
+							<span class="sdp_price">1390 Р</span>
+							<span class="instock">В наличии</span>
+						</div>
+					</div>
+				</div>
+
+				<!-- ITEM -->
+				<div class="search_dropdown_product">
+					<a href="" class="sdp_image"><img src="img/prod_1.jpg" alt=""></a>
+					<div class="sdp_info_box">
+						<a href="">Сковорода для жарки ALLENDE 24х5,5см (алюминий)</a>
+						<div class="sdp_artnum">Артикул: 9610</div>
+						<div class="sdp_prices">
+							<span class="sdp_price">1390 Р</span>
+							<span class="instock not">Нет в наличии</span>
+						</div>
+					</div>
+				</div>
+
+				<a href="" class="button search_see_all">Показать все</a>
+
+			</div>
+		</form>
+
+		<ul class="topnav_shortmenu">
+			<li><a href="">О компании</a></li>
+			<li><a href="">Оплата и доставка</a></li>
+			<li><a href="">Контакты</a></li>
+		</ul>
+
+		<div class="top_mobile_buttons">
+			<a class="open_mobile_search" href=""><img src="img/i_search.png" /></a>
+			<a class="open_mobile_cart" href=""><img src="img/i_mini-cart.png" /></a>
+		</div>
+
+	</div>
+</nav>
+
+
+<section class="sec content_sec">
+	<div class="container">
+
+		<ul class="bread">
+			<li><a href="">Главная</a></li>
+			<li>Ваш кабинет</li>
+		</ul>
+
+		<h1>Ваш кабинет</h1>
+
+		<aside class="sidebar small">
+			<!-- BLOCK -->
+			<div class="sidebar_block white_bg no_border">
+
+				<div class="sidebar_inner border_bottom">
+					<button type="button" class="button medium gray clear_filters">Очистить фильтры</button>
+				</div>
+				<a href="" class="button filter_results_tag">Показать 43 товара</a>
+				<ul class="sidebar_menu">
+					<li><a href="#">Каталог</a>
+						<ul class="sidebar_submenu">
+							<li class="current"><a href="">Сковороды</a></li>
+							<li><a href="">Кастрюли</a></li>
+							<li><a href="">Ножи</a></li>
+							<li><a href="">Для чая и кофе</a></li>
+							<li><a href="">Для выпечки</a></li>
+							<li><a href="">Аксессуары</a></li>
+							<li><a href="">Сервировка стола</a></li>
+							<li><a href="">Детям</a></li>
+						</ul>
+					</li>
+
+				</ul>
+				<div class="sidebar_inner border_top">
+					<button type="button" class="button medium gray clear_filters">Очистить фильтры</button>
+				</div>
+			</div>
+		</aside>
+
+
+		<main class="maincol wide white_bg">
+			<div class="search_result_msg">
+				По вашему запросу <span class="tpink">“{{ search_term }}”</span> найдено {{ search_count }} товаров:
+			</div>
+		</main>
+
+		<main class="maincol wide pad0">
+			<div class="catalog_box">
+               {% for prod in all_products %}
+
+                {% include 'catalog/product_card.html' %}
+
+                {% endfor %}
+
+			</div>
+
+		</main>
+
+	</div>
+</section>
+
+
+<section class="sec backtop_sec">
+	<a href="#" class="backtop">В начало страницы</a>
+</section>
+
+
+{% include 'footer.html' %}
+
+</div>
+
+
+{% include 'all_modals.html' %}
+
+{% include 'js_files.html' %}
+
+</body>
+</html>
