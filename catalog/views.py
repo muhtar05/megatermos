@@ -144,7 +144,9 @@ class FilterAjaxView(View):
             q = q | query
 
         all_products = all_products.filter(q)
-        all_products = all_products.filter(price__gte=request.GET.get('price-min'),price__lte=request.GET.get('price-max'))
+        from_price_min = int(request.GET.get('price-min'))
+        from_price_max = int(request.GET.get('price-max'))
+        all_products = all_products.filter(price__gte=from_price_min,price__lte=from_price_max)
         ctx = {}
         ctx['status'] = 'ok'
         ctx['num_count'] = all_products.count()
