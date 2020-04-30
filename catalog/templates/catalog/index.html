@@ -47,14 +47,14 @@
 							<div class="range_inputs">
 								<div class="ip_cell">
 									<label class="range_label">от</label>
-									<input type="text" name="price-min" class="range_input from" value="{{ min_price_slider }}" data-value="{{ min_price_slider }}" />
+									<input type="text" name="price-min" class="range_input from" value="{{ min_price_slider|floatformat:0 }}" data-value="{{ min_price_slider|floatformat:0 }}" />
 								</div>
 								<div class="ip_cell">
 									<label class="range_label">до</label>
-									<input type="text" name="price-max" class="range_input to" value="{{ max_price_slider }}" data-value="{{ max_price_slider }}" />
+									<input type="text" name="price-max" class="range_input to" value="{{ max_price_slider|floatformat:0 }}" data-value="{{ max_price_slider|floatformat:0 }}" />
 								</div>
 							</div>
-							<div class="range_slider_box" data-min="{{ min_price_slider }}" data-max="{{ max_price_slider }}" data-step="100"></div>
+							<div class="range_slider_box" data-min="{{ min_price_slider|floatformat:0 }}" data-max="{{ max_price_slider|floatformat:0 }}" data-step="100"></div>
 						</div>
 					</li>
 
