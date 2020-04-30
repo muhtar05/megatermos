@@ -1,0 +1,5 @@
+<ul class="topnav_shortmenu">
+    {% for m_item in menu_items %}
+    <li><a href="{{ m_item.url }}">{{ m_item.title }}</a></li>
+    {% endfor %}
+</ul>

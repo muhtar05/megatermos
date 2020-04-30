@@ -1,4 +1,5 @@
 {% load static %}
+{% load humanize %}
 {% load thumbnail %}
 <div class="product_item incatalog">
     <div class="product_item-icons">
@@ -15,9 +16,9 @@
     <div class="product_item-artnum">Артикул: <span>{{ prod.artikul }}</span></div>
     <div class="product_item-prices">
         {% if prod.price_old %}
-        <u class="product_item-price_old">{{ prod.price_old }} ₽</u>
+        <u class="product_item-price_old">{{ prod.price_old|floatformat:0|intcomma }} ₽</u>
         {% endif %}
-        <span class="product_item-price">{{ prod.price }} ₽</span>
+        <span class="product_item-price">{{ prod.price|floatformat:0|intcomma }} ₽</span>
     </div>
     <div class="product_item-buttons">
         {% comment %}
@@ -30,7 +31,7 @@
                 <input type="text" class="counter_input" value="1" data-min="1" data-max="99" />
                 <button type="button" class="counter_ctrl plus">+</button>
             </div>
-            <button class="button add_to_cart_small"><img src="img/i_cart.png" alt="" /></button>
+            <button class="button add_to_cart_small"><img src="{% static 'img/i_cart.png' %}" alt="" /></button>
             <a href="#" class="close_add_to_cart">x</a>
         </div>
         <a href="" class="product_item-like"><i class="fa fa-heart"></i></a>

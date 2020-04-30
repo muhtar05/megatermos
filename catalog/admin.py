@@ -1,7 +1,7 @@
 from django.contrib import admin
 from mptt.admin import MPTTModelAdmin
 
-from catalog.models import (Category, Product, ProductAttributeOption,
+from catalog.models import (Category, Product, ProductAttributeOption,ShockPriceProduct,
                             ProductAttributeOptionGroup,ProductAttribute,ProductAttributeCategory,ProductAttributeValue,)
 
 
@@ -42,6 +42,10 @@ class ProductAttributeOptionAdmin(admin.ModelAdmin):
         return object.group.name
 
 
+class ShockPriceProductAdmin(admin.ModelAdmin):
+    list_display = ('product', 'position')
+
+
 admin.site.register(Category, MPTTModelAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(ProductAttribute, ProductAttributeAdmin)
@@ -49,4 +53,5 @@ admin.site.register(ProductAttributeValue, ProductAttributeValueAdmin)
 admin.site.register(ProductAttributeCategory, ProductAttributeCategoryAdmin)
 admin.site.register(ProductAttributeOptionGroup, ProductAttributeOptionGroupAdmin)
 admin.site.register(ProductAttributeOption, ProductAttributeOptionAdmin)
+admin.site.register(ShockPriceProduct, ShockPriceProductAdmin)
 

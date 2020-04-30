@@ -26,7 +26,7 @@
 		<a href="{% url 'basket:index' %}" class="button gray medium back_to_cart"><i class="fa fa-long-arrow-left"></i> Вернуться в корзину</a>
 		<br clear="all">
 
-		<form action="" method="post">
+		<form action="" method="post">{% csrf_token %}
 		<div class="order_column">
 			<section class="form_section">
 				<h2>Ваши данные</h2>

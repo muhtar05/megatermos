@@ -8,4 +8,5 @@ app_name = 'checkout'
 
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
+    path('thank-you/', views.ThankYouView.as_view(), name='thank-you'),
 ]

@@ -474,6 +474,7 @@ $(document).ready(function(){
 	    });
 
 	    function calculateFinalPrice() {
+	        alert("calculate Price");
 	    	let delivery = $('#delivery_val').text();
 	    		delivery = parseInt(delivery);
 			let specTotal = 0;
@@ -506,7 +507,6 @@ $(document).ready(function(){
 	    	}
 
 	    }
-	    calculateFinalPrice()
 	})();
 
 

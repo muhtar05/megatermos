@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% block content %}
+<section class="sec content_sec">
+	<div class="container">
+
+		<ul class="bread">
+			<li><a href="">Главная</a></li>
+			<li>Спасибо за покупку!</li>
+		</ul>
+
+		<h1>Оформление Вашего заказа успешно завершено!</h1>
+
+		<main class="wide white_bg pad0">
+			<!-- ORDER -->
+			<div class="table_box">
+                <table class="history_table opened">
+                    <tbody>
+                    <tr class="history_details_product_row">
+                        <td>Ваш номер заказа:</td>
+                        <td class="cart-success-info-order">{{ order.number }}</td>
+                    </tr>
+                    <tr class="history_details_product_row">
+                        <td>Итоговая сумма к оплате {% if order_one_click %}(Без учета доставки){% endif %}:</td>
+                        <td><b>{{ order.total_excl_tax|intcomma }}</b> руб.</td>
+                    </tr>
+                    </tbody>
+                </table>
+			</div>
+		</main>
+
+	</div>
+</section>
+{% endblock %}

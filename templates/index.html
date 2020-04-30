@@ -1,94 +1,22 @@
+{% extends "base.html" %}
 {% load static %}
 {% load thumbnail %}
 {% load catalog_tags %}
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-	<title>Fissman</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<meta name="author" content="Frontend: Artem Lyapunov | WebElement.ru" />
-
-	{% include 'css_files.html' %}
-
-</head>
-<body>
-<div class="wrapper">
-
-{% include 'header.html' %}
-
-
-<section class="sec topnav_sec_skelet">
-<nav class="sec topnav_sec">
-	<div class="container">
-
-		<div class="topnav_buttons">
-			<a href="#" class="button blue catalog_open"><span class="icon_menu"></span> Каталог</a>
-			<a href="catalog.html" class="button"><span class="icon_shock"></span> Шок-цена!</a>
-
-			<nav class="catalog_menu_box">
-				{% catalog_menu %}
-			</nav>
-		</div>
-
-		<img class="mobile_logo" src="{% static 'img/logo.png' %}" alt="" />
-
-		<form action="" method="post" class="topnav_search_form">
-			<input type="text" placeholder="Например, сковорода вок" class="topnav_search_input" />
-			<button type="submit" class="topnav_search_button">Поиск</button>
-			<button class="close_search_mobile" type="button">Отменить</button>
-
-			<div class="search_dropdown mCustomScrollbar" data-mcs-theme="minimal-dark">
-				<!-- ITEM -->
-				<div class="search_dropdown_product">
-					<a href="product.html" class="sdp_image"><img src="{% static 'img/prod_1.jpg' %}" alt=""></a>
-					<div class="sdp_info_box">
-						<a href="product.html">Сковорода для жарки ALLENDE 24х5,5см (алюминий)</a>
-						<div class="sdp_artnum">Артикул: 9610</div>
-						<div class="sdp_prices">
-							<span class="sdp_price">1390 ₽</span>
-							<span class="instock">В наличии</span>
-						</div>
-					</div>
-				</div>
-
-				<a href="" class="button search_see_all">Показать все</a>
-
-			</div>
-		</form>
-
-		<ul class="topnav_shortmenu">
-			<li><a href="">О компании</a></li>
-			<li><a href="">Оплата и доставка</a></li>
-			<li><a href="">Контакты</a></li>
-		</ul>
-
-		<div class="top_mobile_buttons">
-			<a class="open_mobile_search" href=""><img src="{% static 'img/i_search.png' %}" /></a>
-			<a class="open_mobile_cart" href=""><img src="{% static 'img/i_mini-cart.png' %}" /></a>
-		</div>
-
-	</div>
-</nav>
-</section>
-
-
+{% load humanize %}
+{% block content %}
 <section class="sec content_sec homeslider_sec pb0">
 	<div class="container">
 
 		<ul class="homeslider arrowsNav dotsNav owl-carousel">
-			<li class="item" style="background-image: url({% static 'img/slider_1.jpg' %});">
+			{% for ct in carousel %}
+			<li class="item" style="background-image: url({{ ct.img.url }});">
 				<div class="slider_infobox">
-					<h2>Посуда и аксессуары для кухни Fissman</h2>
+					<h2>{{ ct.name }}</h2>
 					<a href="" class="button">Смотреть каталог</a>
 				</div>
 			</li>
-			<li class="item" style="background-image: url({% static 'img/slider_2.jpg' %});">
-				<div class="slider_infobox">
-					<h2>Посуда и аксессуары Fissman</h2>
-					<a href="" class="button">Смотреть каталог</a>
-				</div>
-			</li>
+
+			{% endfor %}
 		</ul>
 
 	</div>
@@ -120,12 +48,12 @@
 
 		<div class="products_carousel_box">
 			<ul class="products_carousel arrowsNav owl-carousel">
-				{% for prod in sell_out %}
+				{% for sh_prod in sell_out %}
+				{% with prod=sh_prod.product %}
 				<li class="item">
 					<!-- ITEM -->
 					<div class="product_item incatalog">
 						<div class="product_item-icons">
-							<span class="beidge count">Осталось: 5</span>
 						</div>
 						<a href="" class="product_item-image">
 							{% thumbnail prod.img "189x135" crop="center" as im %}
@@ -136,9 +64,9 @@
 						<div class="product_item-artnum">Артикул: {{ prod.artikul }}</div>
 						<div class="product_item-prices">
 							{% if prod.price_old %}
-								<u class="product_item-price_old">{{ prod.price_old }} ₽</u>
+								<u class="product_item-price_old">{{ prod.price_old|floatformat:0|intcomma }} ₽</u>
 							{% endif %}
-							<span class="product_item-price">{{ prod.price }} ₽</span>
+							<span class="product_item-price">{{ prod.price|floatformat:0|intcomma }} ₽</span>
 						</div>
 						<div class="product_item-buttons">
 							{% comment %}
@@ -158,6 +86,7 @@
 						</div>
 					</div>
 				</li>
+				{% endwith %}
 				{% endfor %}
 
 			</ul>
@@ -201,7 +130,7 @@
 						<a href="{% url 'catalog:product-detail' prod.pk %}" class="product_item-title">{{ prod.name }}</a>
 						<div class="product_item-artnum">Артикул: {{ prod.artikul }}</div>
 						<div class="product_item-prices">
-							<span class="product_item-price">{{ prod.price }} ₽</span>
+							<span class="product_item-price">{{ prod.price|floatformat:0|intcomma }} ₽</span>
 						</div>
 						<div class="product_item-buttons">
 							{% comment %}
@@ -232,21 +161,4 @@
 	</div>
 </section>
 
-
-
-<section class="sec backtop_sec">
-	<a href="#" class="backtop">В начало страницы</a>
-</section>
-
-
-
-{% include 'footer.html' %}
-
-</div>
-
-{% include 'all_modals.html' %}
-
-{% include 'js_files.html' %}
-
-</body>
-</html>
+{% endblock %}

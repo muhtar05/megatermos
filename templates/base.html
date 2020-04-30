@@ -1,5 +1,6 @@
 {% load static %}
 {% load catalog_tags %}
+{% load common_tags %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -7,60 +8,67 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<meta name="author" content="Frontend: Artem Lyapunov | WebElement.ru" />
-
-	<!--<link href="./favicon.ico" rel="shortcut icon" type="image/x-icon" />-->
-	<link rel="stylesheet" href="{% static 'css/normalize.css' %}"/>
-	<link rel="stylesheet" href="{% static 'css/style.css' %}"/>
-	<link rel="stylesheet" href="{% static 'css/animate.css' %}"/>
-	<link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}"/>
-	<link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}"/>
-	<link rel="stylesheet" href="{% static 'css/bootstrap-datepicker.css' %}"/>
-	<link rel="stylesheet" href="{% static 'css/jquery.fancybox.min.css' %}"/>
-	<link rel="stylesheet" href="{% static 'css/select2.min.css' %}" />
-	<link rel="stylesheet" href="{% static 'css/ion.rangeSlider.css' %}" />
-	<link rel="stylesheet" href="{% static 'css/ion.rangeSlider.skinFlat.css' %}" />
-	<link rel="stylesheet" href="{% static 'css/jquery.mCustomScrollbar.css' %}" />
-
-	<script type="text/javascript" src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+	{% include 'css_files.html' %}
 
 </head>
 <body>
 <div class="wrapper">
-    <header class="sec header_sec">
+
+
+{% include 'header.html' %}
+
+<section class="sec topnav_sec_skelet">
+<nav class="sec topnav_sec">
 	<div class="container">
 
-		<a href="" class="header_logo">
-			<img src="img/logo.png" alt="" />
-			<span class="slogan">Официальный сайт <br>продукции Fissman в России</span>
-		</a>
+		<div class="topnav_buttons">
+			<a href="#" class="button blue catalog_open"><span class="icon_menu"></span> Каталог</a>
+			<a href="catalog.html" class="button"><span class="icon_shock"></span> Шок-цена!</a>
 
-		<div class="header_ib header_city">
-			<span>Ваш город:</span>
-			<a href="#cities_modal" class="header_choose_city open_modal">Санкт-Петербург<span class="arrow-down"></span></a>
-			<div class="popup correct_city">
-				<label>Всё верно?</label>
-				<a href="#" class="button-o small pink popup_close">Да</a>
-				<a href="#cities_modal" class="button-o small gray open_modal popup_close">Нет</a>
-				<a href="#" class="close_popup">x</a>
+			<nav class="catalog_menu_box">
+				{% catalog_menu %}
+			</nav>
+		</div>
+
+		<img class="mobile_logo" src="{% static 'img/logo.png' %}" alt="" />
+
+		<form action="" method="post" class="topnav_search_form">
+			<input type="text" placeholder="Например, сковорода вок" class="topnav_search_input" />
+			<button type="submit" class="topnav_search_button">Поиск</button>
+			<button class="close_search_mobile" type="button">Отменить</button>
+
+			<div class="search_dropdown mCustomScrollbar" data-mcs-theme="minimal-dark">
 			</div>
-		</div>
+		</form>
 
-		<div class="header_ib header_phone_box">
-			<a href="tel:88006570909" class="header_phone">8 800 657-09-09</a>
-		</div>
+		{% menu_top %}
 
-		<div class="header_ib header_wishlist_ib">
-			<a href="" class="header_link header_wishlist">Избранное <span class="header_count">2</span></a>
-		</div>
-
-		<div class="header_ib header_cart_ib">
-			<a href="basket.html" class="header_link header_cart">Корзина <span class="header_count">27</span></a>
-		</div>
-
-		<div class="header_ib header_profile_ib">
-			<a href="#login_modal" class="header_link header_profile open_modal">Ваш кабинет</a>
-			<!-- <a href="" class="header_link header_profile">Ваш кабинет</a> --> <!-- если залогинен -->
+		<div class="top_mobile_buttons">
+			<a class="open_mobile_search" href=""><img src="{% static 'img/i_search.png' %}" /></a>
+			<a class="open_mobile_cart" href=""><img src="{% static 'img/i_mini-cart.png' %}" /></a>
 		</div>
 
 	</div>
-</header>
+</nav>
+</section>
+
+{% block content %}{% endblock %}
+	<section class="sec backtop_sec">
+	<a href="#" class="backtop">В начало страницы</a>
+</section>
+
+
+
+{% footer_tag %}
+
+</div>
+
+
+<!-- MODAL -->
+
+{% include 'all_modals.html' %}
+
+{% include 'js_files.html' %}
+
+</body>
+</html>

@@ -1,80 +1,9 @@
+{% extends "base.html" %}
 {% load static %}
 {% load thumbnail %}
 {% load catalog_tags %}
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-	<title>Fissman</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<meta name="author" content="Frontend: Artem Lyapunov | WebElement.ru" />
-
-	{% include 'css_files.html' %}
-
-</head>
-<body>
-<div class="wrapper">
-
-
-
-
-{% include 'header.html' %}
-
-
-<section class="sec topnav_sec_skelet">
-<nav class="sec topnav_sec">
-	<div class="container">
-
-		<div class="topnav_buttons">
-			<a href="#" class="button blue catalog_open"><span class="icon_menu"></span> Каталог</a>
-			<a href="catalog.html" class="button"><span class="icon_shock"></span> Шок-цена!</a>
-
-			<nav class="catalog_menu_box">
-				{% catalog_menu %}
-			</nav>
-		</div>
-
-		<img class="mobile_logo" src="img/logo.png" alt="" />
-
-		<form action="" method="post" class="topnav_search_form">
-			<input type="text" placeholder="Например, сковорода вок" class="topnav_search_input" />
-			<button type="submit" class="topnav_search_button">Поиск</button>
-			<button class="close_search_mobile" type="button">Отменить</button>
-
-			<div class="search_dropdown mCustomScrollbar" data-mcs-theme="minimal-dark">
-				<!-- ITEM -->
-				<div class="search_dropdown_product">
-					<a href="" class="sdp_image"><img src="img/prod_1.jpg" alt=""></a>
-					<div class="sdp_info_box">
-						<a href="">Сковорода для жарки ALLENDE 24х5,5см (алюминий)</a>
-						<div class="sdp_artnum">Артикул: 9610</div>
-						<div class="sdp_prices">
-							<span class="sdp_price">1390 ₽</span>
-							<span class="instock">В наличии</span>
-						</div>
-					</div>
-				</div>
-				<a href="" class="button search_see_all">Показать все</a>
-
-			</div>
-		</form>
-
-		<ul class="topnav_shortmenu">
-			<li><a href="">О компании</a></li>
-			<li><a href="">Оплата и доставка</a></li>
-			<li><a href="">Контакты</a></li>
-		</ul>
-
-		<div class="top_mobile_buttons">
-			<a class="open_mobile_search" href=""><img src="img/i_search.png" /></a>
-			<a class="open_mobile_cart" href=""><img src="img/i_mini-cart.png" /></a>
-		</div>
-
-	</div>
-</nav>
-</section>
-
-
+{% load humanize %}
+{% block content %}
 <section class="sec content_sec">
 	<div class="container">
 
@@ -131,7 +60,7 @@
 		<main class="maincol wide w100 pad0">
 			<div class="bonus_statistic_box">
 				<div class="w49 white_bg">
-					Вы добавили товар на сумму <b>2656 ₽</b>. При сумме <b>от 5000 ₽</b> — для вас доступна спеццена ОПТ 1! <b>Добавьте товары еще на 2 455 ₽</b>
+					Вы добавили товар на сумму <b>{{ basket.get_total_sum|floatformat:0|intcomma }} ₽</b>.</b>
 					<b><a href="">Перейти в каталог</a></b>
 				</div>
 
@@ -173,7 +102,7 @@
 						</a>
 					</td>
 					<td class="cart_prod_title"><a href="">{{ line.product.name }}</a></td>
-					<td><span class="cart_mobile_label">Цена за шт.</span><s class="cart_price_old">{{ line.price_excl_tax }} ₽</s></td>
+					<td><span class="cart_mobile_label">Цена за шт.</span><s class="cart_price_old">{{ line.price_excl_tax|floatformat:0|intcomma }} ₽</s></td>
 					<td class="cart_specprice_th">
 						<span class="cart_specprice_box">
 							<span class="cart_mobile_label">Ваша спеццена: <span class="border">ОПТ-1</span></span>
@@ -189,14 +118,14 @@
 							<button type="button" class="counter_big_ctrl plus">+</button>
 						</div>
 					</td>
-					<td class="cart_prod_final_price"><span class="cart_mobile_label">К оплате:</span> <b>{{ line.line_price_excl_tax}} ₽</b></td>
+					<td class="cart_prod_final_price"><span class="cart_mobile_label">К оплате:</span> <b>{{ line.line_price_excl_tax|floatformat:0|intcomma }} ₽</b></td>
 					<td><a href="{% url 'basket:remove-line' line.pk %}" class="cart_remove">x</a></td>
 				</tr>
 				{% endfor %}
 				<tr class="cart_totals_row">
 					<td colspan="3">
-						<div class="cart_itogo_ib">Итого: <b id="total_no_spec">3495 ₽</b></div>
-						<div class="cart_itogo_ib">Доставка: <b id="delivery_val">120 ₽</b></div> <!-- "Бесплатно"" / текст = 0. main.js -->
+						<div class="cart_itogo_ib">Итого: <b id="total_no_spec">{{ basket.get_total_sum|floatformat:0|intcomma }} ₽</b></div>
+<!--						<div class="cart_itogo_ib">Доставка: <b id="delivery_val">120 ₽</b></div> &lt;!&ndash; "Бесплатно"" / текст = 0. main.js &ndash;&gt;-->
 					</td>
 					<td colspan="4" class="pl0">
 						<div class="cart_itogo_final">
@@ -204,7 +133,7 @@
 								<strong>К оплате: </strong>
 								<small>по вашей спеццене</small>
 							</span>
-							<span class="ib cart_final_price" id="total_price">3195 ₽</span>
+							<span class="ib cart_final_price" id="total_price">{{ basket.get_total_sum|floatformat:0|intcomma }} ₽</span>
 							<button type="submit" class="button cart_order">Оформить заказ</button>
 						</div>
 					</td>
@@ -224,36 +153,10 @@
 		<h2 class="sec_title">Успей купить по ШОК-цене</h2>
 
 		<div class="catalog_box items-5">
-
+		{% for sh_prod in shock_price_products %}
 			<!-- ITEM -->
-			<div class="product_item incatalog">
-				<div class="product_item-icons">
-					<span class="beidge count">Осталось: 5</span>
-				</div>
-				<a href="" class="product_item-image">
-					<img src="img/prod_1.jpg" alt="" />
-					<span class="product_item-instock">В наличии</span>
-				</a>
-				<a href="" class="product_item-title">Сковорода для жарки ALLENDE 24х5,5см (алюминий)</a>
-				<div class="product_item-artnum">Артикул: 9610</div>
-				<div class="product_item-prices">
-					<span class="product_item-price">990 ₽</span>
-				</div>
-				<div class="product_item-buttons">
-					<a href="#" class="button-o gray product_item-buy">В корзину</a>
-					<div class="product_item-counter_box">
-						<div class="counter_box">
-							<button type="button" class="counter_ctrl minus">-</button>
-							<input type="text" class="counter_input" value="1" data-min="1" data-max="99" />
-							<button type="button" class="counter_ctrl plus">+</button>
-						</div>
-						<button class="button add_to_cart_small"><img src="img/i_cart.png" alt="" /></button>
-						<a href="#" class="close_add_to_cart">x</a>
-					</div>
-					<a href="" class="product_item-like"><i class="fa fa-heart-o"></i></a>
-				</div>
-			</div>
-
+			{% include 'catalog/product_card.html' with prod=sh_prod.product %}
+		{% endfor %}
 		</div>
 
 	</div>
@@ -334,17 +237,4 @@
 </section>
 
 
-<section class="sec backtop_sec">
-	<a href="#" class="backtop">В начало страницы</a>
-</section>
-
-{% include 'footer.html' %}
-
-</div>
-
-{% include 'all_modals.html' %}
-
-{% include 'js_files.html' %}
-
-</body>
-</html>
+{% endblock %}

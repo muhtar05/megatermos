@@ -2,6 +2,7 @@ from decimal import Decimal as D
 from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
 from django.db import models
 from django.conf import settings
+from django.utils import timezone
 
 
 class OpenBasketManager(models.Manager):
@@ -72,7 +73,7 @@ class Basket(models.Model):
 
     @property
     def num_lines(self):
-        return self.all_lines().count()
+        return self.lines.count()
 
     @property
     def num_items(self):
@@ -84,6 +85,23 @@ class Basket(models.Model):
         for l in self.lines.all():
             total += l.price_excl_tax
         return total
+
+    @property
+    def is_empty(self):
+        return self.id is None or self.num_lines == 0
+
+    def freeze(self):
+        self.status = self.FROZEN
+        self.save()
+
+    freeze.alters_data = True
+
+    def submit(self):
+        self.status = self.SUBMITTED
+        self.date_submitted = timezone.now()
+        self.save()
+
+    submit.alters_data = True
 
 
 class Line(models.Model):

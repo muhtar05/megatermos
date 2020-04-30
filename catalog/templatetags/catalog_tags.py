@@ -22,6 +22,7 @@ def get_item(dictionary, key):
 def get_item_int(dictionary, key):
     return dictionary.get(int(key)) if isinstance(dictionary, dict) else None
 
+
 @register.simple_tag
 def query_transform(request, **kwargs):
     updated = request.GET.copy()
@@ -29,3 +30,8 @@ def query_transform(request, **kwargs):
         updated[k] = v
 
     return updated.urlencode()
+
+
+@register.filter
+def get_categories():
+    return Category.objects.exclude(level=0)

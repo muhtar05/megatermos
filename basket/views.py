@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.views.generic import View
 
-from catalog.models import Product
+from catalog.models import Product,ShockPriceProduct
 from basket.models import Line
 
 
@@ -15,6 +15,7 @@ class IndexView(View):
         print(request.basket)
         print(type(request.basket))
         ctx['basket'] = request.basket
+        ctx['shock_price_products'] = ShockPriceProduct.objects.all()
 
         for line in request.basket.lines.all():
             print("==============Line=============")

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% block content %}
+<section class="sec content_sec">
+	<div class="container">
+
+		<ul class="bread">
+			<li><a href="/">Главная</a></li>
+			<li>{{ page.menu.title}}</li>
+		</ul>
+
+		<h1>{{ page.menu.title}}</h1>
+
+		<main class="wide white_bg pad0">
+			<!-- ORDER -->
+			<div class="table_box">
+                {{ page.content }}
+			</div>
+		</main>
+
+	</div>
+</section>
+{% endblock %}

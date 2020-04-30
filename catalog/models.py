@@ -47,6 +47,36 @@ class Product(models.Model):
     image_tag.short_description = 'Image'
 
 
+class Review(models.Model):
+    product = models.ForeignKey(Product, related_name='reviews', on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=255)
+    email = models.EmailField(max_length=255)
+    advantages = models.TextField()
+    disadvantages = models.TextField()
+    created_at = models.DateTimeField(default=timezone.now)
+    is_show = models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.pk)
+
+    class Meta:
+        verbose_name = 'Отзыв'
+        verbose_name_plural = 'Отзывы'
+
+
+class ShockPriceProduct(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    position = models.PositiveSmallIntegerField(default=1)
+
+    def __str__(self):
+        return str(self.pk)
+
+    class Meta:
+        ordering = ['position']
+        verbose_name = 'Успейте купить по шок-цене!'
+        verbose_name_plural = 'Успейте купить по шок-цене!'
+
+
 class ProductAttribute(models.Model):
     category = models.ManyToManyField('catalog.Category', through='catalog.ProductAttributeCategory',
                                       related_name='attributes')

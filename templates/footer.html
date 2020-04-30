@@ -6,31 +6,22 @@
 			<div class="flogo_col">
 				<a href="" class="flogo"><img src="{% static 'img/flogo.png' %}" alt="" /></a>
 				<span class="fslogan">
-					<strong>Интернет-магазин</strong>
-					Официальный сайт продукции Fissman в России
+					<strong>Интернет-магазин</strong> {{ settings.slogan }}
 				</span>
 			</div>
-			<div class="fdesc">
-				Наша компания занимается розничной и оптовой продажей посуды бренда Fissman. У нас вы можете приобрести посуду по привлекательной цене.
-			</div>
-			<div class="cards_box">
-				<p><strong>Мы принимаем к оплате:</strong></p>
-				<p><img src="{% static 'img/cards.png' %}" alt=""></p>
-			</div>
+			<div class="fdesc">{{ settings.description}}</div>
+
 		</div>
 
 		<div class="fcol">
 			<ul class="fmenu">
-				<li class="fmenu_first"><a href="">Каталог</a></li>
-				<li><a href="">Сковороды</a></li>
-				<li><a href="">Кастрюли</a></li>
-				<li><a href="">Ножи</a></li>
-				<li><a href="">Для чая и кофе</a></li>
-				<li><a href="">Для выпечки</a></li>
-				<li><a href="">Аксессуары</a></li>
-				<li><a href="">Сервировка стола</a></li>
-				<li><a href="">Детям</a></li>
-				<li><a href="">Активный отдых</a></li>
+				<li class="fmenu_first">
+					<a href="">Каталог</a>
+				</li>
+				{% for cat in categories %}
+				<li><a href="{% url 'catalog:category-detail' cat.slug %}">{{ cat.name }}</a></li>
+				{% endfor %}
+
 			</ul>
 		</div>
 
@@ -47,11 +38,11 @@
 		</div>
 
 		<div class="fcol footer_contacts">
-			<a href="tel:+74950038995" class="fphone">+7 (495) 003-89-95</a>
+			<a href="tel:+74950038995" class="fphone">{{ settings.phone }}</a>
 
 			<div class="worktime">
 				<strong>Режим работы:</strong>
-				С 9:00 до 20:00 ежедневно
+				{{ settings.mode_of_operation }}
 			</div>
 
 			<ul class="fmenu">
@@ -75,7 +66,7 @@
 		</div>
 
 		<div>
-			Разработка сайта — <a href="https://webelement.ru" target="_blank" class="madein">WEBELEMENT</a>
+			Разработка сайта
 		</div>
 
 	</div>
