@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+{% load static %}
+{% load thumbnail %}
+{% load catalog_tags %}
+{% load humanize %}
+{% block content %}
+
+
+<section class="sec content_sec">
+	<div class="container">
+
+		<ul class="bread">
+			<li><a href="">Главная</a></li>
+			<li>Ваш кабинет</li>
+		</ul>
+
+		<h1>Ваш кабинет</h1>
+
+		<aside class="sidebar small">
+			<!-- BLOCK -->
+			<div class="sidebar_block">
+				<ul class="sidebar_menu">
+					<li class="current"><a href="{% url 'users:profile' %}">Ваши данные</a></li>
+					<li><a href="{% url 'users:orders-history' %}">История заказов</a></li>
+					<li><a href="{% url 'users:logout' %}">Выйти из кабинета</a></li>
+				</ul>
+			</div>
+		</aside>
+
+        <main class="maincol wide white_bg pad0">
+
+			<!-- ORDER -->
+			<div class="table_box">
+			<table class="history_table opened">
+				<tbody><tr class="history_headings">
+					<td width="183"><span class="history_number">Заказ №375</span></td>
+					<td width="300">09.10.2018</td>
+					<td width="149">5 товаров</td>
+					<td width="320" colspan="2">5978 ₽ <span class="status delivery">Передан в доставку</span></td>
+					<td><span class="history_arrow"></span></td>
+				</tr>
+				<tr class="history_details_th">
+					<th>&nbsp;</th>
+					<th>Название</th>
+					<th>Количество</th>
+					<th>Цена ед.</th>
+					<th>Цена</th>
+					<th>&nbsp;</th>
+				</tr>
+
+				<!-- PRODUCT -->
+				<tr class="history_details_product_row">
+					<td>
+						<a href="" class="history_prod_image">
+							<img src="img/prod_1.jpg" alt="">
+						</a>
+					</td>
+					<td>
+						<a href="" class="history_prod_title">Сковорода для жарки ALLENDE 24х5,5см (алюминий)</a>
+					</td>
+					<td>1</td>
+					<td>1390 ₽</td>
+					<td>1390 ₽</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr class="history_details_product_row">
+					<td>
+						<a href="" class="history_prod_image">
+							<img src="img/prod_1.jpg" alt="">
+						</a>
+					</td>
+					<td>
+						<a href="" class="history_prod_title">Сковорода для жарки ALLENDE 24х5,5см (алюминий)</a>
+					</td>
+					<td>4</td>
+					<td>1390 ₽</td>
+					<td>5560 ₽</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr class="history_details_itogo">
+					<td colspan="3"></td>
+					<td>Итого:</td>
+					<td colspan="2"><b>3495 ₽</b></td>
+				</tr>
+				<tr class="history_details_itogo">
+					<td colspan="3"></td>
+					<td>Доставка:</td>
+					<td colspan="2"><b>Бесплатно</b></td>
+				</tr>
+				<tr class="history_details_itogo">
+					<td colspan="3"></td>
+					<td>К оплате:</td>
+					<td colspan="2"><b>3195 ₽</b></td>
+				</tr>
+			</tbody></table>
+
+
+			<!-- ORDER -->
+			<table class="history_table">
+				<tbody><tr class="history_headings">
+					<td width="183"><span class="history_number">Заказ №375</span></td>
+					<td width="300">09.10.2018</td>
+					<td width="149">5 товаров</td>
+					<td width="320" colspan="2">5978 ₽ <span class="status process">В обработке</span></td>
+					<td><span class="history_arrow"></span></td>
+				</tr>
+				<tr class="history_details_th">
+					<th>&nbsp;</th>
+					<th>Название</th>
+					<th>Количество</th>
+					<th>Цена ед.</th>
+					<th>Цена</th>
+					<th>&nbsp;</th>
+				</tr>
+
+				<!-- PRODUCT -->
+				<tr class="history_details_product_row">
+					<td>
+						<a href="" class="history_prod_image">
+							<img src="img/prod_1.jpg" alt="">
+						</a>
+					</td>
+					<td>
+						<a href="" class="history_prod_title">Сковорода для жарки ALLENDE 24х5,5см (алюминий)</a>
+					</td>
+					<td>1</td>
+					<td>1390 ₽</td>
+					<td>1390 ₽</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr class="history_details_product_row">
+					<td>
+						<a href="" class="history_prod_image">
+							<img src="img/prod_1.jpg" alt="">
+						</a>
+					</td>
+					<td>
+						<a href="" class="history_prod_title">Сковорода для жарки ALLENDE 24х5,5см (алюминий)</a>
+					</td>
+					<td>4</td>
+					<td>1390 ₽</td>
+					<td>5560 ₽</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr class="history_details_itogo">
+					<td colspan="3"></td>
+					<td>Итого:</td>
+					<td colspan="2"><b>3495 ₽</b></td>
+				</tr>
+				<tr class="history_details_itogo">
+					<td colspan="3"></td>
+					<td>Доставка:</td>
+					<td colspan="2"><b>Бесплатно</b></td>
+				</tr>
+				<tr class="history_details_itogo">
+					<td colspan="3"></td>
+					<td>К оплате:</td>
+					<td colspan="2"><b>3195 ₽</b></td>
+				</tr>
+			</tbody></table>
+
+			</div>
+
+
+		</main>
+
+	</div>
+</section>
+
+
+{% endblock %}

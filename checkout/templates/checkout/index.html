@@ -2,10 +2,12 @@
 {% load thumbnail %}
 {% load humanize %}
 {% load catalog_tags %}
+{% load common_tags %}
+{% load catalog_tags %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-	<title>Fissman</title>
+	<title>Оформление заказа</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<meta name="author" content="Frontend: Artem Lyapunov | WebElement.ru" />
@@ -30,15 +32,24 @@
 		<div class="order_column">
 			<section class="form_section">
 				<h2>Ваши данные</h2>
+				{{ user_form.errors }}
 				<div class="form_fields">
+
 					<div class="ip_cell">
-						<input type="text" class="input_text" placeholder="Имя и фамилия" value="" />
+						<input type="text" name="{{ user_form.first_name.html_name }}" class="input_text" placeholder="Фамилия" />
 					</div>
+
 					<div class="ip_cell">
-						<input type="tel" class="input_text" placeholder="Телефон" value="" />
+						<input type="text" name="{{ user_form.last_name.html_name }}" class="input_text" placeholder="Имя" />
 					</div>
+
+
 					<div class="ip_cell">
-						<input type="email" class="input_text" placeholder="E-mail" value="" />
+						<input type="tel" name="{{ user_form.phone.html_name }}" class="input_text" placeholder="Телефон" />
+					</div>
+
+					<div class="ip_cell">
+						<input type="email" name="{{ user_form.email.html_name }}" class="input_text" placeholder="E-mail" value="" />
 					</div>
 				</div>
 			</section>
@@ -56,24 +67,28 @@
 						<label>Доставка по адресу</label>
 					</div>
 					<div class="delivery_fields pb0">
+						{{ shipping_address_form.errors }}
 						<div class="ip_cell">
-							<input type="text" class="input_text" placeholder="Регион" value="" />
+							<input type="text" name="{{ shipping_address_form.region.html_name }}" value="{{ shipping_address_form.region.value|default_if_none:"" }}" class="input_text" placeholder="Регион" />
 						</div>
-						<div class="ip_cell">
-							<input type="text" class="input_text" placeholder="Город" value="" />
-						</div>
-						<div class="ip_cell">
-							<input type="text" class="input_text" placeholder="Адрес доставки" value="" />
-						</div>
-						<div class="ip_cell">
-							<div>
-								<input type="radio" class="rd" name="delivery" />
-								<label class="w100">СДЕК &mdash; 120 рублей <span class="fright">2-3 дня</span></label>
 
-								<input type="radio" class="rd" name="delivery" />
-								<label class="w100">Курьерская служба &mdash; 130 рублей <span class="fright">2-3 дня</span></label>
-							</div>
+						<div class="ip_cell">
+							<input type="text" name="{{ shipping_address_form.city.html_name }}" class="input_text" placeholder="Город" />
 						</div>
+
+						<div class="ip_cell">
+							<input type="text" name="{{ shipping_address_form.address.html_name }}" class="input_text" placeholder="Адрес доставки"  />
+						</div>
+
+<!--						<div class="ip_cell">-->
+<!--							<div>-->
+<!--								<input type="radio" class="rd" name="delivery" />-->
+<!--								<label class="w100">СДЕК &mdash; 120 рублей <span class="fright">2-3 дня</span></label>-->
+
+<!--								<input type="radio" class="rd" name="delivery" />-->
+<!--								<label class="w100">Курьерская служба &mdash; 130 рублей <span class="fright">2-3 дня</span></label>-->
+<!--							</div>-->
+<!--						</div>-->
 					</div>
 				</div>
 			</section>
@@ -133,9 +148,12 @@
 	<a href="#" class="backtop">В начало страницы</a>
 </section>
 
-{% include 'footer.html' %}
+{% footer_tag %}
 
 </div>
+
+
+<!-- MODAL -->
 
 {% include 'all_modals.html' %}
 

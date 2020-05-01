@@ -32,8 +32,11 @@
 		</div>
 
 		<div class="header_ib header_profile_ib">
-			<a href="#login_modal" class="header_link header_profile open_modal">Ваш кабинет</a>
-			<!-- <a href="" class="header_link header_profile">Ваш кабинет</a> --> <!-- если залогинен -->
+			{% if request.user.is_authenticated %}
+			<a href="{% url 'users:profile' %}" class="header_link header_profile">Ваш кабинет</a>
+			{% else %}
+			 <a href="#login_modal" class="header_link header_profile open_modal">Вход</a>
+			{% endif %}
 		</div>
 
 	</div>

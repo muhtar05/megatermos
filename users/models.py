@@ -40,7 +40,7 @@ class User(AbstractBaseUser,PermissionsMixin):
     first_name = models.CharField('Фамилия', max_length=255, blank=True, null=True)
     last_name = models.CharField('Имя', max_length=255, blank=True, null=True)
     patronymic = models.CharField('Отчество', max_length=255, blank=True, null=True)
-    phone = models.CharField(max_length=16,verbose_name="Телефон", null=True, blank=True)
+    phone = models.CharField(max_length=30,verbose_name="Телефон", null=True, blank=True)
     date_of_birth = models.DateField(verbose_name="Дата рождения",null=True,blank=True)
     last_time_visit = models.DateTimeField(default=timezone.now)
     is_active = models.BooleanField(default=True)

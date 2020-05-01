@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load static %}
+{% load thumbnail %}
+{% load catalog_tags %}
+{% load humanize %}
+{% block content %}
+
+
+<section class="sec content_sec">
+	<div class="container">
+
+		<ul class="bread">
+			<li><a href="">Главная</a></li>
+			<li>Ваш кабинет</li>
+		</ul>
+
+		<h1>Ваш кабинет</h1>
+
+		<aside class="sidebar small">
+			<!-- BLOCK -->
+			<div class="sidebar_block">
+				<ul class="sidebar_menu">
+					<li class="current"><a href="{% url 'users:profile' %}">Ваши данные</a></li>
+					<li><a href="{% url 'users:orders-history' %}">История заказов</a></li>
+					<li><a href="{% url 'users:logout' %}">Выйти из кабинета</a></li>
+				</ul>
+			</div>
+		</aside>
+
+
+		<main class="maincol wide white_bg">
+			<form action="" method="post">
+				<section class="form_section">
+					<h2>Контактные данные</h2>
+					<div class="form_fields personal_info">
+						<div class="ip_cell">
+							<label class="ip_label">Фамилия:</label>
+							<input type="text" class="input_text" placeholder="" value="{{ request.user.first_name }}" disabled />
+						</div>
+						<div class="ip_cell">
+							<label class="ip_label">Телефон:</label>
+							<input type="tel" class="input_text" placeholder="" value="{{ request.user.phone }}" disabled />
+						</div>
+
+						<div class="ip_cell">
+							<label class="ip_label">&nbsp;</label>
+							<a href="#" class="button-o medium edit_personal_info">Изменить данные</a>
+							<button type="submit" class="button medium save_personal_info">Сохранить</button>
+						</div>
+
+						<div class="change_password_box">
+							<div class="ip_cell">
+								<a href="#" class="change_password_link">Изменить пароль</a>
+								<a href="#" class="cancel_change_password_link">Отменить изменение пароля</a>
+							</div>
+							<div class="change_password_row">
+								<div class="ip_cell">
+									<input type="password" class="input_text" placeholder="Новый пароль" />
+								</div>
+								<div class="ip_cell">
+									<input type="password" class="input_text" placeholder="Новый пароль" />
+								</div>
+								<button class="button medium" type="submit">Сохранить</button>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<hr class="minus_padding" />
+
+			</form>
+		</main>
+
+	</div>
+</section>
+
+
+{% endblock %}

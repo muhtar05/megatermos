@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load static %}
+{% load thumbnail %}
+{% load catalog_tags %}
+{% load humanize %}
+{% block content %}
+
+<section class="sec content_sec">
+	<div class="container">
+
+		<ul class="bread">
+			<li><a href="">Главная</a></li>
+			<li>Регистрация</li>
+		</ul>
+
+		<h1 class="mb0">Регистрация</h1>
+
+	</div>
+</section>
+
+<section class="sec register_sec">
+	<div class="container">
+
+		<main class="register_area">
+			<div class="register_box">
+				<ul class="tabs_nav register_tabs">
+					<li><a class="current" href="#tab-1">Физическое лицо</a></li>
+				</ul>
+				<div class="tabs_container">
+					<div class="tab" id="tab-1">
+						<form action="" method="post">
+							<div class="register_fields">
+								<div class="ip_cell">
+									<input type="text" class="input_text" placeholder="Имя" />
+								</div>
+								<div class="ip_cell">
+									<input type="email" class="input_text" placeholder="Ваш e-mail" />
+								</div>
+								<div class="ip_cell">
+									<input type="tel" class="input_text" placeholder="Ваш телефон" />
+								</div>
+							</div>
+							<div class="ip_cell agree_box">
+								<input type="checkbox" class="ch agree_ch" checked />
+								<label>Я соглашаюсь на обработку персональных данных в соответствии с <a href="">Условиями использования сайта</a>,
+									<a href="">Политикой обработки персональных данных</a> и на получение сообщений в процессе обработки заказа.</label>
+							</div>
+
+							<div class="register_buttons">
+								<button type="submit" class="button">Зарегистрироваться</button>
+								<a href="#modal_login" class="button-o gray open_modal">Войти</a>
+							</div>
+						</form>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="register_info_box">
+				<h2>В личном кабинете для Вас будут доступны:</h2>
+				<div class="register_info">
+					<div class="register_info_row">
+						<div class="button"><img src="{% static 'img/i_percent.png' %}" /></div>
+						<span>Дополнительные скидки по накопительной программе</span>
+					</div>
+					<div class="register_info_row">
+						<div class="button blue"><img src="{% static 'img/i_pencil.png' %}" /></div>
+						<span>Автозаполнение данных при заказе</span>
+					</div>
+					<div class="register_info_row">
+						<div class="button green"><img src="{% static 'img/i_history.png' %}" /></div>
+						<span>Ваша история заказов</span>
+					</div>
+				</div>
+			</div>
+		</main>
+
+	</div>
+</section>
+
+{% endblock %}

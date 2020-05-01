@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+{% load thumbnail %}
+{% load catalog_tags %}
+{% load humanize %}
+{% block content %}
+
+<section class="sec bread_sec">
+	<div class="container">
+
+		<ul class="bread">
+			<li><a href="">Главная</a></li>
+			<li>{{ page.menu.title}}</li>
+		</ul>
+
+	</div>
+</section>
+
+
+<section class="sec content_sec white_bg">
+	<div class="container">
+        <div class="contact_form framed">
+				<form action="{% url 'users:login' %}" method="post">
+					{% csrf_token %}
+					<h2>Вход на сайт</h2>
+					<div class="contact_form_fields">
+						<div class="ip_cell">
+							<input type="email" name="email" class="input_text" placeholder="Email">
+						</div>
+						<div class="ip_cell">
+							<input type="password" name="password" class="input_text" placeholder="Пароль">
+						</div>
+						<div class="ip_cell">
+							<button class="button send_button" type="submit"><span class="relative">Отправить</span></button>
+						</div>
+					</div>
+					<div class="agree_row">
+						<div class="ib">
+							<input type="checkbox" class="ch agree_ch" checked="">
+							<label>Я согласен с правилами публикации <br><a href="">пользовательского контента</a>.</label>
+						</div>
+					</div>
+				</form>
+			</div>
+
+	</div>
+</section>
+
+{% endblock %}

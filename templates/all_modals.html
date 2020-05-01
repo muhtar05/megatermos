@@ -194,12 +194,13 @@
 	<div class="modal_content">
 		<a href="#" class="modal_close">x</a>
 		<h2 class="modal_title">Вход</h2>
-		<form action="cabinet.html" method="post" class="auth_form">
+		<form action="{% url 'users:login' %}" method="post" class="auth_form">
+			{% csrf_token %}
 			<div class="ip_cell">
-				<input type="text" class="input_text" placeholder="Логин" />
+				<input type="text" name="email" class="input_text" placeholder="Логин" />
 			</div>
 			<div class="ip_cell">
-				<input type="password" class="input_text" placeholder="Пароль" />
+				<input type="password" name="password" class="input_text" placeholder="Пароль" />
 			</div>
 			<div class="login_links">
 				<div>
@@ -210,7 +211,7 @@
 			</div>
 			<div class="auth_buttons">
 				<button class="button medium" type="submit">Войти</button>
-				<a href="" class="button-o medium gray">Зарегистрироваться</a>
+				<a href="{% url 'users:register' %}" class="button-o medium gray">Зарегистрироваться</a>
 			</div>
 		</form>
 	</div>
