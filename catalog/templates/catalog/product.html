@@ -30,7 +30,7 @@
 				<div class="product_flex_box">
 					<div class="product_images_box">
 						<a href="{{ product.img.url }}" class="product_main_image fancy" data-fancybox="product">
-							{% thumbnail product.img "200x200" crop="center" as im %}
+							{% thumbnail product.img "200x200"  as im %}
 							<img src="{{ im.url }}" alt="" />
 							{% endthumbnail %}
 						</a>

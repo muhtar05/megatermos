@@ -12,4 +12,6 @@ urlpatterns = [
     path('get_filter/', views.FilterAjaxView.as_view(), name='get-filter'),
     path('search/', views.SearchPageView.as_view(), name='search'),
     path('<slug:slug>/', views.CategoryDetailView.as_view(), name='category-detail'),
+    path('<slug:slug>/', views.CategoryDetailView.as_view(), name='category-detail'),
+    path('<slug:slug>/<path:path>', views.FilterSeoUrlView.as_view(), name='filter-seo-url'),
 ]

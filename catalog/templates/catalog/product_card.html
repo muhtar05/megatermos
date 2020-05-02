@@ -5,7 +5,7 @@
     <div class="product_item-icons">
     </div>
     <a href="" class="product_item-image">
-        {% thumbnail prod.img "189x135" crop="center" as im %}
+        {% thumbnail prod.img "189x135" as im %}
         <img src="{{ im.url }}" alt="" />
         {% endthumbnail %}
     </a>

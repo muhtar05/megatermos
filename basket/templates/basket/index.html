@@ -96,7 +96,7 @@
 				<tr>
 					<td>
 						<a href="{{ line.product.img.url }}" data-fancybox class="cart_image">
-							{% thumbnail line.product.img "140x100" crop="center" as im %}
+							{% thumbnail line.product.img "140x100" as im %}
 							<img src="{{ im.url }}" alt="" />
 							{% endthumbnail %}
 						</a>

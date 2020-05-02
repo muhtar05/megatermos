@@ -13,7 +13,7 @@
 			<li>{{ current_category.name }}</li>
 		</ul>
 
-		<h1>Ваш кабинет</h1>
+		<h1>{{seo_filter_url.h1}}</h1>
 
 		<aside class="sidebar small sidebar_filters">
 			<!-- BLOCK -->
@@ -190,9 +190,9 @@
 			</ul>
 
 			<div class="catalog_description">
-				<h2 class="catalog_desc-title">{{ current_category.name }}</h2>
+				<h2 class="catalog_desc-title">{{ seo_filter_url.h1 }}</h2>
 
-				{{ current_category.description }}
+				{{ seo_filter_url.seo_text }}
 
 			</div>
 		</main>

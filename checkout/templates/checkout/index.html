@@ -114,7 +114,7 @@
 						<td class="order_image">
 
 							{% if line.product.img %}
-								{% thumbnail line.product.img "100x72" crop="center" as im %}
+								{% thumbnail line.product.img "100x72" as im %}
 								<a href="{{ line.product.img.url }}"><img src="{{ im.url }}" alt="" /></a></td>
 								{% endthumbnail %}
 							{% endif %}

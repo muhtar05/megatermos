@@ -15,6 +15,7 @@ from django.core.files.base import ContentFile
 
 from catalog.models import Category, Product
 
+
 class Command(BaseCommand):
 
     def add_image(self, img_url):

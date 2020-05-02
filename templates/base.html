@@ -32,8 +32,8 @@
 
 		<img class="mobile_logo" src="{% static 'img/logo.png' %}" alt="" />
 
-		<form action="" method="post" class="topnav_search_form">
-			<input type="text" placeholder="Например, сковорода вок" class="topnav_search_input" />
+		<form action="{% url 'catalog:search' %}" method="get" class="topnav_search_form">
+			<input type="text" name="search_term" placeholder="Например, сковорода вок" class="topnav_search_input" />
 			<button type="submit" class="topnav_search_button">Поиск</button>
 			<button class="close_search_mobile" type="button">Отменить</button>
 

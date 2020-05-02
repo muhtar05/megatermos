@@ -2,7 +2,8 @@ from django.contrib import admin
 from mptt.admin import MPTTModelAdmin
 
 from catalog.models import (Category, Product, ProductAttributeOption,ShockPriceProduct,
-                            ProductAttributeOptionGroup,ProductAttribute,ProductAttributeCategory,ProductAttributeValue,)
+                            ProductAttributeOptionGroup,ProductAttribute,
+                            ProductAttributeCategory,ProductAttributeValue,SeoModuleFilterUrl,)
 
 
 class ProductAdmin(admin.ModelAdmin):
@@ -35,7 +36,7 @@ class ProductAttributeOptionGroupAdmin(admin.ModelAdmin):
 
 
 class ProductAttributeOptionAdmin(admin.ModelAdmin):
-    list_display = ('option','show_value', 'get_group_name',)
+    list_display = ('option','code','show_value', 'get_group_name',)
     list_filter = ('group',)
 
     def get_group_name(self, object):
@@ -46,6 +47,12 @@ class ShockPriceProductAdmin(admin.ModelAdmin):
     list_display = ('product', 'position')
 
 
+class SeoModuleFilterUrlAdmin(admin.ModelAdmin):
+    list_display = ('name','url')
+    list_filter = ('category',)
+    search_fields = ('url',)
+
+
 admin.site.register(Category, MPTTModelAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(ProductAttribute, ProductAttributeAdmin)
@@ -54,4 +61,5 @@ admin.site.register(ProductAttributeCategory, ProductAttributeCategoryAdmin)
 admin.site.register(ProductAttributeOptionGroup, ProductAttributeOptionGroupAdmin)
 admin.site.register(ProductAttributeOption, ProductAttributeOptionAdmin)
 admin.site.register(ShockPriceProduct, ShockPriceProductAdmin)
+admin.site.register(SeoModuleFilterUrl, SeoModuleFilterUrlAdmin)
 

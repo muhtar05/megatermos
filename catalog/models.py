@@ -116,7 +116,7 @@ class ProductAttribute(models.Model):
                                            default=CHECKBOX_LIST)
 
     class Meta:
-        ordering = ['display_order']
+        ordering = ['code']
         verbose_name = 'Атрибут продукта'
         verbose_name_plural = 'Атрибуты продуктов'
 
@@ -249,6 +249,7 @@ class ProductAttributeOptionGroup(models.Model):
 class ProductAttributeOption(models.Model):
     group = models.ForeignKey('catalog.ProductAttributeOptionGroup', related_name='options',on_delete=models.CASCADE)
     option = models.CharField(max_length=255)
+    code = models.CharField(max_length=255)
     show_value = models.CharField(max_length=255, null=True, blank=True)
     display_order = models.PositiveIntegerField('Позиция', default=0)
 
@@ -260,5 +261,28 @@ class ProductAttributeOption(models.Model):
         unique_together = ('group', 'option')
         verbose_name = 'Опция атрибута'
         verbose_name_plural = 'Опции для атрибутов'
+
+
+class SeoModuleFilterUrl(models.Model):
+    name = models.CharField("Название страницы", max_length=255)
+    url = models.CharField("Сгенерированный url", max_length=255)
+    has_product = models.BooleanField("Наличие товара", default=False)
+    h1 = models.CharField("h1 заголовок", max_length=255, null=True, blank=True)
+    title = models.CharField("meta title", max_length=255, null=True, blank=True)
+    description = models.CharField("meta description", max_length=255, null=True, blank=True)
+    keywords = models.CharField("meta keywords", max_length=255, null=True, blank=True)
+    seo_text = models.TextField('SEO текст', blank=True, null=True)
+    category = models.ForeignKey(Category, related_name='filter_urls', null=True, blank=True, on_delete=models.CASCADE)
+    parameters = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ('url',)
+        verbose_name_plural = 'Сгенерированные страницы'
+
+    def get_absolute_url(self):
+        return "/catalogue/{0}/".format(self.url)
 
 
