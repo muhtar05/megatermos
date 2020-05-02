@@ -4,7 +4,7 @@
 
 		<div class="fcol footer_logo_box">
 			<div class="flogo_col">
-				<a href="" class="flogo"><img src="{% static 'img/flogo.png' %}" alt="" /></a>
+				<a href="/" class="flogo"><img src="{% static 'img/flogo.png' %}" alt="" /></a>
 				<span class="fslogan">
 					<strong>Интернет-магазин</strong> {{ settings.slogan }}
 				</span>
@@ -27,13 +27,10 @@
 
 		<div class="fcol">
 			<ul class="fmenu">
-				<li class="fmenu_first"><a class="button" href="">Личный кабинет</a></li>
-				<li><a href="">О нас</a></li>
-				<li><a href="">Доставка и оплата</a></li>
-				<li><a href="">Вопрос-ответ</a></li>
-				<li><a href="">Оптовикам</a></li>
-				<li><a href="">Договор оферты</a></li>
-				<li><a href="">Сотрудничество</a></li>
+				<li class="fmenu_first"><a class="button" href="{% url 'users:profile' %}">Личный кабинет</a></li>
+				{% for m_item in menu_footer_items %}
+				<li><a href="/{{ m_item.url }}">{{ m_item.title }}</a></li>
+				{% endfor %}
 			</ul>
 		</div>
 

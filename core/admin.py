@@ -1,13 +1,5 @@
 from django.contrib import admin
-from core.models import Menu, Settings, Carousel, Page
-
-
-class PageInline(admin.TabularInline):
-    model = Page
-
-
-class MenuAdmin(admin.ModelAdmin):
-    list_display = ('title','url')
+from core.models import  Settings, Carousel, Page
 
 
 class CarouselAdmin(admin.ModelAdmin):
@@ -15,10 +7,10 @@ class CarouselAdmin(admin.ModelAdmin):
 
 
 class PageAdmin(admin.ModelAdmin):
-    list_display = ('pk','menu')
+    list_display = ('title','type','position')
+    list_filter = ('type','is_menu_top','is_menu_footer')
 
 
-admin.site.register(Menu,MenuAdmin)
 admin.site.register(Settings)
 admin.site.register(Carousel, CarouselAdmin)
 admin.site.register(Page, PageAdmin)

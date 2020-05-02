@@ -30,27 +30,26 @@ class Settings(models.Model):
         verbose_name_plural = "Настройки"
 
 
-class Menu(models.Model):
+class Page(models.Model):
+    PAGE_LINK = 'page_link'
+    SIMPLE_LINK = 'simple_link'
+    TYPES_CHOICES = (
+        (PAGE_LINK, "Статическая страница"),
+        (SIMPLE_LINK, "Обычная ссылка"),
+    )
     title = models.CharField(max_length=255)
     url = models.CharField(max_length=255)
+    code = models.CharField(max_length=50, null=True,blank=True)
+    type = models.CharField(max_length=50, choices=TYPES_CHOICES, default=SIMPLE_LINK)
+    content = models.TextField(blank=True, null=True)
+    position = models.PositiveIntegerField(default=1)
+    is_menu_top = models.BooleanField("Показывать в верхнем меню",default=False)
+    is_menu_footer = models.BooleanField("Показывать в нижнем меню",default=False)
 
     def __str__(self):
         return self.title
 
     class Meta:
-        verbose_name = 'Пункт меню'
-        verbose_name_plural = 'Пункты меню'
-
-
-class Page(models.Model):
-    content = models.TextField()
-    menu = models.ForeignKey(Menu,null=True, blank=True, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return str(self.pk)
-
-    class Meta:
+        ordering = ('position',)
         verbose_name = "Страница"
         verbose_name_plural = "Страницы"
-
-

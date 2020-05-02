@@ -1,6 +1,6 @@
 from django.shortcuts import render,Http404
 from django.views import View
-from core.models import Carousel,Page, Menu
+from core.models import Carousel,Page
 from catalog.models import Product, ShockPriceProduct
 
 
@@ -13,13 +13,11 @@ def home(request):
 
 
 class PageView(View):
+
     def get(self, request, *args, **kwargs):
         ctx = {}
         try:
-            print(kwargs.get('slug'))
-            menu = Menu.objects.get(url=kwargs.get('slug'))
-            print(menu)
-            ctx['page'] = Page.objects.get(menu=menu)
+            ctx['page'] = Page.objects.get(url=kwargs.get('slug'))
         except Exception as e:
             raise Http404
         return render(request,'page.html',ctx)
