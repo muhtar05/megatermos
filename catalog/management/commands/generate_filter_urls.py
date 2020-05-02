@@ -50,5 +50,4 @@ class Command(BaseCommand):
                             new_seo_url.parameters = "{}_{}_{}".format(pr_attr.code,option.pk,other_option.pk)
                             new_seo_url.save()
                         print('-----------------')
-                break
             break
