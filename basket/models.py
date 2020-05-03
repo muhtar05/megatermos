@@ -83,7 +83,9 @@ class Basket(models.Model):
     def get_total_sum(self):
         total = D('0.00')
         for l in self.lines.all():
-            total += l.price_excl_tax
+            total += l.line_price_excl_tax
+        print("================")
+        print(total)
         return total
 
     @property

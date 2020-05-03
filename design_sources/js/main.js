@@ -567,6 +567,7 @@ $(document).ready(function(){
     	$(this).parent().find('.product_item-counter_box').show();
     	return false;
     });
+
     $('.close_add_to_cart').click(function(){
     	$(this).closest('.product_item-counter_box').hide();
     	$(this).closest('.product_item-buttons').find('.product_item-buy').show();
