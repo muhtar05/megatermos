@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import date, datetime
 from django.utils import timezone
+from django.urls import reverse_lazy
 from django.core.exceptions import ImproperlyConfigured, ValidationError
 from mptt.models import MPTTModel, TreeForeignKey
 
@@ -29,9 +30,14 @@ class Product(models.Model):
     old_price = models.DecimalField('Старая Цена', decimal_places=2, max_digits=12, blank=True, null=True)
     img = models.ImageField(max_length=250,upload_to='products/')
     category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE)
+    date_created = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return "/catalog/{}_{}.html".format(self.slug,self.pk)
+        # return reverse_lazy("catalog:product-detail", {'slug': self.slug, 'pk': self.pk})
 
     class Meta:
         verbose_name = 'Продукт'

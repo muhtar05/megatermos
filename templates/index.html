@@ -60,7 +60,7 @@
 								<img src="{{ im.url }}" alt="" />
 							{% endthumbnail %}
 						</a>
-						<a href="{% url 'catalog:product-detail' prod.pk %}" class="product_item-title">{{ prod.name }}</a>
+						<a href="{% url 'catalog:product-detail' prod.slug prod.pk %}" class="product_item-title">{{ prod.name }}</a>
 						<div class="product_item-artnum">Артикул: {{ prod.artikul }}</div>
 						<div class="product_item-prices">
 							{% if prod.price_old %}
@@ -127,7 +127,7 @@
 								<img src="{{ im.url }}" alt="" />
 							{% endthumbnail %}
 						</a>
-						<a href="{% url 'catalog:product-detail' prod.pk %}" class="product_item-title">{{ prod.name }}</a>
+						<a href="{% url 'catalog:product-detail' prod.slug prod.pk %}" class="product_item-title">{{ prod.name }}</a>
 						<div class="product_item-artnum">Артикул: {{ prod.artikul }}</div>
 						<div class="product_item-prices">
 							<span class="product_item-price">{{ prod.price|floatformat:0|intcomma }} ₽</span>

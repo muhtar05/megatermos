@@ -141,7 +141,7 @@
 						<img src="{{ im.url }}" alt="" />
 						{% endthumbnail %}
 					</a>
-					<a href="{% url 'catalog:product-detail' prod.pk %}" class="product_item-title">
+					<a href="{% url 'catalog:product-detail' prod.slug prod.pk %}" class="product_item-title">
 						{{ prod.name }}
 						<span class="product_item-instock">В наличии</span>
 					</a>
