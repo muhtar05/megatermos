@@ -2,6 +2,7 @@ import datetime
 from django import template
 from django.contrib import messages
 from catalog.models import Category
+from catalog import history
 register = template.Library()
 
 
@@ -35,3 +36,12 @@ def query_transform(request, **kwargs):
 @register.filter
 def get_categories():
     return Category.objects.exclude(level=0)
+
+
+@register.inclusion_tag('templatetags/last_product_views.html',takes_context=True)
+def recently_viewed_products(context, current_product=None):
+    request = context['request']
+    products = history.get(request)[:10]
+    if current_product:
+        products = [p for p in products if p != current_product]
+    return {'products': products}

@@ -2,6 +2,7 @@ import json
 from catalog.models import Product
 RECENTLY_VIEWED_COOKIE_NAME = 'recently_history'
 
+
 def get(request):
     """
     Return a list of recently viewed products
@@ -9,7 +10,7 @@ def get(request):
     ids = extract(request)
 
     # Reordering as the ID order gets messed up in the query
-    product_dict = Product.browsable.in_bulk(ids)
+    product_dict = Product.objects.in_bulk(ids)
     ids.reverse()
     return [product_dict[id] for id in ids if id in product_dict]
 

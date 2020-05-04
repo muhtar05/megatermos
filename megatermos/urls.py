@@ -28,14 +28,13 @@ info_dict = {
     'date_field': 'date_created'
 }
 
-print(info_dict)
-
 urlpatterns = [
     path('', views.home, name='home'),
     path('catalog/', include('catalog.urls')),
     path('basket/', include('basket.urls')),
     path('checkout/', include('checkout.urls')),
     path('users/', include('users.urls')),
+    path('wishlists/', include('wishlists.urls')),
     path('admin/', admin.site.urls),
     path('sitemap.xml', sitemap,
                {'sitemaps': {'products': GenericSitemap(info_dict, priority=0.6)}},

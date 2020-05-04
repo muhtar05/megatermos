@@ -1,3 +1,4 @@
+from decimal import Decimal as D
 from django.db import models
 from django.conf import settings
 
@@ -41,6 +42,24 @@ class Order(models.Model):
     def __str__(self):
         return "#{}".format(self.number)
 
+    @property
+    def num_lines(self):
+        return self.lines.count()
+
+    @property
+    def num_items(self):
+        num_items = 0
+        for line in self.lines.all():
+            num_items += line.quantity
+        return num_items
+
+    @property
+    def total_sum_lines(self):
+        total = D('0.00')
+        for line in self.lines.all():
+            total += line.total_line_price
+        return total
+
 
 class Line(models.Model):
     order = models.ForeignKey('order.Order', related_name='lines', on_delete=models.CASCADE)
@@ -61,3 +80,7 @@ class Line(models.Model):
 
     def __str__(self):
         return str(self.pk)
+
+    @property
+    def total_line_price(self):
+        return self.line_price_excl_tax * self.quantity

@@ -5,6 +5,7 @@ from django.http import JsonResponse,Http404
 from django.db.models import Q, F, Max, Min, Count
 from django.core.paginator import Paginator,EmptyPage, PageNotAnInteger
 from catalog.models import Product,Category, ProductAttribute, ProductAttributeValue, SeoModuleFilterUrl
+from catalog.history import update
 
 
 class IndexView(View):
@@ -95,8 +96,11 @@ class ProductDetail(View):
 
     def get(self, request, *args, **kwargs):
         ctx = {}
-        ctx['product'] = get_object_or_404(Product,pk=kwargs.get('pk'))
-        return render(request, self.template_name,ctx)
+        product = get_object_or_404(Product,pk=kwargs.get('pk'))
+        ctx['product'] = product
+        response = render(request, self.template_name,ctx)
+        update(product, request, response)
+        return response
 
 
 class SearchPageView(View):

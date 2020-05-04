@@ -1,20 +1,27 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
+from order.models import Order
 
 
-class UserProfileView(View):
+class UserProfileView(LoginRequiredMixin,View):
     template_name = 'users/profile.html'
 
     def get(self, request, *args, **kwargs):
         return render(request,self.template_name)
 
 
-class UserOrderHistoryView(View):
+class UserOrderHistoryView(LoginRequiredMixin,View):
     template_name = 'users/orders_history.html'
 
     def get(self, request, *args, **kwargs):
         ctx = {}
+        if request.user.is_admin:
+            orders = Order.objects.all()
+        else:
+            orders = request.user.orders.all()
+        ctx['orders'] = orders
         return render(request, self.template_name, ctx)
 
 

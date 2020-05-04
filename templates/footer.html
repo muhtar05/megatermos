@@ -6,7 +6,7 @@
 			<div class="flogo_col">
 				<a href="/" class="flogo"><img src="{% static 'img/flogo.png' %}" alt="" /></a>
 				<span class="fslogan">
-					<strong>Интернет-магазин</strong> {{ settings.slogan }}
+					<strong>Интернет-магазин</strong> {{ settings.slogan|safe }}
 				</span>
 			</div>
 			<div class="fdesc">{{ settings.description}}</div>
@@ -35,7 +35,7 @@
 		</div>
 
 		<div class="fcol footer_contacts">
-			<a href="tel:+74950038995" class="fphone">{{ settings.phone }}</a>
+			<a href="tel:+{{ settings_phone_digits }}" class="fphone">{{ settings.phone }}</a>
 
 			<div class="worktime">
 				<strong>Режим работы:</strong>

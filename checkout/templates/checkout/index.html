@@ -13,6 +13,38 @@
 	<meta name="author" content="Frontend: Artem Lyapunov | WebElement.ru" />
 
 		{% include 'css_files.html' %}
+	<style>
+		.ip_cell{
+			position: relative;
+		}
+		.ip_cell .help-block{
+			position: absolute;
+			z-index: 10;
+			bottom: -6px;
+			left: 0;
+			margin-bottom: 5px;
+			white-space: nowrap;
+			background: #de007b;
+			color: #fff;
+			border-radius: 3px;
+			font-size: 12px;
+			font-weight: 500;
+			line-height: 13px;
+			padding: 3px 7px;
+			text-decoration: none;
+			opacity: 0;
+			visibility: hidden;
+			transform: translateY(5px);
+			transition: all 0.4s ease;
+		}
+
+		.ip_cell.has-error .help-block {
+    		opacity: 1;
+    		visibility: visible;
+    		transform: translateY(10px);
+		}
+
+	</style>
 
 </head>
 <body>
@@ -32,7 +64,6 @@
 		<div class="order_column">
 			<section class="form_section">
 				<h2>Ваши данные</h2>
-				{{ user_form.errors }}
 				<div class="form_fields">
 
 					<div class="ip_cell">
@@ -44,12 +75,26 @@
 					</div>
 
 
-					<div class="ip_cell">
+					<div class="ip_cell {% if user_form.phone.errors %}has-error{% endif %}">
 						<input type="tel" name="{{ user_form.phone.html_name }}" class="input_text" placeholder="Телефон" />
+						{% if user_form.phone.errors %}
+							<div class="help-block">
+								{% for error in user_form.phone.errors %}
+									<span>{{ error}}</span>
+								{% endfor %}
+							</div>
+						{% endif %}
 					</div>
 
-					<div class="ip_cell">
+					<div class="ip_cell {% if user_form.email.errors %}has-error{% endif %}">
 						<input type="email" name="{{ user_form.email.html_name }}" class="input_text" placeholder="E-mail" value="" />
+						{% if user_form.email.errors %}
+							<div class="help-block">
+								{% for error in user_form.email.errors %}
+									<span>{{ error}}</span>
+								{% endfor %}
+							</div>
+						{% endif %}
 					</div>
 				</div>
 			</section>
@@ -67,17 +112,37 @@
 						<label>Доставка по адресу</label>
 					</div>
 					<div class="delivery_fields pb0">
-						{{ shipping_address_form.errors }}
-						<div class="ip_cell">
-							<input type="text" name="{{ shipping_address_form.region.html_name }}" value="{{ shipping_address_form.region.value|default_if_none:"" }}" class="input_text" placeholder="Регион" />
+						<div class="ip_cell {% if shipping_address_form.region.errors %}has-error{% endif %}">
+							<input type="text" name="{{ shipping_address_form.region.html_name }}" value="{{ shipping_address_form.region.value|default_if_none:'' }}" class="input_text" placeholder="Регион" />
+							{% if shipping_address_form.region.errors %}
+							<div class="help-block">
+								{% for error in shipping_address_form.region.errors %}
+									<span>{{ error}}</span>
+								{% endfor %}
+							</div>
+						{% endif %}
 						</div>
 
-						<div class="ip_cell">
-							<input type="text" name="{{ shipping_address_form.city.html_name }}" class="input_text" placeholder="Город" />
+						<div class="ip_cell {% if shipping_address_form.city.errors %}has-error{% endif %}">
+							<input type="text" name="{{ shipping_address_form.city.html_name }}" value="{{ shipping_address_form.city.value|default_if_none:'' }}" class="input_text" placeholder="Город" />
+							{% if shipping_address_form.city.errors %}
+							<div class="help-block">
+								{% for error in shipping_address_form.city.errors %}
+									<span>{{ error}}</span>
+								{% endfor %}
+							</div>
+						{% endif %}
 						</div>
 
-						<div class="ip_cell">
-							<input type="text" name="{{ shipping_address_form.address.html_name }}" class="input_text" placeholder="Адрес доставки"  />
+						<div class="ip_cell {% if shipping_address_form.address.errors %}has-error{% endif %}">
+							<input type="text" name="{{ shipping_address_form.address.html_name }}" value="{{ shipping_address_form.address.value|default_if_none:'' }}" class="input_text" placeholder="Адрес доставки"  />
+							{% if shipping_address_form.address.errors %}
+							<div class="help-block">
+								{% for error in shipping_address_form.address.errors %}
+									<span>{{ error}}</span>
+								{% endfor %}
+							</div>
+							{% endif %}
 						</div>
 
 <!--						<div class="ip_cell">-->

@@ -199,19 +199,18 @@
 
 
 
+{% if product.primary_recommendations.count > 0 %}
 <section class="sec content_sec white_bg">
 	<div class="container">
-		
 		<h2 class="sec_title">Похожие товары</h2>
-
 		<div class="catalog_box items-5">
-
-			<!-- ITEM -->
-			
+			{% for prod in product.primary_recommendations.all %}
+				{% include 'catalog/product_card.html' with prod=prod.recommendation %}
+			{% endfor %}
 		</div>
-
 	</div>
 </section>
+{% endif %}
 
 
 
@@ -221,10 +220,9 @@
 		<h2 class="sec_title">Недавно вы смотрели</h2>
 		
 		<div class="products_carousel_box">
-			<ul class="products_carousel arrowsNav owl-carousel">
+			{% recently_viewed_products current_product=product %}
 
 
-			</ul>
 		</div>
 
 	</div>

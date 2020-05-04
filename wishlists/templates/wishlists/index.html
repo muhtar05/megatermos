@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static %}
+{% load thumbnail %}
+{% load catalog_tags %}
+{% load humanize %}
+{% block content %}
+<section class="sec content_sec">
+	<div class="container">
+
+		<ul class="bread">
+			<li><a href="">Главная</a></li>
+			<li>Избранное</li>
+		</ul>
+
+		<h1>Избранное</h1>
+
+
+		<aside class="sidebar small sidebar_filters">
+			<!-- BLOCK -->
+			<div class="sidebar_block white_bg no_border">
+
+				<ul class="sidebar_menu">
+					<li class="submenu_arrow opened"><a href="#">Каталог</a>
+						<ul class="sidebar_submenu">
+							{% for category in categories %}
+							{% if current_category.pk == category.pk %}
+								<li class="current"><a href="">{{ category.name }}</a></li>
+							{% else %}
+								<li><a href="{% url 'catalog:category-detail' category.slug %}">{{ category.name }}</a></li>
+							{% endif %}
+							{% endfor %}
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</aside>
+		<main class="maincol wide pad0">
+			<div class="catalog_box">
+               {% for whish_line in wish_list.lines.all %}
+                {% include 'catalog/product_card.html' with prod=whish_line.product is_liked=True %}
+                {% endfor %}
+
+				<ul class="paginate">
+				<li class="pg_arrow"><a href=""><i class="fa fa-angle-left"></i></a></li>
+				{% for i in products.paginator.page_range %}
+      				{% if products.number == i %}
+						<li class="current"><a href="">{{ i }}</a></li>
+      				{% else %}
+        				<li><a href="?{% query_transform request page=i %}">{{ i }}</a></li>
+      				{% endif %}
+    			{% endfor %}
+				<li class="pg_arrow"><a href=""><i class="fa fa-angle-right"></i></a></li>
+			</ul>
+
+			</div>
+
+		</main>
+	</div>
+</section>
+{% endblock %}

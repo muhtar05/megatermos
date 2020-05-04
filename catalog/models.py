@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Q, F, Max, Min, Count
 from datetime import date, datetime
 from django.utils import timezone
 from django.urls import reverse_lazy
@@ -35,6 +36,9 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
+    def get_title(self):
+        return self.name
+
     def get_absolute_url(self):
         return "/catalog/{}_{}.html".format(self.slug,self.pk)
         # return reverse_lazy("catalog:product-detail", {'slug': self.slug, 'pk': self.pk})
@@ -51,6 +55,28 @@ class Product(models.Model):
             return ''
 
     image_tag.short_description = 'Image'
+
+
+class ProductRecommendation(models.Model):
+    primary = models.ForeignKey('catalog.Product', related_name='primary_recommendations',on_delete=models.CASCADE)
+    recommendation = models.ForeignKey('catalog.Product', verbose_name="Recommended product",on_delete=models.CASCADE)
+    ranking = models.PositiveSmallIntegerField(default=0)
+
+    def __str__(self):
+        return str(self.pk)
+
+    def save(self, *args, **kwargs):
+        max_ranking_info = ProductRecommendation.objects.filter(primary=self.primary).aggregate(Max('ranking'))
+        max_ranking = max_ranking_info.get('ranking__max') or 0
+        self.ranking = max_ranking + 1
+        super().save(*args,**kwargs)
+
+    class Meta:
+        ordering = ['primary', 'ranking']
+        unique_together = ('primary', 'recommendation')
+        verbose_name = "Похожие товары"
+        verbose_name_plural = "Похожие товары"
+
 
 
 class Review(models.Model):

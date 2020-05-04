@@ -4,7 +4,7 @@
 
 		<a href="/" class="header_logo">
 			<img src="{% static 'img/logo.png' %}" alt="" />
-			<span class="slogan">Официальный сайт <br>продукции Fissman в России</span>
+			<span class="slogan">{{ settings.slogan|safe }}</span>
 		</a>
 
 		<div class="header_ib header_city">
@@ -20,11 +20,11 @@
 		</div>
 
 		<div class="header_ib header_phone_box">
-			<a href="tel:88006570909" class="header_phone">8 800 657-09-09</a>
+			<a href="tel:{{ settings_phone_digits }}" class="header_phone">{{ settings.phone }}</a>
 		</div>
 
 		<div class="header_ib header_wishlist_ib">
-			<a href="" class="header_link header_wishlist">Избранное <span class="header_count">0</span></a>
+			<a href="{% url 'wishlists:index' %}" class="header_link header_wishlist">Избранное <span class="header_count">{{ wish_list_items }}</span></a>
 		</div>
 
 		<div class="header_ib header_cart_ib">

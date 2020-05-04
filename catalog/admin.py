@@ -3,12 +3,19 @@ from mptt.admin import MPTTModelAdmin
 
 from catalog.models import (Category, Product, ProductAttributeOption,ShockPriceProduct,
                             ProductAttributeOptionGroup,ProductAttribute,
-                            ProductAttributeCategory,ProductAttributeValue,SeoModuleFilterUrl,)
+                            ProductAttributeCategory,ProductAttributeValue,SeoModuleFilterUrl,ProductRecommendation,)
+
+
+class ProductRecommendationInline(admin.TabularInline):
+    model = ProductRecommendation
+    fk_name = 'primary'
+    # raw_id_fields = ['primary', 'recommendation']
 
 
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('name','image_tag','price_opt','price','old_price')
     list_filter = ('category',)
+    inlines = [ProductRecommendationInline,]
 
 
 class ProductAttributeAdmin(admin.ModelAdmin):

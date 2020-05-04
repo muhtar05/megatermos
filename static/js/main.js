@@ -718,6 +718,50 @@ $(document).ready(function(){
 
     })();
 
+
+    $('.add_to_wishlist').click(function(){
+        var _this = $(this);
+        var productId = $(this).data('product');
+        if (_this.hasClass("liked")){
+            $.ajax({
+                method: "POST",
+                url: "/wishlists/deleteproduct/",
+                data: {
+                    'product_id': productId,
+                },
+                beforeSend: function (xhr, settings) {
+                    xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+                }
+            }).done(function (data) {
+                $(".header_wishlist .header_count").html(data.num_items);
+                _this.removeClass('liked');
+                console.log(data);
+            }).fail(function (errors) {
+                alert("Error");
+                console.log(errors);
+            });
+        } else {
+            $.ajax({
+                method: "POST",
+                url: "/wishlists/addproduct/",
+                data: {
+                    'product_id': productId,
+                },
+                beforeSend: function (xhr, settings) {
+                    xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+                }
+            }).done(function (data) {
+                $(".header_wishlist .header_count").html(data.num_items);
+                _this.addClass('liked');
+                console.log(data);
+            }).fail(function (errors) {
+                alert("Error");
+                console.log(errors);
+            });
+        }
+        return false;
+    });
+
     // ADD TO CART - SHOW COUNTER BOX
     $('.product_item-buy').click(function(){
         var _this = $(this);

@@ -1,0 +1,7 @@
+<ul class="products_carousel arrowsNav owl-carousel">
+    {% for prod in products %}
+        <li class="item">
+            {% include 'catalog/product_card.html' %}
+        </li>
+        {% endfor %}
+</ul>

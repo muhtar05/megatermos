@@ -20,8 +20,8 @@
 			<!-- BLOCK -->
 			<div class="sidebar_block">
 				<ul class="sidebar_menu">
-					<li class="current"><a href="{% url 'users:profile' %}">Ваши данные</a></li>
-					<li><a href="{% url 'users:orders-history' %}">История заказов</a></li>
+					<li><a href="{% url 'users:profile' %}">Ваши данные</a></li>
+					<li class="current"><a href="{% url 'users:orders-history' %}">История заказов</a></li>
 					<li><a href="{% url 'users:logout' %}">Выйти из кабинета</a></li>
 				</ul>
 			</div>
@@ -31,12 +31,13 @@
 
 			<!-- ORDER -->
 			<div class="table_box">
-			<table class="history_table opened">
-				<tbody><tr class="history_headings">
-					<td width="183"><span class="history_number">Заказ №375</span></td>
-					<td width="300">09.10.2018</td>
-					<td width="149">5 товаров</td>
-					<td width="320" colspan="2">5978 ₽ <span class="status delivery">Передан в доставку</span></td>
+			{% for order in orders %}
+				<table class="history_table {% if forloop.first %}opened{% endif %}">
+				<tbody><tr class="history_headings ">
+					<td width="183"><span class="history_number">Заказ №{{ order.pk}}</span></td>
+					<td width="300">{{ order.date_placed}}</td>
+					<td width="149">{{ order.num_items }} товаров</td>
+					<td width="320" colspan="2">{{ order.total_sum_lines|floatformat:0|intcomma }} ₽ <span class="status delivery"></span></td>
 					<td><span class="history_arrow"></span></td>
 				</tr>
 				<tr class="history_details_th">
@@ -45,42 +46,30 @@
 					<th>Количество</th>
 					<th>Цена ед.</th>
 					<th>Цена</th>
-					<th>&nbsp;</th>
 				</tr>
-
+				{% for line in  order.lines.all %}
 				<!-- PRODUCT -->
 				<tr class="history_details_product_row">
 					<td>
 						<a href="" class="history_prod_image">
-							<img src="img/prod_1.jpg" alt="">
+							{% thumbnail line.product.img "120x86" as im %}
+							<img src="{{ im.url }}" alt="" />
+							{% endthumbnail %}
 						</a>
 					</td>
 					<td>
-						<a href="" class="history_prod_title">Сковорода для жарки ALLENDE 24х5,5см (алюминий)</a>
+						<a href="" class="history_prod_title">{{ line.product }}</a>
 					</td>
-					<td>1</td>
-					<td>1390 ₽</td>
-					<td>1390 ₽</td>
-					<td>&nbsp;</td>
+					<td>{{ line.quantity }}</td>
+					<td>{{ line.line_price_excl_tax|floatformat:0|intcomma }}₽</td>
+					<td>{{ line.total_line_price|floatformat:0|intcomma }}₽</td>
 				</tr>
-				<tr class="history_details_product_row">
-					<td>
-						<a href="" class="history_prod_image">
-							<img src="img/prod_1.jpg" alt="">
-						</a>
-					</td>
-					<td>
-						<a href="" class="history_prod_title">Сковорода для жарки ALLENDE 24х5,5см (алюминий)</a>
-					</td>
-					<td>4</td>
-					<td>1390 ₽</td>
-					<td>5560 ₽</td>
-					<td>&nbsp;</td>
-				</tr>
+				{% endfor %}
+
 				<tr class="history_details_itogo">
 					<td colspan="3"></td>
 					<td>Итого:</td>
-					<td colspan="2"><b>3495 ₽</b></td>
+					<td colspan="2"><b>{{ order.total_sum_lines|floatformat:0|intcomma }} ₽</b></td>
 				</tr>
 				<tr class="history_details_itogo">
 					<td colspan="3"></td>
@@ -90,74 +79,11 @@
 				<tr class="history_details_itogo">
 					<td colspan="3"></td>
 					<td>К оплате:</td>
-					<td colspan="2"><b>3195 ₽</b></td>
+					<td colspan="2"><b>{{ order.total_sum_lines|floatformat:0|intcomma }} ₽</b></td>
 				</tr>
 			</tbody></table>
 
-
-			<!-- ORDER -->
-			<table class="history_table">
-				<tbody><tr class="history_headings">
-					<td width="183"><span class="history_number">Заказ №375</span></td>
-					<td width="300">09.10.2018</td>
-					<td width="149">5 товаров</td>
-					<td width="320" colspan="2">5978 ₽ <span class="status process">В обработке</span></td>
-					<td><span class="history_arrow"></span></td>
-				</tr>
-				<tr class="history_details_th">
-					<th>&nbsp;</th>
-					<th>Название</th>
-					<th>Количество</th>
-					<th>Цена ед.</th>
-					<th>Цена</th>
-					<th>&nbsp;</th>
-				</tr>
-
-				<!-- PRODUCT -->
-				<tr class="history_details_product_row">
-					<td>
-						<a href="" class="history_prod_image">
-							<img src="img/prod_1.jpg" alt="">
-						</a>
-					</td>
-					<td>
-						<a href="" class="history_prod_title">Сковорода для жарки ALLENDE 24х5,5см (алюминий)</a>
-					</td>
-					<td>1</td>
-					<td>1390 ₽</td>
-					<td>1390 ₽</td>
-					<td>&nbsp;</td>
-				</tr>
-				<tr class="history_details_product_row">
-					<td>
-						<a href="" class="history_prod_image">
-							<img src="img/prod_1.jpg" alt="">
-						</a>
-					</td>
-					<td>
-						<a href="" class="history_prod_title">Сковорода для жарки ALLENDE 24х5,5см (алюминий)</a>
-					</td>
-					<td>4</td>
-					<td>1390 ₽</td>
-					<td>5560 ₽</td>
-					<td>&nbsp;</td>
-				</tr>
-				<tr class="history_details_itogo">
-					<td colspan="3"></td>
-					<td>Итого:</td>
-					<td colspan="2"><b>3495 ₽</b></td>
-				</tr>
-				<tr class="history_details_itogo">
-					<td colspan="3"></td>
-					<td>Доставка:</td>
-					<td colspan="2"><b>Бесплатно</b></td>
-				</tr>
-				<tr class="history_details_itogo">
-					<td colspan="3"></td>
-					<td>К оплате:</td>
-					<td colspan="2"><b>3195 ₽</b></td>
-				</tr>
-			</tbody></table>
+			{% endfor %}
 
 			</div>
 
