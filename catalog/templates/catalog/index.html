@@ -47,11 +47,11 @@
 							<div class="range_inputs">
 								<div class="ip_cell">
 									<label class="range_label">от</label>
-									<input type="text" name="price-min" class="range_input from" value="{{ min_price_slider|floatformat:0 }}" data-value="{{ min_price_slider|floatformat:0 }}" />
+									<input type="text" name="price-min" class="range_input from" data-minvalue="{{ min_price_slider|floatformat:0 }}" value="{{ min_price_slider|floatformat:0 }}" data-value="{{ min_price_slider|floatformat:0 }}" />
 								</div>
 								<div class="ip_cell">
 									<label class="range_label">до</label>
-									<input type="text" name="price-max" class="range_input to" value="{{ max_price_slider|floatformat:0 }}" data-value="{{ max_price_slider|floatformat:0 }}" />
+									<input type="text" name="price-max" class="range_input to" data-maxvalue="{{ max_price_slider|floatformat:0 }}" value="{{ max_price_slider|floatformat:0 }}" data-value="{{ max_price_slider|floatformat:0 }}" />
 								</div>
 							</div>
 							<div class="range_slider_box" data-min="{{ min_price_slider|floatformat:0 }}" data-max="{{ max_price_slider|floatformat:0 }}" data-step="100"></div>
@@ -69,7 +69,7 @@
 								{% if opt.id in yes_options %}
 
 								<span class="ip_checkbox" data-name="">
-									<input type="checkbox" {% if opt.id in checked_options|get_item:attr.code %}  checked {% endif %}class="ch filter_checkbox" value="{{ opt.id }}" data-name="{{ attr.code }}" name="{{ attr.code }}" />
+									<input type="checkbox" {% if opt.id in checked_options|get_item:attr.code %}  checked {% endif %}class="ch filter_checkbox" value="{{ opt.id }}" data-name="{{ attr.code }}" data-code="{{ opt.code }}" name="{{ attr.code }}" />
 									<label>{{ opt.option }}</label>
 								</span>
 								{% endif %}

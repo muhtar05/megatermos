@@ -55,9 +55,10 @@ class ShockPriceProductAdmin(admin.ModelAdmin):
 
 
 class SeoModuleFilterUrlAdmin(admin.ModelAdmin):
-    list_display = ('name','url')
+    list_display = ('name','pk','url')
     list_filter = ('category',)
     search_fields = ('url',)
+    # ordering = ('pk',)
 
 
 admin.site.register(Category, MPTTModelAdmin)

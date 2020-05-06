@@ -271,17 +271,51 @@ $(document).ready(function(){
         var checkedElements = $('.sidebar_menu').find('.filter_checkbox:checked');
         console.log(checkedElements);
         var parametersUrl = "";
+        var paremeterResult = {};
         $.each(checkedElements, function (i, v) {
+            var attrName = $(this).data('name');
+            var optionCode = $(this).data('code');
+            if (paremeterResult.hasOwnProperty(attrName)) {
+                var currentOptions = paremeterResult[attrName];
+                paremeterResult[attrName].push(optionCode);
+            } else {
+                paremeterResult[attrName] = [optionCode];
+            }
             parametersUrl += $(this).data('name') + "=" + $(this).val() + "&";
         });
+
+        var priceFromValue = parseInt($("input[name=price-min]").val());
+        var priceFromMinValue = parseInt($("input[name=price-min]").data('minvalue'));
+        if(priceFromValue > priceFromMinValue){
+            paremeterResult['price_from'] = priceFromValue;
+        }
+
+        var priceToValue = parseInt($("input[name=price-max]").val());
+        var priceToMaxValue = parseInt($("input[name=price-max]").data('maxvalue'));
+
+        if(priceToValue < priceToMaxValue){
+            paremeterResult['price_to'] = priceToValue;
+        }
+
         parametersUrl += "price-min=" + $("input[name=price-min]").val() + "&";
         parametersUrl += "price-max=" + $("input[name=price-max]").val();
+        var fullUrl = "/";
 
-        // if(parametersUrl){
-        //     parametersUrl = parametersUrl.slice(0, -1);
-        // }
+        $.each(paremeterResult, function (i, v) {
+            if (i == 'price_to' || i == 'price_from'){
+                fullUrl += i + "_" + v + "/";
+            } else {
+                var sortElements = v.sort();
+                fullUrl += i + "_" + sortElements.join("_") + "/";
+            }
+        });
 
-        window.location.href = "?" + parametersUrl;
+        console.log(paremeterResult);
+
+        var currentPathList = document.location.pathname.split("/");
+        var currentPathUrl = "/" + currentPathList[1] + "/" + currentPathList[2]  + fullUrl;
+
+        window.location.href = currentPathUrl;
     });
 
 

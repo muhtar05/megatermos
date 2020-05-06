@@ -92,6 +92,37 @@ class Basket(models.Model):
     def is_empty(self):
         return self.id is None or self.num_lines == 0
 
+    def merge_line(self, line, add_quantities=True):
+        try:
+            existing_line = self.lines.get(line_reference=line.line_reference)
+        except ObjectDoesNotExist:
+            # Line does not already exist - reassign its basket
+            line.basket = self
+            line.save()
+        else:
+            # Line already exists - assume the max quantity is correct and
+            # delete the old
+            if add_quantities:
+                existing_line.quantity += line.quantity
+            else:
+                existing_line.quantity = max(existing_line.quantity,
+                                             line.quantity)
+            existing_line.save()
+            line.delete()
+        finally:
+            self._lines = None
+
+    merge_line.alters_data = True
+
+    def merge(self, basket, add_quantities=True):
+        for line_to_merge in basket.lines.all():
+            self.merge_line(line_to_merge, add_quantities)
+        basket.status = self.MERGED
+        basket.date_merged = timezone.now()
+        basket.save()
+
+    merge.alters_data = True
+
     def freeze(self):
         self.status = self.FROZEN
         self.save()

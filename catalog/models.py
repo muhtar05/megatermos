@@ -297,7 +297,7 @@ class ProductAttributeOption(models.Model):
 
 class SeoModuleFilterUrl(models.Model):
     name = models.CharField("Название страницы", max_length=255)
-    url = models.CharField("Сгенерированный url", max_length=255)
+    url = models.CharField("Сгенерированный url", max_length=1024)
     has_product = models.BooleanField("Наличие товара", default=False)
     h1 = models.CharField("h1 заголовок", max_length=255, null=True, blank=True)
     title = models.CharField("meta title", max_length=255, null=True, blank=True)

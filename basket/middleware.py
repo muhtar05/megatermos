@@ -122,6 +122,9 @@ class BasketMiddleware:
 
         return basket
 
+    def merge_baskets(self, master, slave):
+        master.merge(slave, add_quantities=False)
+
     def get_basket_hash(self, basket_id):
         return Signer().sign(basket_id)
 
