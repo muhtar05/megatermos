@@ -157,11 +157,10 @@ class FilterAjaxView(View):
                 checked_options[attr.code] = [int(ap) for ap in attr_param_new]
                 queries.append(Q(attribute_values__attribute__code=attr.code,attribute_values__value_option__in=attr_param_new))
 
-        q = Q()
         for query in queries:
-            q = q | query
+            all_products = all_products.filter(query)
 
-        all_products = all_products.filter(q)
+        print(all_products.query)
         from_price_min = int(request.GET.get('price-min'))
         from_price_max = int(request.GET.get('price-max'))
         all_products = all_products.filter(price__gte=from_price_min,price__lte=from_price_max)
@@ -214,29 +213,32 @@ class FilterSeoUrlView(View):
         seo_filter_url = SeoModuleFilterUrl.objects.filter(category=current_category,url=need_url).first()
 
         if not seo_filter_url:
-            raise Http404
-
-        parameters_raw = seo_filter_url.parameters.split("_")
-        print(parameters_raw)
-
+            seo_filter_url = SeoModuleFilterUrl.objects.create(
+                name="New url",
+                url=need_url,
+                category=current_category,
+                parameters=parse_url.strip("/")
+            )
 
         all_products = Product.objects.filter(category=current_category).order_by('price')
-
         checked_options = {}
         queries = []
-        # current_group = ProductAttributeOptionGroup.objects.get()
-        parameters_ids = [ProductAttributeOption.objects.get(code=opt).pk for opt in parameters_raw[1:]]
-        checked_options[parameters_raw[0]] = parameters_ids
-
-
-        queries.append(
-            Q(attribute_values__attribute__code=parameters_raw[0], attribute_values__value_option__in=parameters_ids))
+        all_arrtibutes = seo_filter_url.parameters.split("/")
+        for attr in all_arrtibutes:
+            parameters_raw = attr.split("_")
+            print(parameters_raw)
+            current_prod_attr = ProductAttribute.objects.get(code=parameters_raw[0])
+            # current_group = ProductAttributeOptionGroup.objects.get()
+            parameters_ids = [current_prod_attr.option_group.options.get(code=opt).pk for opt in parameters_raw[1:]]
+            checked_options[parameters_raw[0]] = parameters_ids
+            queries.append(
+                Q(attribute_values__attribute__code=parameters_raw[0], attribute_values__value_option__in=parameters_ids))
 
         q = Q()
         for query in queries:
-            q = q | query
+            all_products = all_products.filter(query)
 
-        all_products = all_products.filter(q)
+        print(all_products.query)
 
         min_price = Product.objects.filter(category=current_category).aggregate(Min('price'))['price__min'] or 0
         max_price = Product.objects.filter(category=current_category).aggregate(Max('price'))['price__max'] or 0
