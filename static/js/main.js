@@ -266,6 +266,11 @@ $(document).ready(function(){
         });
     }
 
+    $(".sort_products").on("change", function(e){
+        var currentSort = $(this).val();
+        window.location.href = document.location.pathname + "?order=" + currentSort;
+    });
+
     $('.filter_results_tag').on('click', function (e) {
         e.preventDefault();
         var checkedElements = $('.sidebar_menu').find('.filter_checkbox:checked');

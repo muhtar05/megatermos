@@ -16,8 +16,8 @@ from django.core.files.base import ContentFile
 from catalog.models import (Category, Product, ProductAttributeOptionGroup,
                             ProductAttributeOption, ProductAttribute,ProductAttributeValue,ProductAttributeCategory,)
 
-class Command(BaseCommand):
 
+class Command(BaseCommand):
 
     def handle(self, *args, **options):
         print("Attributes")
@@ -46,11 +46,23 @@ class Command(BaseCommand):
             material_case = sh.cell_value(rowx=rx, colx=10)
             material_flask = sh.cell_value(rowx=rx, colx=11)
             brand = sh.cell_value(rowx=rx, colx=2)
+            volume = sh.cell_value(rowx=rx, colx=6)
+            weight = sh.cell_value(rowx=rx, colx=7)
+            height = sh.cell_value(rowx=rx, colx=12)
+            diameter = sh.cell_value(rowx=rx, colx=13)
+            keeps_warm = sh.cell_value(rowx=rx, colx=8)
+            keeps_cold = sh.cell_value(rowx=rx, colx=9)
 
             attributes.append({
-                'material_case':material_case,
-                'material_flask':material_flask,
-                'brand':brand,
+                # 'material_case':material_case,
+                # 'material_flask':material_flask,
+                # 'brand':brand,
+                'volume':volume,
+                'weight':weight,
+                'height':height,
+                'diameter':diameter,
+                'keeps_warm':keeps_warm,
+                'keeps_cold':keeps_cold,
             })
 
             products.append({
@@ -65,16 +77,24 @@ class Command(BaseCommand):
                 'material_case': material_case,
                 'material_flask': material_flask,
                 'brand': brand,
+                'volume': volume,
+                'weight': weight,
+                'height': height,
+                'diameter': diameter,
+                'keeps_warm': keeps_warm,
+                'keeps_cold': keeps_cold,
             })
 
-
-        for category in categories:
-            pass
-
         attributes_names = [
-            {'name':'Материал корпуса', 'code': 'material_case'},
-            {'name':'Материал колбы', 'code': 'material_flask'},
-            {'name':'Бренд', 'code': 'brand'},
+            # {'name':'Материал корпуса', 'code': 'material_case'},
+            # {'name':'Материал колбы', 'code': 'material_flask'},
+            # {'name':'Бренд', 'code': 'brand'},
+            {'name':'Объем', 'code': 'volume'},
+            {'name':'Вес', 'code': 'weight'},
+            {'name':'Высота', 'code': 'height'},
+            {'name':'Диаметр/ширина корпуса', 'code': 'diameter'},
+            {'name':'Сохраняет тепло до, часов', 'code': 'keeps_warm'},
+            {'name':'Сохраняет холод до, часов', 'code': 'keeps_cold'},
         ]
 
         codes_attributes = [attr_n.get('code') for attr_n in attributes_names]

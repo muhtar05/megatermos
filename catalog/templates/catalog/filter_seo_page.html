@@ -119,10 +119,10 @@
 					<!-- переключалки "туглят" класс catalog_view-row у блока catalog_box -->
 					<a class="sort_view_link current" href="#view-cell"><i class="fa fa-th"></i></a>
 					<a class="sort_view_link" href="#view-row"><i class="fa fa-th-list"></i></a>
-					<select name="" class="input_text small">
-						<option value="">Сначала дорогие</option>
-						<option value="">Сначала не дорогие</option>
-						<option value="">Сначала новые</option>
+					<select name="sort_products" class="input_text small sort_products">
+						<option value="price_desc" {% if current_order == "price_desc" %} selected {% endif %}>Сначала дорогие</option>
+						<option value="price_asc" {% if current_order == "price_asc" %} selected {% endif %}>Сначала не дорогие</option>
+						<option value="new" {% if current_order == "new" %} selected {% endif %}>Сначала новые</option>
 					</select>
 				</div>
 			</div>
@@ -177,10 +177,10 @@
 
 			</div>
 
-			<a href="" class="button gray medium catalog_show_more">Показать ещё</a>
-
 			<ul class="paginate">
-				<li class="pg_arrow"><a href=""><i class="fa fa-angle-left"></i></a></li>
+				{% if products.has_previous %}
+				<li class="pg_arrow"><a href="?{% query_transform request page=products.previous_page_number %}"><i class="fa fa-angle-left"></i> назад</a></li>
+				{% endif %}
 				{% for i in products.paginator.page_range %}
       				{% if products.number == i %}
 						<li class="current"><a href="">{{ i }}</a></li>
@@ -188,7 +188,9 @@
         				<li><a href="?{% query_transform request page=i %}">{{ i }}</a></li>
       				{% endif %}
     			{% endfor %}
-				<li class="pg_arrow"><a href=""><i class="fa fa-angle-right"></i></a></li>
+				{% if products.has_next %}
+				<li class="pg_arrow"><a href="?{% query_transform request page=products.next_page_number %}"><i class="fa fa-angle-right"></i> вперед</a></li>
+				{% endif %}
 			</ul>
 
 			<div class="catalog_description">
