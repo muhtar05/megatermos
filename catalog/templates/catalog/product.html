@@ -22,7 +22,7 @@
 		<main class="product_box">
 			<div class="product_img_data">
 				<div class="product_titles">
-					<a href="" class="product_like"><i class="fa fa-heart-o"></i></a>
+					<a href="#" class="product_like product_item-like add_to_wishlist"  data-product="{{ product.pk }}"><i class="fa fa-heart-o"></i></a>
 					<!-- <a href="" class="product_like liked"><i class="fa fa-heart"></i></a> -->
 					<h1>{{ product.name }}</h1>
 					<div class="artikul">Артикул: {{ product.artikul}}</div>
@@ -62,14 +62,15 @@
 					{% endif %}
 					<div class="product_price">{{ product.price|floatformat:0|intcomma }} ₽</div>
 				</div>
+				{% comment %}}
 				<div class="product_promocode_box">
 					<span class="note">Используй промокод в корзине, чтобы получить скидку</span>
 					<span class="promocode">LETO395</span>
 				</div>
+				{% endcomment %}
 
 				<table class="product_table_prices">
 				</table>
-				<a href=""><b>Как заказать оптом?</b></a>
 
 				<div class="product_buttons">
 					<div class="counter_big_box">
@@ -77,7 +78,8 @@
 						<input type="text" class="counter_big_input" value="1" data-min="1" data-max="99" />
 						<button type="button" class="counter_big_ctrl plus">+</button>
 					</div>
-					<button class="button medium" type="submit">В корзину</button>
+					<a href="#" class="button medium product-buy" data-product="{{product.pk}}">В корзину</a>
+					<a href="/basket" class="button medium to-basket" style="display: none;" data-product="{{product.pk}}">Перейти в корзину</a>
 				</div>
 
 				<!-- <div class="product_buttons not_available">

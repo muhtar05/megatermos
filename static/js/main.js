@@ -429,9 +429,7 @@ $(document).ready(function(){
         language: 'ru'
     });
 
-    function changeQuantity(){
 
-    }
 
 
     $(document).on('click', '.counter_ctrl.minus, .counter_big_ctrl.minus', function () {
@@ -799,6 +797,38 @@ $(document).ready(function(){
             });
         }
         return false;
+    });
+
+
+    $('.product-buy').click(function(e){
+        e.preventDefault();
+        var _this = $(this);
+        var currentValue = $('.counter_big_input').val();
+    	$(this).parent().find('.counter_big_box').hide();
+    	var productId = $(this).data('product');
+
+    	$.ajax({
+            method: "POST",
+            url: "/basket/add/" + productId +"/",
+            data: {
+                'product_id': productId,
+                'quantity': currentValue,
+            },
+            beforeSend: function (xhr, settings) {
+                    xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+            }
+    	}).done(function(data){
+    	    if (data.status == 'ok') {
+                _this.hide();
+                $('.to-basket').show();
+                $('.header_cart .header_count').html(data.num_items);
+            }
+
+    	    console.log(data);
+        }).fail(function (errors) {
+            alert("Error");
+            console.log(errors);
+        });
     });
 
     // ADD TO CART - SHOW COUNTER BOX
