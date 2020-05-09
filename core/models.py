@@ -53,3 +53,32 @@ class Page(models.Model):
         ordering = ('position',)
         verbose_name = "Страница"
         verbose_name_plural = "Страницы"
+
+
+class Region(models.Model):
+    name = models.CharField(max_length=100)
+    slug = models.SlugField(max_length=120, db_index=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Регион'
+        verbose_name_plural = 'Регионы'
+
+
+class City(models.Model):
+    name = models.CharField(max_length=100)
+    slug = models.SlugField(max_length=120, db_index=True)
+    region = models.ForeignKey(Region, on_delete=models.CASCADE, related_name='cities', null=True, blank=True)
+    shipping_price = models.DecimalField('Цена', decimal_places=2, max_digits=12, blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Город'
+        verbose_name_plural = 'Города'
+
+
+

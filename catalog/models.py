@@ -56,6 +56,9 @@ class Product(models.Model):
 
     image_tag.short_description = 'Image'
 
+    def get_reviews_approved(self):
+        return self.reviews.filter(is_show=True)
+
 
 class ProductRecommendation(models.Model):
     primary = models.ForeignKey('catalog.Product', related_name='primary_recommendations',on_delete=models.CASCADE)
@@ -76,7 +79,6 @@ class ProductRecommendation(models.Model):
         unique_together = ('primary', 'recommendation')
         verbose_name = "Похожие товары"
         verbose_name_plural = "Похожие товары"
-
 
 
 class Review(models.Model):

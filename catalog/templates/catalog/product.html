@@ -128,38 +128,33 @@
 
 			<section class="reviews_box" id="reviews">
 				<div class="reviews_titles_row">
-					<h2 class="h1">Отзывы <span class="reviews_count">{{ product.reviews.count }}</span></h2>
+					<h2 class="h1">Отзывы <span class="reviews_count">{{ product.get_reviews_approved.count }}</span></h2>
 					<a href="#write_review_modal" class="button blue medium open_modal">Написать отзыв</a>
 				</div>
 				<div class="reviews_list">
-					{% for review in product.reviews.all %}
+					{% for review in product.get_reviews_approved %}
 					<!-- ITEM -->
 					<article class="review_item">
 						<div class="review_details">
 							<div class="review_author">
-								<span class="author_first_letter">М</span>
-								<span><strong>Мария,</strong> Москва</span>
+								<span class="author_first_letter">{{ review.first_name|make_list|first }}</span>
+								<span><strong>{{ review.first_name }}</strong></span>
 							</div>
-							<span class="review_date">24 июля 2019</span>
+							<span class="review_date">{{ review.created_at}}</span>
 						</div>
 						<div class="review_desc">
 							<p><strong>Достоинства:</strong><br>
-							Удобная ручка, замечательно выглядит. Куплена в подарок, поэтому о функциональности сказать ничего не могу.</p>
+							{{ review.advantages}}</p>
 							<p><strong>Недостатки:</strong><br>
-							Не нашла.</p>
+							{{ review.disadvantages }}.</p>
 						</div>
-						<div class="review_photos">
-							<a href="{% static 'img/rev_1.jpg' %}" data-fancybox="rev-1" class="review_photo"><img src="{% static 'img/rev_1.jpg' %}" alt=""></a>
-							<a href="{% static 'img/rev_2.jpg' %}" data-fancybox="rev-1" class="review_photo"><img src="{% static 'img/rev_2.jpg' %}" alt=""></a>
-							<a href="{% static 'img/rev_1.jpg' %}" data-fancybox="rev-1" class="review_photo"><img src="{% static 'img/rev_1.jpg' %}" alt=""></a>
-							<a href="{% static 'img/rev_2.jpg' %}" data-fancybox="rev-1" class="review_photo"><img src="{% static 'img/rev_2.jpg' %}" alt=""></a>
-						</div>
+
 					</article>
 					{% endfor %}
 
 				</div>
 			</section>
-			{% if product.reviews.count > 3 %}
+			{% if product.reviews.count > 10 %}
 			<a href="" class="button gray medium w100 show_reviews">Смотреть ещё отзывы</a>
 			{% endif %}
 		</main>
@@ -227,5 +222,41 @@
 
 	</div>
 </section>
+
+
+<div class="modal" id="write_review_modal">
+	<div class="modal_content">
+		<h2 class="modal_title centered">
+			Отзыв о товаре
+			<span class="modal_subtitle">{{ product.name }}</span>
+		</h2>
+		<a href="#" class="modal_close">x</a>
+		<div>
+			<form action="/catalog/product/{{ product.pk }}/reviews/create/" method="post" id="write_review_form_modal">
+			<p>Благодарим за выбор нашего товара. Пожалуйста, оставьте  честное мнение о товаре, чтобы другим покупателям было проще сделать выбор.</p>
+			<div class="ip_cell">
+				<input type="text" name="first_name" class="input_text" placeholder="Имя *" />
+			</div>
+			<div class="ip_cell">
+				<input type="email" name="email" class="input_text" placeholder="E-mail (не будет опубликован) *" />
+			</div>
+			<div class="ip_cell">
+				<textarea class="input_text" name="advantages" placeholder="Опишите, что вам особенно понравилось."></textarea>
+			</div>
+			<div class="ip_cell">
+				<textarea class="input_text" name="disadvantages" placeholder="Напишите, есть ли какие-то минусы у товара."></textarea>
+			</div>
+			<div class="modal_buttons">
+				<button class="button medium send_button" type="submit">Отправить отзыв</button>
+			</div>
+			<div class="ip_cell agree_box agree_photos">
+				<input type="checkbox" class="ch agree_ch" checked />
+				<label>Я согласен с правилами публикации пользовательского контента.</label>
+			</div>
+		</form>
+		</div>
+	</div>
+	<div class="modal_overlay"></div>
+</div>
 
 {% endblock %}

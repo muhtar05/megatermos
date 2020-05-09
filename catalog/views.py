@@ -7,6 +7,7 @@ from django.core.paginator import Paginator,EmptyPage, PageNotAnInteger
 from catalog.models import (Product,Category, ProductAttribute, ProductAttributeValue,
                             SeoModuleFilterUrl,ProductAttributeOption, ProductAttributeOptionGroup,)
 from catalog.history import update
+from catalog.forms import ReviewForm
 
 
 class IndexView(View):
@@ -297,6 +298,24 @@ class FilterSeoUrlView(View):
         ctx['seo_filter_url'] = seo_filter_url
         ctx['current_order'] = current_order
         return render(request, self.template_name, ctx)
+
+
+class ReviewCreateView(View):
+
+    def post(self, request, *args, **kwargs):
+        data = {}
+        review_form = ReviewForm(request.POST)
+        product = Product.objects.get(pk=kwargs.get('pk'))
+        print(request.POST)
+        if review_form.is_valid():
+            review = review_form.save(commit=False)
+            review.product = product
+            review.save()
+            data['status'] = 'ok'
+        else:
+            data['status'] = 'fail'
+            data['errors'] = review_form.errors.as_json()
+        return JsonResponse(data)
 
 
 

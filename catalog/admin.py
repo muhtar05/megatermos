@@ -2,7 +2,7 @@ from django.contrib import admin
 from mptt.admin import MPTTModelAdmin
 
 from catalog.models import (Category, Product, ProductAttributeOption,ShockPriceProduct,
-                            ProductAttributeOptionGroup,ProductAttribute,
+                            ProductAttributeOptionGroup,ProductAttribute,Review,
                             ProductAttributeCategory,ProductAttributeValue,SeoModuleFilterUrl,ProductRecommendation,)
 
 
@@ -70,4 +70,5 @@ admin.site.register(ProductAttributeOptionGroup, ProductAttributeOptionGroupAdmi
 admin.site.register(ProductAttributeOption, ProductAttributeOptionAdmin)
 admin.site.register(ShockPriceProduct, ShockPriceProductAdmin)
 admin.site.register(SeoModuleFilterUrl, SeoModuleFilterUrlAdmin)
+admin.site.register(Review)
 

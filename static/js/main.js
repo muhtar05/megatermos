@@ -755,6 +755,36 @@ $(document).ready(function(){
 
     })();
 
+    $("#write_review_form_modal").submit(function (e) {
+        e.preventDefault();
+        var _this = $(this);
+        $.ajax({
+            method: "POST",
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            beforeSend: function (xhr, settings) {
+                xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+            }
+        }).done(function (data) {
+            alert(data.status);
+            if(data['status'] == 'fail'){
+                var errors_data =  $.parseJSON(data['errors']);
+                for(var name in errors_data) {
+                    for(var i in errors_data[name]) {
+                        $("input[name='" + name + "']").after("<p style='color:#ff0000;'>" + errors_data[name][i].message + "</p>");
+                        $("textarea[name='" + name + "']").after("<p style='color:#ff0000;'>" + errors_data[name][i].message + "</p>");
+                    }
+                }
+            } else {
+                _this.parent().html('<div class="alert alert-success text-center"><h5>Ваш отзыв добавлен</h5></div>');
+            }
+        }).fail(function (errors) {
+            alert("Error");
+            console.log(errors);
+        });
+
+    });
+
 
     $('.add_to_wishlist').click(function(){
         var _this = $(this);
