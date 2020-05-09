@@ -144,6 +144,25 @@ class SearchPageView(View):
 
         return render(request,self.template_name,ctx)
 
+    def post(self, request, *args, **kwargs):
+        if request.is_ajax():
+            print(request.POST)
+            search_term = request.POST.get('search_term')
+            ctx = {}
+            all_products = Product.objects.filter(Q(name__icontains='' + search_term + ''))[:4]
+            products = []
+            for prod in all_products:
+                products.append({
+                    'name': prod.name,
+                    'img': prod.img.url,
+                    'artikul': prod.artikul,
+                    'url': prod.get_absolute_url(),
+                    'price': prod.price,
+                })
+            ctx['products'] = products
+
+            return JsonResponse(ctx)
+
 
 def get_filter_result(category_id):
     filter_options = ProductAttributeValue.objects.values_list('attribute_id', 'value_option_id'). \

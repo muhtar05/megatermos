@@ -86,83 +86,29 @@
 	<div class="modal_content">
 		<h2 class="modal_title">Выберите город</h2>
 		<a href="#" class="modal_close">x</a>
-		<form action="" method="post">
+		<form action="{% url 'core:set-city' %}" method="post" id="city-choice-form">{% csrf_token %}
 			<div class="cities_list">
+				{% for city in cities %}
 				<div class="ip_city">
-					<input type="radio" class="rd" name="city" />
-					<label>Москва</label>
+					<input type="radio" class="rd" name="city" value="{{ city.pk }}"/>
+					<label>{{ city }}</label>
 				</div>
-				<div class="ip_city">
-					<input type="radio" class="rd" name="city" />
-					<label>Волгоград</label>
-				</div>
-				<div class="ip_city">
-					<input type="radio" class="rd" name="city" />
-					<label>Воронеж</label>
-				</div>
-				<div class="ip_city">
-					<input type="radio" class="rd" name="city" />
-					<label>Екатеринбург</label>
-				</div>
-				<div class="ip_city">
-					<input type="radio" class="rd" name="city" />
-					<label>Казань</label>
-				</div>
-				<div class="ip_city">
-					<input type="radio" class="rd" name="city" />
-					<label>Краснодар</label>
-				</div>
-				<div class="ip_city">
-					<input type="radio" class="rd" name="city" />
-					<label>Красноярск</label>
-				</div>
-				<div class="ip_city">
-					<input type="radio" class="rd" name="city" />
-					<label>Нижний Новгород</label>
-				</div>
-				<div class="ip_city">
-					<input type="radio" class="rd" name="city" />
-					<label>Новосибирск</label>
-				</div>
-				<div class="ip_city">
-					<input type="radio" class="rd" name="city" />
-					<label>Пермь</label>
-				</div>
-				<div class="ip_city">
-					<input type="radio" class="rd" name="city" />
-					<label>Ростов-на-Дону</label>
-				</div>
-				<div class="ip_city">
-					<input type="radio" class="rd" name="city" />
-					<label>Самара</label>
-				</div>
-				<div class="ip_city">
-					<input type="radio" class="rd" name="city" checked />
-					<label>Санкт-Петербург</label>
-				</div>
-				<div class="ip_city">
-					<input type="radio" class="rd" name="city" />
-					<label>Уфа</label>
-				</div>
-				<div class="ip_city">
-					<input type="radio" class="rd" name="city" />
-					<label>Челябинск</label>
-				</div>
+				{% endfor %}
+
 			</div>
 
-			<div class="another_city_box">
-				<label>Или укажите в поле:</label>
-				<div class="flex">
-					<div class="ip_cell relative">
-						<input type="text" class="input_text another_city" placeholder="Введите название города" />
-						<div class="cities_dropdown">
-							<a class="city_dropdown" href=""><b>Иван</b>теевка, Московская обл.</a>
-							<a class="city_dropdown" href=""><b>Иван</b>ово, Московская обл.</a>
-						</div>
-					</div>
-					<button class="button medium choice_city"  type="submit" disabled>Выбрать</button>
-				</div>
-			</div>
+<!--			<div class="another_city_box">-->
+<!--				<label>Или укажите в поле:</label>-->
+<!--				<div class="flex">-->
+<!--					<div class="ip_cell relative">-->
+<!--						<input type="text" class="input_text another_city" placeholder="Введите название города" />-->
+<!--						<div class="cities_dropdown">-->
+<!--							<a class="city_dropdown" href="" data-id=""><b>Иван</b>теевка, Московская обл.</a>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--&lt;!&ndash;					<button class="button medium choice_city"  type="submit" disabled>Выбрать</button>&ndash;&gt;-->
+<!--				</div>-->
+<!--			</div>-->
 			<script>
 				$(document).ready(function(){
 					$('.another_city').on('change keyup', function(){

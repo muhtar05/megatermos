@@ -487,6 +487,10 @@ $(document).ready(function(){
         });
     });
 
+    $(".ip_city input[name=city]").change(function(e){
+        $("#city-choice-form").submit();
+    });
+
     $('.counter_input').on('change', function(){
     	if ( $(this).val() < $(this).data('min') ) {
     		$(this).val( $(this).data('min') );
@@ -980,9 +984,40 @@ $(document).ready(function(){
     });
 
 
-    $('.topnav_search_input').on('change keyup', function(){
+    $('.topnav_search_input').on('keyup', function(){
+        var _this = $(this);
+        var productHtml;
     	if ( $(this).val() != '' ) {
-    		$('.search_dropdown').show();
+    	    $.ajax({
+                method: "POST",
+                url: "/catalog/search/",
+                data: {
+                    search_term: _this.val()
+                },
+                beforeSend: function (xhr, settings) {
+                    xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+                }
+    	    }).done(function(data){
+    	        $(".search_dropdown").html("");
+    	        $.each(data.products, function(i,v){
+    	            console.log(v);
+    	            console.log(v['name']);
+    	            productHtml = '<div class="search_dropdown_product">'
+                            + '<a href="' + v["url"] +'" class="sdp_image"><img src="'+ v["img"] +'" alt=""></a>'
+                            + '<div class="sdp_info_box"><a href="' + v["url"] +'">' + v["name"] + ' </a>'
+                            + '<div class="sdp_artnum">Артикул: ' + v["artikul"] + '</div> <div class="sdp_prices">'
+                            + '<span class="sdp_price">' + v["price"] + ' ₽</span><span class="instock">В наличии</span></div></div></div>';
+
+    	            $(".search_dropdown").append(productHtml);
+                });
+    	        $(".search_dropdown").append('<a href="/catalog/search/?search_term=' + _this.val() +'" class="button search_see_all">Показать все</a>');
+                $('.search_dropdown').show();
+
+            }).fail(function (errors) {
+                alert("Error");
+                console.log(errors);
+            });
+
     	} else {
     		$('.search_dropdown').hide();
     	}

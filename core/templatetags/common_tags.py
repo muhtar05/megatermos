@@ -4,7 +4,7 @@ from django import template
 from django.contrib import messages
 from catalog.models import Category
 from wishlists.models import WishList
-from core.models import Settings,Page
+from core.models import Settings,Page, City
 register = template.Library()
 
 
@@ -19,11 +19,24 @@ def footer_tag(context):
     }
 
 
+@register.inclusion_tag('all_modals.html', takes_context=True)
+def all_modals_tag(context):
+    settings = Settings.objects.first()
+    return {
+        "settings": settings,
+        'cities': City.objects.all(),
+    }
+
+
 @register.inclusion_tag('header.html', takes_context=True)
 def header_tag(context):
     COOKIE_NAME = 'wishlist_product'
     request = context.get('request')
     settings = Settings.objects.first()
+    try:
+        current_city = City.objects.get(pk=request.COOKIES['city_pk'])
+    except Exception as e:
+        current_city = City.objects.first()
     try:
         wish_list = WishList.objects.get(hash_id=request.COOKIES[COOKIE_NAME])
         wish_list_items = wish_list.lines.count()
@@ -33,6 +46,7 @@ def header_tag(context):
         "request": context.get('request'),
         "wish_list_items": wish_list_items,
         "settings": settings,
+        "current_city": current_city,
         "settings_phone_digits": re.sub('\D', '', settings.phone)
     }
 

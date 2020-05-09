@@ -31,6 +31,7 @@ info_dict = {
 urlpatterns = [
     path('', views.home, name='home'),
     path('catalog/', include('catalog.urls')),
+    path('core/', include('core.urls')),
     path('basket/', include('basket.urls')),
     path('checkout/', include('checkout.urls')),
     path('users/', include('users.urls')),
