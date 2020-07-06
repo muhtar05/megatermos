@@ -241,7 +241,12 @@ class FilterSeoUrlView(View):
                 part_list = part.split('_')
                 product_attr = ProductAttribute.objects.get(code=part_list[0])
                 options_names = list(product_attr.option_group.options.values_list('option',flat=True).filter(code__in=part_list[1:]))
-                h1_title += " для {} {}".format(product_attr.name.lower(), ','.join(options_names))
+                options_genitive_names = list(product_attr.option_group.options.values_list('genitive_name',flat=True).filter(code__in=part_list[1:]))
+                if len(options_genitive_names) > 1:
+                    tail_genitive_names =  ','.join(options_genitive_names[:-1]) + ' и ' + options_genitive_names[-1]
+                else:
+                    tail_genitive_names = ','.join(options_genitive_names)
+                h1_title += " {} {}".format(product_attr.prefix_name, tail_genitive_names)
                 parse_url += part + "/"
 
         need_url = "{0}/{1}".format(slug, parse_url)
@@ -257,6 +262,9 @@ class FilterSeoUrlView(View):
                 category=current_category,
                 parameters=parse_url.strip("/")
             )
+        else:
+            seo_filter_url.h1 = h1_title
+            seo_filter_url.save()
 
         all_products = Product.objects.filter(category=current_category)
         checked_options = {}

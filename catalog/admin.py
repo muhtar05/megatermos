@@ -3,7 +3,8 @@ from mptt.admin import MPTTModelAdmin
 
 from catalog.models import (Category, Product, ProductAttributeOption,ShockPriceProduct,
                             ProductAttributeOptionGroup,ProductAttribute,Review,
-                            ProductAttributeCategory,ProductAttributeValue,SeoModuleFilterUrl,ProductRecommendation,)
+                            ProductAttributeCategory,ProductAttributeValue,SeoModuleFilterUrl,
+                            ProductRecommendation, SitemapFilter, QuickLink,)
 
 
 class ProductRecommendationInline(admin.TabularInline):
@@ -38,7 +39,7 @@ class AttributeOptionInline(admin.TabularInline):
 
 
 class ProductAttributeOptionGroupAdmin(admin.ModelAdmin):
-    list_display = ('name', 'option_summary')
+    list_display = ('name', 'code', 'option_summary')
     inlines = [AttributeOptionInline]
 
 
@@ -61,6 +62,14 @@ class SeoModuleFilterUrlAdmin(admin.ModelAdmin):
     # ordering = ('pk',)
 
 
+class SitemapFilterAdmin(admin.ModelAdmin):
+    list_display = ('category', 'attribute')
+
+
+class QuickLinkAdmin(admin.ModelAdmin):
+    list_display = ('name', 'category','show_link')
+
+
 admin.site.register(Category, MPTTModelAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(ProductAttribute, ProductAttributeAdmin)
@@ -71,4 +80,6 @@ admin.site.register(ProductAttributeOption, ProductAttributeOptionAdmin)
 admin.site.register(ShockPriceProduct, ShockPriceProductAdmin)
 admin.site.register(SeoModuleFilterUrl, SeoModuleFilterUrlAdmin)
 admin.site.register(Review)
+admin.site.register(SitemapFilter, SitemapFilterAdmin)
+admin.site.register(QuickLink, QuickLinkAdmin)
 

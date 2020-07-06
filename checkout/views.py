@@ -71,8 +71,6 @@ class IndexView(View):
                 else:
                     order_line = Line._default_manager.create(**line_data)
 
-
-
             basket.submit()
             return redirect("checkout:thank-you")
         else:

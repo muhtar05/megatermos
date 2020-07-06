@@ -2,6 +2,7 @@ from django.db import models
 from django.db.models import Q, F, Max, Min, Count
 from datetime import date, datetime
 from django.utils import timezone
+from django.utils.safestring import mark_safe
 from django.urls import reverse_lazy
 from django.core.exceptions import ImproperlyConfigured, ValidationError
 from mptt.models import MPTTModel, TreeForeignKey
@@ -149,6 +150,8 @@ class ProductAttribute(models.Model):
     widget_type_display = models.CharField(max_length=50, choices=WIDGET_TYPE_CHOICES,
                                            default=CHECKBOX_LIST)
 
+    prefix_name = models.CharField(max_length=50, null=True, blank=True)
+
     class Meta:
         ordering = ['code']
         verbose_name = 'Атрибут продукта'
@@ -286,6 +289,7 @@ class ProductAttributeOption(models.Model):
     code = models.CharField(max_length=255)
     show_value = models.CharField(max_length=255, null=True, blank=True)
     display_order = models.PositiveIntegerField('Позиция', default=0)
+    genitive_name = models.CharField(max_length=255, default='', null=True, blank=True)
 
     def __str__(self):
         return self.option
@@ -318,5 +322,38 @@ class SeoModuleFilterUrl(models.Model):
 
     def get_absolute_url(self):
         return "/catalogue/{0}/".format(self.url)
+
+
+class SitemapFilter(models.Model):
+    category = models.ForeignKey(Category, related_name='sitemap_filter', on_delete=models.CASCADE)
+    attribute = models.ForeignKey(ProductAttribute, related_name='sitemap_filter',on_delete=models.CASCADE)
+
+    def __str__(self):
+        return "{}_{}".format(self.category.name, self.attribute.name)
+
+
+class QuickLink(models.Model):
+    category = models.ForeignKey(Category, related_name='quick_links', on_delete=models.CASCADE)
+    name = models.CharField("Название страницы", max_length=255)
+    url = models.CharField("Сгенерированный url", max_length=1024)
+    meta_title = models.CharField("Meta title", max_length=255, null=True, blank=True)
+    meta_keywords = models.CharField("Meta keywords", max_length=255, null=True, blank=True)
+    meta_description = models.CharField("Meta description", max_length=255, null=True, blank=True)
+    h1 = models.CharField("H1 заголовок", max_length=255, null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Быстрая ссылка'
+        verbose_name_plural = 'Быстрые ссылки'
+
+    def show_link(self):
+        return mark_safe('<a href="{}" target="_blank">Перейти</a>'.format(self.url))
+
+    show_link.allow_tags = True
+    show_link.short_description = ''
+
+
 
 

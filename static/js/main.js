@@ -986,6 +986,7 @@ $(document).ready(function(){
 
     $('.topnav_search_input').on('keyup', function(){
         var _this = $(this);
+        var parentSearchDiv = $('.search_dropdown_product').parent();
         var productHtml;
     	if ( $(this).val() != '' ) {
     	    $.ajax({
@@ -998,7 +999,8 @@ $(document).ready(function(){
                     xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
                 }
     	    }).done(function(data){
-    	        $(".search_dropdown").html("");
+    	        $(".search_dropdown_product").remove();
+    	        $(".search_see_all").remove();
     	        $.each(data.products, function(i,v){
     	            console.log(v);
     	            console.log(v['name']);
@@ -1008,9 +1010,9 @@ $(document).ready(function(){
                             + '<div class="sdp_artnum">Артикул: ' + v["artikul"] + '</div> <div class="sdp_prices">'
                             + '<span class="sdp_price">' + v["price"] + ' ₽</span><span class="instock">В наличии</span></div></div></div>';
 
-    	            $(".search_dropdown").append(productHtml);
+    	            parentSearchDiv.append(productHtml);
                 });
-    	        $(".search_dropdown").append('<a href="/catalog/search/?search_term=' + _this.val() +'" class="button search_see_all">Показать все</a>');
+    	        parentSearchDiv.append('<a href="/catalog/search/?search_term=' + _this.val() +'" class="button search_see_all">Показать все</a>');
                 $('.search_dropdown').show();
 
             }).fail(function (errors) {

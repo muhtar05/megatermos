@@ -4,7 +4,9 @@
 {% load catalog_tags %}
 {% load humanize %}
 {% block content %}
-
+{% block css_block %}
+<link rel="stylesheet" href="{% static 'css/customform.css' %}" />
+{% endblock %}
 <section class="sec content_sec">
 	<div class="container">
 
@@ -28,16 +30,49 @@
 				</ul>
 				<div class="tabs_container">
 					<div class="tab" id="tab-1">
-						<form action="" method="post">
+						<form action="" method="post">{% csrf_token %}
 							<div class="register_fields">
+								{{ user_form.errors }}
 								<div class="ip_cell">
-									<input type="text" class="input_text" placeholder="Имя" />
+									<input type="text" value="{{ user_form.first_name.value|default_if_none:'' }}" name="{{ user_form.first_name.html_name }}" class="input_text" placeholder="Фамилия" />
 								</div>
 								<div class="ip_cell">
-									<input type="email" class="input_text" placeholder="Ваш e-mail" />
+									<input type="text" value="{{ user_form.last_name.value|default_if_none:'' }}" name="{{ user_form.last_name.html_name }}" class="input_text" placeholder="Имя" />
+								</div>
+								<div class="ip_cell  {% if user_form.email.errors %}has-error{% endif %}">
+									<input type="email" value="{{ user_form.email.value|default_if_none:'' }}" name="{{ user_form.email.html_name }}" class="input_text" placeholder="Ваш e-mail" />
+									{% if user_form.email.errors %}
+										<div class="help-block">
+											{% for error in user_form.email.errors %}
+												<span>{{ error}}</span>
+											{% endfor %}
+										</div>
+									{% endif %}
 								</div>
 								<div class="ip_cell">
-									<input type="tel" class="input_text" placeholder="Ваш телефон" />
+									<input type="tel" value="{{ user_form.phone.value|default_if_none:'' }}" name="{{ user_form.phone.html_name }}"  class="input_text" placeholder="Ваш телефон" />
+								</div>
+
+								<div class="ip_cell  {% if user_form.password1.errors %}has-error{% endif %}">
+									<input type="password" value="{{ user_form.password1.value|default_if_none:'' }}" name="{{ user_form.password1.html_name }}"  class="input_text" placeholder="Пароль" />
+									{% if user_form.password1.errors %}
+										<div class="help-block">
+											{% for error in user_form.password1.errors %}
+												<span>{{ error}}</span>
+											{% endfor %}
+										</div>
+									{% endif %}
+								</div>
+
+								<div class="ip_cell  {% if user_form.password2.errors %}has-error{% endif %}">
+									<input type="password" value="{{ user_form.password2.value|default_if_none:'' }}" name="{{ user_form.password2.html_name }}"  class="input_text" placeholder="Повторите пароль" />
+									{% if user_form.password2.errors %}
+										<div class="help-block">
+											{% for error in user_form.password2.errors %}
+												<span>{{ error}}</span>
+											{% endfor %}
+										</div>
+									{% endif %}
 								</div>
 							</div>
 							<div class="ip_cell agree_box">

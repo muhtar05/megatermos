@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
+from users.forms import UserForm, RegisterForm
 from order.models import Order
 
 
@@ -27,10 +28,24 @@ class UserOrderHistoryView(LoginRequiredMixin,View):
 
 class UserRegisterView(View):
     template_name = 'users/register.html'
+    user_form =RegisterForm
 
     def get(self, request, *args, **kwargs):
         ctx = {}
+        ctx['user_form'] = self.user_form()
         return render(request,self.template_name,ctx)
+
+    def post(self, request, *args, **kwargs):
+        ctx = {}
+        user_form = self.user_form(request.POST)
+        if user_form.is_valid():
+            user = user_form.save()
+            login(request, user)
+            return redirect('/')
+        else:
+            ctx['user_form'] = user_form
+
+        return render(request, self.template_name, ctx)
 
 
 class LoginView(View):
