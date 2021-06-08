@@ -3,7 +3,7 @@ certifi==2020.4.5.1
 Django==3.0.5
 django-js-asset==1.2.2
 django-mptt==0.11.0
-Pillow==7.1.1
+Pillow==8.2.0
 python-slugify==4.0.0
 pytz==2019.3
 sorl-thumbnail==12.6.3
